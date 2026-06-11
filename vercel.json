@@ -1,4 +1,134 @@
-{
-  "cleanUrls": true,
-  "trailingSlash": false
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Contact AI First Nations — get in touch about environmental services, research partnerships, education programs, and community engagement.">
+<title>Contact | AI First Nations</title>
+<link rel="icon" href="images/logo.jpg" type="image/jpeg">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-brand"><img src="images/logo.jpg" alt="AI First Nations">AI First Nations</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="education.html">Education</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="advisory.html">Advisory Board</a></li>
+    <li><a href="contact.html" class="nav-cta active">Contact</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<div class="page-top" style="padding:5rem 3rem 4rem;background:linear-gradient(160deg,var(--bark) 0%,var(--smoke) 100%);">
+  <div class="label">Get in Touch</div>
+  <h1 style="font-size:clamp(2.8rem,4.5vw,4.5rem);color:var(--pale);line-height:1.1;margin-bottom:1.2rem;">
+    Let's Care for<br><em style="color:var(--gold);font-style:italic;">Country Together</em>
+  </h1>
+  <p style="font-size:0.95rem;opacity:0.7;max-width:520px;line-height:1.85;">Whether you're a government agency, research institution, land council, or community organisation — every conversation about Country starts here.</p>
+</div>
+<div class="divider"></div>
+
+<!-- BODY -->
+<section class="section section-dark">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;">
+
+    <!-- FORM -->
+    <div>
+      <div class="label">Send a Message</div>
+      <form action="https://formspree.io/f/john@aifirstnations.org.au" method="POST" style="display:flex;flex-direction:column;gap:1.2rem;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;">
+          <div style="display:flex;flex-direction:column;gap:0.4rem;">
+            <label style="font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--mist);">First Name</label>
+            <input type="text" name="first_name" placeholder="Your first name" required style="background:var(--smoke);border:1px solid rgba(255,255,255,0.1);color:var(--cream);padding:0.85rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:300;transition:border-color 0.3s;outline:none;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:0.4rem;">
+            <label style="font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--mist);">Last Name</label>
+            <input type="text" name="last_name" placeholder="Your last name" style="background:var(--smoke);border:1px solid rgba(255,255,255,0.1);color:var(--cream);padding:0.85rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:300;transition:border-color 0.3s;outline:none;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:0.4rem;">
+          <label style="font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--mist);">Organisation</label>
+          <input type="text" name="organisation" placeholder="Organisation or agency name" style="background:var(--smoke);border:1px solid rgba(255,255,255,0.1);color:var(--cream);padding:0.85rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:300;outline:none;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:0.4rem;">
+          <label style="font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--mist);">Email</label>
+          <input type="email" name="email" placeholder="your@email.com" required style="background:var(--smoke);border:1px solid rgba(255,255,255,0.1);color:var(--cream);padding:0.85rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:300;outline:none;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:0.4rem;">
+          <label style="font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--mist);">Enquiry Type</label>
+          <select name="enquiry_type" style="background:var(--smoke);border:1px solid rgba(255,255,255,0.1);color:var(--cream);padding:0.85rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:300;outline:none;">
+            <option value="">Select an enquiry type…</option>
+            <option>Drone &amp; Environmental Services</option>
+            <option>Mangrove / Wetland Monitoring</option>
+            <option>Cultural Burn Planning</option>
+            <option>AI &amp; Data Analytics</option>
+            <option>Training &amp; Workshops</option>
+            <option>Cultural Consultancy</option>
+            <option>Research Partnership</option>
+            <option>Education Programs</option>
+            <option>General Enquiry</option>
+          </select>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:0.4rem;">
+          <label style="font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--mist);">Message</label>
+          <textarea name="message" rows="5" placeholder="Tell us about your Country and what you're looking to achieve…" style="background:var(--smoke);border:1px solid rgba(255,255,255,0.1);color:var(--cream);padding:0.85rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:300;resize:vertical;outline:none;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'"></textarea>
+        </div>
+        <button type="submit" class="btn btn-ember" style="align-self:flex-start;">Send Message →</button>
+      </form>
+    </div>
+
+    <!-- INFO -->
+    <div>
+      <div class="label">Contact Details</div>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--gold);margin-bottom:2rem;">AI First Nations Aboriginal Corporation</h3>
+
+      <div style="display:flex;flex-direction:column;gap:0;">
+        <div style="display:flex;align-items:flex-start;gap:1.2rem;padding:1.3rem 0;border-bottom:1px solid rgba(255,255,255,0.07);">
+          <span style="font-size:1.2rem;flex-shrink:0;margin-top:2px;">📍</span>
+          <div><h4 style="font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--mist);margin-bottom:0.3rem;">Location</h4><p style="font-size:0.9rem;opacity:0.75;">Innisfail, Far North Queensland<br>Cassowary Coast Country</p></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:1.2rem;padding:1.3rem 0;border-bottom:1px solid rgba(255,255,255,0.07);">
+          <span style="font-size:1.2rem;flex-shrink:0;margin-top:2px;">✉️</span>
+          <div><h4 style="font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--mist);margin-bottom:0.3rem;">Email</h4><a href="mailto:john@aifirstnations.org.au" style="font-size:0.9rem;opacity:0.75;transition:color 0.3s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color=''">john@aifirstnations.org.au</a></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:1.2rem;padding:1.3rem 0;border-bottom:1px solid rgba(255,255,255,0.07);">
+          <span style="font-size:1.2rem;flex-shrink:0;margin-top:2px;">🏢</span>
+          <div><h4 style="font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--mist);margin-bottom:0.3rem;">ABN</h4><p style="font-size:0.9rem;opacity:0.75;">80 732 478 065</p></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:1.2rem;padding:1.3rem 0;border-bottom:1px solid rgba(255,255,255,0.07);">
+          <span style="font-size:1.2rem;flex-shrink:0;margin-top:2px;">✈️</span>
+          <div><h4 style="font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--mist);margin-bottom:0.3rem;">CASA Accreditation</h4><p style="font-size:0.9rem;opacity:0.75;">No. 1252905 · ReOC · RePL Certified</p></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:1.2rem;padding:1.3rem 0;">
+          <span style="font-size:1.2rem;flex-shrink:0;margin-top:2px;">🛡️</span>
+          <div><h4 style="font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--mist);margin-bottom:0.3rem;">Compliance &amp; Credentials</h4><p style="font-size:0.88rem;opacity:0.65;line-height:1.7;">AI First Nations holds current Public Liability and Professional Indemnity insurance. Certificate of Currency available on request.</p></div>
+        </div>
+      </div>
+
+      <div style="margin-top:2.5rem;padding:1.8rem;background:var(--smoke);border:1px solid rgba(255,255,255,0.07);">
+        <h4 style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold);margin-bottom:0.6rem;">Research &amp; Government Partnerships</h4>
+        <p style="font-size:0.85rem;opacity:0.65;line-height:1.7;">We actively partner with universities, government agencies, and land councils. If you're working on environmental monitoring, Indigenous land management, or AI research — let's talk.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-brand"><img src="images/logo.jpg" alt="AI First Nations"> AI First Nations</div>
+  <div class="footer-links">
+    <a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a>
+    <a href="projects.html">Projects</a><a href="education.html">Education</a><a href="research.html">Research</a>
+  </div>
+  <div class="footer-copy">AI First Nations Aboriginal Corporation · ABN 80 732 478 065 · Always Was, Always Will Be</div>
+</footer>
+
+<script src="js/nav.js"></script>
+</body>
+</html>
