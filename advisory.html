@@ -93,8 +93,7 @@ body{background:var(--earth);color:var(--cream);font-family:'DM Sans',sans-serif
       <div class="input-hint">Enter to send · Shift+Enter for new line</div>
     </div>
   </div>
-</div>
-<script>
+</div><script>
 const ADVISORS = [
   {id:"contrarian",name:"The Contrarian",role:"Devil's Advocate",emoji:"⚡",accent:"#E74C3C",bg:"rgba(192,57,43,0.12)",border:"rgba(192,57,43,0.35)",tagline:"Finds the flaw before your competitors do",
   system:"You are The Contrarian advisor for AI First Nations, an Indigenous-led environmental technology organisation founded by John Fejo in Innisfail, Far North Queensland. Challenge assumptions, find weaknesses, stress-test ideas. Key knowledge: RMIT mangrove AI (97% accuracy, 98.96% binary detection, EfficientNet-B0), AATT Government trial (1000+ students, 5 states), Cape York road trip, Torres Strait marine debris, Jarramali rock art, KJR partnerships, John's background (Larrakia man, drone pilot RePL/ReOC, Head Ranger Coordinator, cultural ambassador). Style: Direct, sharp, 3-4 paragraphs, end with a pointed question."},
@@ -192,8 +191,7 @@ function renderTyping(a){
   row.appendChild(b);c.appendChild(row);c.scrollTop=c.scrollHeight;
 }
 
-function removeTyping(){const el=document.getElementById("typing-indicator");if(el)el.remove();}
-async function sendMessage(){
+function removeTyping(){const el=document.getElementById("typing-indicator");if(el)el.remove();}async function sendMessage(){
   const input=document.getElementById("userInput");
   const text=input.value.trim();
   if(!text)return;
