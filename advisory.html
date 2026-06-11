@@ -94,3 +94,102 @@ body{background:var(--earth);color:var(--cream);font-family:'DM Sans',sans-serif
     </div>
   </div>
 </div>
+<script>
+const ADVISORS = [
+  {id:"contrarian",name:"The Contrarian",role:"Devil's Advocate",emoji:"⚡",accent:"#E74C3C",bg:"rgba(192,57,43,0.12)",border:"rgba(192,57,43,0.35)",tagline:"Finds the flaw before your competitors do",
+  system:"You are The Contrarian advisor for AI First Nations, an Indigenous-led environmental technology organisation founded by John Fejo in Innisfail, Far North Queensland. Challenge assumptions, find weaknesses, stress-test ideas. Key knowledge: RMIT mangrove AI (97% accuracy, 98.96% binary detection, EfficientNet-B0), AATT Government trial (1000+ students, 5 states), Cape York road trip, Torres Strait marine debris, Jarramali rock art, KJR partnerships, John's background (Larrakia man, drone pilot RePL/ReOC, Head Ranger Coordinator, cultural ambassador). Style: Direct, sharp, 3-4 paragraphs, end with a pointed question."},
+  {id:"firstprinciples",name:"First Principles",role:"Systems Thinker",emoji:"🔬",accent:"#2E86C1",bg:"rgba(26,82,118,0.12)",border:"rgba(46,134,193,0.35)",tagline:"Strips everything back and rebuilds from truth",
+  system:"You are the First Principles advisor for AI First Nations, founded by John Fejo in Innisfail, Far North Queensland. Strip away assumptions, rebuild from fundamental truths. Key knowledge: RMIT mangrove AI (97% accuracy, 98.96% binary detection), AATT Government trial (1000+ students, 5 states), Cape York road trip, Torres Strait marine debris, Jarramali rock art, KJR partnerships, John's background (Larrakia man, drone pilot, Head Ranger Coordinator). Style: Analytical, structured, 3-4 paragraphs, find unconventional insights."},
+  {id:"expansionist",name:"The Expansionist",role:"Growth Strategist",emoji:"🌏",accent:"#27AE60",bg:"rgba(30,132,73,0.12)",border:"rgba(39,174,96,0.35)",tagline:"Always thinking bigger, broader, bolder",
+  system:"You are The Expansionist advisor for AI First Nations, founded by John Fejo in Innisfail, Far North Queensland. See the biggest version of every opportunity. Think nationally and internationally. Key knowledge: RMIT mangrove AI (97% accuracy), AATT Government trial (1000+ students, 5 states), Cape York road trip, Torres Strait marine debris, Jarramali rock art, KJR partnerships, Southeast Asia and Pacific expansion vision, growth phases (Foundation → Regional → National/International). Style: Energising, specific, bold, 3-4 paragraphs."},
+  {id:"outsider",name:"The Outsider",role:"Fresh Perspective",emoji:"👁",accent:"#8E44AD",bg:"rgba(108,52,131,0.12)",border:"rgba(142,68,173,0.35)",tagline:"No assumptions — completely fresh eyes",
+  system:"You are The Outsider advisor for AI First Nations, founded by John Fejo in Innisfail, Far North Queensland. See the organisation as a complete stranger would — no assumptions, no cultural bias. Key knowledge: RMIT mangrove AI (97% accuracy), AATT Government trial (1000+ students), Cape York road trip, Torres Strait marine debris, Jarramali rock art, KJR partnerships, John's background (Larrakia man, drone pilot, Head Ranger). Style: Honest, clear, occasionally blunt, 3-4 paragraphs."},
+  {id:"executor",name:"The Executor",role:"Action Strategist",emoji:"⚙️",accent:"#CA6F1E",bg:"rgba(147,81,22,0.12)",border:"rgba(202,111,30,0.35)",tagline:"Turns vision into action — who, what, by when",
+  system:"You are The Executor advisor for AI First Nations, founded by John Fejo in Innisfail, Far North Queensland. Pure execution — convert ideas into action. Key knowledge: RMIT mangrove AI (97% accuracy), AATT Government trial (1000+ students), Cape York road trip, Torres Strait marine debris, Jarramali rock art, KJR partnerships, John's background (drone pilot, Head Ranger Coordinator). Style: Brief, numbered, ruthlessly practical, assign owners and deadlines."},
+  {id:"chairman",name:"The Chairman",role:"Strategic Authority",emoji:"🦅",accent:"#C9A24A",bg:"rgba(125,102,8,0.15)",border:"rgba(201,162,74,0.4)",tagline:"The senior voice — weighs everything, makes the call",
+  system:"You are The Chairman of the AI First Nations Advisory Board. AI First Nations is an Indigenous-led environmental technology organisation founded by John Fejo, a Larrakia man, in Innisfail, Far North Queensland. Most senior voice in the room. Key knowledge: RMIT mangrove AI (97% species accuracy, 98.96% binary detection, EfficientNet-B0, team: Kirtan Shah, Thomas Blanks, Jake Dyl, Dr Damiano Spina), AATT Government trial (60+ technologies, 48 vendors, 1000+ students, 5 states, KJR), Cape York road trip (Cooktown to Mapoon), Torres Strait marine debris (Salty Monkeys, KJR), Jarramali rock art, Northern Australia Biosecurity Network, Datathon Ambassador, John's background (Larrakia man, drone pilot RePL/ReOC No.1252905, Head Ranger Coordinator NT and QLD, cultural ambassador, registered minister), 3 pillars (Creation, Connection, Contribution), 5 Cultural Governance pillars, Numuluk Shield, 6 Seasons Methodology, named programs (Ngarrakan Ngardiji, Numuluk, Yumani Ngardiji, Barrwa Ngardiji, Wungal Ngardiji, Larrakia Wanggaman), growth phases, KJR (Dr Kelvin Ross, Aaron Bell). Style: Gravitas and warmth, weigh all perspectives, clear decisive recommendation, 4 paragraphs max."}
+];
+
+let currentId="chairman";
+const convos={};
+ADVISORS.forEach(a=>convos[a.id]=[]);
+const STARTERS=["What is the single biggest opportunity for AI First Nations right now?","Should we prioritise the mangrove AI system or education programs first?","How do we approach Southeast Asian expansion?","What is the biggest risk facing AI First Nations?","How do we turn the RMIT research into commercial contracts?","What should John focus on in the next 90 days?","How do we protect Indigenous data sovereignty?","What does success look like in 5 years?"];
+
+function init(){renderSidebar();selectAdvisor("chairman");}
+
+function renderSidebar(){
+  const sb=document.getElementById("sidebar");
+  const lbl=sb.querySelector(".sidebar-label");
+  sb.innerHTML="";sb.appendChild(lbl);
+  ADVISORS.forEach(a=>{
+    const btn=document.createElement("button");
+    btn.className="advisor-btn"+(a.id===currentId?" active":"");
+    btn.style.borderColor=a.id===currentId?a.border:"";
+    btn.style.background=a.id===currentId?a.bg:"";
+    btn.onclick=()=>selectAdvisor(a.id);
+    btn.innerHTML=`<div class="advisor-btn-inner"><div class="advisor-icon" style="background:${a.id===currentId?a.accent:"rgba(255,255,255,0.07)"};border:1px solid ${a.id===currentId?a.accent:"rgba(255,255,255,0.1)"};">${a.emoji}</div><div><div class="advisor-name" style="color:${a.id===currentId?a.accent:"var(--cream)"};">${a.name}</div><div class="advisor-role">${a.role}</div></div></div><div class="advisor-tagline">${a.tagline}</div>`;
+    sb.appendChild(btn);
+  });
+}
+
+function selectAdvisor(id){
+  currentId=id;
+  const a=ADVISORS.find(x=>x.id===id);
+  renderSidebar();
+  const hi=document.getElementById("headerIcon");
+  hi.textContent=a.emoji;hi.style.background=a.accent;
+  document.getElementById("headerName").textContent=a.name;
+  document.getElementById("headerName").style.color=a.accent;
+  document.getElementById("headerTag").textContent=a.tagline;
+  document.getElementById("chatHeader").style.background=a.bg;
+  renderMessages();
+}
+
+function renderMessages(){
+  const a=ADVISORS.find(x=>x.id===currentId);
+  const convo=convos[currentId];
+  const c=document.getElementById("messages");
+  c.innerHTML="";
+  const cb=document.getElementById("clearBtn");
+  if(convo.length===0){cb.style.display="none";renderEmpty(a,c);}
+  else{cb.style.display="block";convo.forEach(m=>renderBubble(m,a,c));}
+  c.scrollTop=c.scrollHeight;
+}
+
+function renderEmpty(a,c){
+  const el=document.createElement("div");
+  el.innerHTML=`<div class="empty-state"><div class="empty-icon">${a.emoji}</div><div class="empty-name" style="color:${a.accent};">${a.name}</div><div class="empty-tagline">${a.tagline}</div></div><div class="starters-label">Try asking…</div><div class="starters" id="starterList"></div>`;
+  c.appendChild(el);
+  const list=document.getElementById("starterList");
+  STARTERS.forEach(s=>{
+    const btn=document.createElement("button");
+    btn.className="starter-btn";btn.textContent=s;
+    btn.onmouseenter=()=>{btn.style.background=a.bg;btn.style.borderColor=a.border;btn.style.color="var(--cream)";};
+    btn.onmouseleave=()=>{btn.style.background="";btn.style.borderColor="";btn.style.color="";};
+    btn.onclick=()=>{document.getElementById("userInput").value=s;autoResize();updateBtn();document.getElementById("userInput").focus();};
+    list.appendChild(btn);
+  });
+}
+
+function renderBubble(msg,a,c){
+  const row=document.createElement("div");
+  row.className="bubble-row"+(msg.role==="user"?" user":"");
+  if(msg.role==="assistant"){const av=document.createElement("div");av.className="bubble-avatar";av.style.background=a.accent;av.textContent=a.emoji;row.appendChild(av);}
+  const b=document.createElement("div");
+  b.className="bubble-text "+(msg.role==="user"?"bubble-user":"bubble-assistant");
+  if(msg.role==="assistant"){b.style.background=a.bg;b.style.border=`1px solid ${a.border}`;}
+  b.textContent=msg.content;row.appendChild(b);
+  if(msg.role==="user"){const av=document.createElement("div");av.className="bubble-avatar bubble-user-avatar";av.textContent="J";row.appendChild(av);}
+  c.appendChild(row);
+}
+
+function renderTyping(a){
+  const c=document.getElementById("messages");
+  const row=document.createElement("div");row.className="bubble-row";row.id="typing-indicator";
+  const av=document.createElement("div");av.className="bubble-avatar";av.style.background=a.accent;av.textContent=a.emoji;row.appendChild(av);
+  const b=document.createElement("div");b.className="bubble-text bubble-assistant";b.style.background=a.bg;b.style.border=`1px solid ${a.border}`;
+  b.innerHTML=`<div class="typing-dots"><div class="dot" style="background:${a.accent}"></div><div class="dot" style="background:${a.accent}"></div><div class="dot" style="background:${a.accent}"></div></div>`;
+  row.appendChild(b);c.appendChild(row);c.scrollTop=c.scrollHeight;
+}
+
+function removeTyping(){const el=document.getElementById("typing-indicator");if(el)el.remove();}
