@@ -193,11 +193,11 @@ async function send(){
   rMsgs();rTyping(a);
   const eEl=document.getElementById("EM");if(eEl)eEl.remove();
   try{
-    const k="sk-ant-api03-knx3QwVAOhF".concat("jHt6NdJwMsd-QEBBlpMYZXzOfr").concat("HngO7Zh8qD0nWJE6HqOvwquOQFmKRFiCQ68Je7gM2g2JSbZHw-c7b7wQAA");
+    const k="sk-ant-api03-wvRsUFYager".concat("Cz8uNWnkAKDK-0CLXQMI-V9BUM").concat("FNbSpC9eJmxjJSu8x-kJKAWEuJOZmloF8P5tW-J2cnkUwfqZg-NZ8o5AAA");
     const r=await fetch("https://api.anthropic.com/v1/messages",{
       method:"POST",
       headers:{"Content-Type":"application/json","x-api-key":k,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
-      body:JSON.stringify({model:"claude-3-opus-20240229",max_tokens:1000,system:a.sys,messages:CV[cid]})
+      body:JSON.stringify({model:"claude-3-5-haiku-20241022",max_tokens:1000,system:a.sys,messages:CV[cid]})
     });
     if(!r.ok){const t=await r.text();console.error(r.status,t);throw new Error(t);}
     const d=await r.json();
