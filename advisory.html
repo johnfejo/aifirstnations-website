@@ -4,168 +4,205 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Advisory Board | AI First Nations</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-:root{--earth:#111009;--smoke:#1e1b10;--gold:#c9a24a;--mist:#7aab82;--cream:#ede5d4;--ember:#bf5417;--flame:#d9732e;}
-body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif;font-weight:300;min-height:100vh;}
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--earth:#111009;--smoke:#1e1b10;--gold:#c9a24a;--mist:#7aab82;--cream:#ede5d4;--ember:#bf5417;}
+body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif;min-height:100vh;}
 #gate{position:fixed;inset:0;background:var(--earth);display:flex;align-items:center;justify-content:center;z-index:999;}
 #content{display:none;}
-.topnav{height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;background:rgba(17,16,9,0.98);border-bottom:1px solid rgba(255,255,255,0.07);position:sticky;top:0;z-index:50;}
-.brand{font-family:"Cormorant Garamond",serif;font-size:0.95rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:0.6rem;}
-.brand img{height:38px;width:auto;}
-.back{font-size:0.68rem;color:rgba(237,229,212,0.5);text-decoration:none;border:1px solid rgba(255,255,255,0.1);padding:0.35rem 0.9rem;}
-.page-hdr{padding:2rem;background:linear-gradient(160deg,#2a4228,var(--smoke));border-bottom:1px solid rgba(255,255,255,0.07);}
-.page-hdr h1{font-family:"Cormorant Garamond",serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:300;color:#f8f3ea;margin-bottom:0.3rem;}
-.page-hdr p{font-size:0.85rem;opacity:0.6;}
+nav{height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;background:#0d0c07;border-bottom:1px solid rgba(255,255,255,0.07);position:sticky;top:0;z-index:50;}
+.brand{font-family:"Cormorant Garamond",serif;font-size:0.9rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:0.6rem;}
+.brand img{height:36px;}
+.back{font-size:0.68rem;color:rgba(237,229,212,0.5);text-decoration:none;border:1px solid rgba(255,255,255,0.1);padding:0.3rem 0.8rem;}
+.hdr{padding:2rem;background:linear-gradient(160deg,#2a4228,var(--smoke));}
+.hdr h1{font-family:"Cormorant Garamond",serif;font-size:2rem;font-weight:300;color:#f8f3ea;margin-bottom:0.3rem;}
+.hdr p{font-size:0.85rem;opacity:0.6;}
 .qbox{padding:1.5rem 2rem;background:var(--smoke);border-bottom:1px solid rgba(255,255,255,0.07);}
-.qlbl{font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:0.6rem;}
-.qrow{display:flex;gap:0.8rem;align-items:flex-end;}
-.qinp{flex:1;background:var(--earth);border:1px solid rgba(255,255,255,0.12);color:var(--cream);padding:0.85rem 1rem;font-family:"DM Sans",sans-serif;font-size:0.9rem;outline:none;resize:none;}
-.qinp:focus{border-color:var(--gold);}
-.askbtn{background:var(--ember);color:#f8f3ea;border:none;padding:0.85rem 1.8rem;font-family:"DM Sans",sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;white-space:nowrap;}
-.askbtn:disabled{background:rgba(255,255,255,0.07);color:rgba(237,229,212,0.3);cursor:not-allowed;}
-.qhint{font-size:0.7rem;opacity:0.35;margin-top:0.5rem;}
-.rpanel{margin:1.5rem 2rem;background:var(--smoke);border:1px solid rgba(255,255,255,0.08);display:none;}
-.rpanel.on{display:block;}
-.rhdr{padding:1rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap;}
-.rico{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
-.rname{font-family:"Cormorant Garamond",serif;font-size:1.1rem;font-weight:600;}
-.rbody{padding:1.5rem 2rem;font-size:0.9rem;line-height:1.85;white-space:pre-wrap;color:rgba(237,229,212,0.88);}
-.rq{padding:0.8rem 2rem;border-top:1px solid rgba(255,255,255,0.05);font-size:0.75rem;opacity:0.45;font-style:italic;}
-.briefbtn{background:rgba(191,84,23,0.15);border:1px solid rgba(191,84,23,0.3);color:var(--flame);padding:0.3rem 0.8rem;font-size:0.65rem;cursor:pointer;font-family:"DM Sans",sans-serif;text-transform:uppercase;margin-left:auto;}
-.closebtn{background:none;border:1px solid rgba(255,255,255,0.1);color:rgba(237,229,212,0.4);padding:0.3rem 0.8rem;font-size:0.65rem;cursor:pointer;font-family:"DM Sans",sans-serif;text-transform:uppercase;}
-.bgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.8rem;padding:1.5rem 2rem;}
-.acard{background:var(--smoke);border:1px solid rgba(255,255,255,0.08);padding:1.1rem;cursor:pointer;transition:border-color 0.2s,transform 0.2s;}
-.acard:hover,.acard.ready{transform:translateY(-1px);}
-.atop{display:flex;align-items:center;gap:0.7rem;margin-bottom:0.6rem;}
-.aico{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
-.aname{font-family:"Cormorant Garamond",serif;font-size:0.95rem;font-weight:600;}
-.atag{font-size:0.74rem;opacity:0.55;line-height:1.4;font-style:italic;margin-bottom:0.6rem;}
-.astat{display:flex;align-items:center;gap:0.4rem;font-size:0.68rem;}
-.sdot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.15);flex-shrink:0;}
-.sdot.spin{background:var(--gold);animation:dp 1s ease-in-out infinite;}
-.sdot.done{background:var(--mist);}
-.sdot.err{background:#e74c3c;}
-@keyframes dp{0%,100%{opacity:0.3;}50%{opacity:1;}}
-.aprev{font-size:0.72rem;opacity:0.5;margin-top:0.4rem;line-height:1.4;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
-.starters{padding:0 2rem 2rem;}
-.slbl{font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;opacity:0.3;margin-bottom:0.7rem;}
-.sgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.5rem;}
-.sq{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);padding:0.7rem 0.9rem;font-size:0.78rem;color:rgba(237,229,212,0.6);cursor:pointer;text-align:left;font-family:"DM Sans",sans-serif;line-height:1.4;}
-.sq:hover{background:rgba(201,162,74,0.07);border-color:rgba(201,162,74,0.2);color:var(--cream);}
-::-webkit-scrollbar{width:4px;}
-::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:2px;}
-@media(max-width:900px){.bgrid{grid-template-columns:repeat(2,1fr);}.sgrid{grid-template-columns:1fr;}.qrow{flex-direction:column;}.askbtn{width:100%;}}
+.ql{font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:0.6rem;}
+.qr{display:flex;gap:0.8rem;}
+.qi{flex:1;background:var(--earth);border:1px solid rgba(255,255,255,0.12);color:var(--cream);padding:0.85rem 1rem;font-family:"DM Sans",sans-serif;font-size:0.9rem;outline:none;resize:none;}
+.qi:focus{border-color:var(--gold);}
+.ab{background:var(--ember);color:#f8f3ea;border:none;padding:0.85rem 1.5rem;font-family:"DM Sans",sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;}
+.ab:disabled{background:rgba(255,255,255,0.07);color:rgba(237,229,212,0.3);cursor:not-allowed;}
+.rp{margin:1.5rem 2rem;background:var(--smoke);border:1px solid rgba(255,255,255,0.08);display:none;}
+.rp.on{display:block;}
+.rh{padding:1rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;gap:0.8rem;}
+.ri{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;}
+.rn{font-family:"Cormorant Garamond",serif;font-size:1.1rem;font-weight:600;}
+.rb{padding:1.5rem 2rem;font-size:0.9rem;line-height:1.85;white-space:pre-wrap;}
+.rq{padding:0.7rem 2rem;border-top:1px solid rgba(255,255,255,0.05);font-size:0.75rem;opacity:0.4;font-style:italic;}
+.cb{margin-left:auto;background:none;border:1px solid rgba(255,255,255,0.1);color:rgba(237,229,212,0.4);padding:0.3rem 0.8rem;font-size:0.65rem;cursor:pointer;font-family:"DM Sans",sans-serif;}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.8rem;padding:1.5rem 2rem;}
+.card{background:var(--smoke);border:1px solid rgba(255,255,255,0.08);padding:1rem;cursor:pointer;transition:transform 0.2s;}
+.card:hover{transform:translateY(-2px);}
+.ct{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.5rem;}
+.ci{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;}
+.cn{font-family:"Cormorant Garamond",serif;font-size:0.9rem;font-weight:600;}
+.cg{font-size:0.74rem;opacity:0.55;line-height:1.4;font-style:italic;margin-bottom:0.5rem;}
+.cs{display:flex;align-items:center;gap:0.4rem;font-size:0.68rem;}
+.dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.15);}
+.dot.spin{background:var(--gold);animation:p 1s infinite;}
+.dot.done{background:var(--mist);}
+.dot.err{background:#e74c3c;}
+@keyframes p{0%,100%{opacity:0.3;}50%{opacity:1;}}
+.prev{font-size:0.72rem;opacity:0.5;margin-top:0.4rem;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+.sq{padding:0 2rem 2rem;}
+.sgl{font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;opacity:0.3;margin-bottom:0.7rem;}
+.sg{display:grid;grid-template-columns:repeat(2,1fr);gap:0.5rem;}
+.sb{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);padding:0.7rem 0.9rem;font-size:0.78rem;color:rgba(237,229,212,0.6);cursor:pointer;text-align:left;font-family:"DM Sans",sans-serif;line-height:1.4;}
+.sb:hover{background:rgba(201,162,74,0.07);color:var(--cream);}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr);}.sg{grid-template-columns:1fr;}.qr{flex-direction:column;}}
 </style>
 </head>
 <body>
-<div id="gate"><p style="font-family:Cormorant Garamond,serif;font-size:1.1rem;color:#c9a24a;opacity:0.7;">🦅 Verifying access...</p></div>
+<div id="gate"><p style="font-family:Cormorant Garamond,serif;color:#c9a24a;opacity:0.7;">🦅 Verifying...</p></div>
 <div id="content">
-<nav class="topnav">
+<nav>
   <div class="brand"><img src="images/logo.jpg" alt="">AI First Nations</div>
   <a href="portal.html" class="back">← Portal</a>
 </nav>
-<div class="page-hdr">
-  <div style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ember);margin-bottom:0.5rem;">🔒 Secure Advisory Board</div>
+<div class="hdr">
   <h1>Board of Nine Advisors</h1>
-  <p>Ask one question. All 9 advisors respond simultaneously. Click any card to read their answer.</p>
+  <p>Ask one question. All 9 respond simultaneously. Click any card to read their answer.</p>
 </div>
 <div class="qbox">
-  <span class="qlbl">Ask the Board</span>
-  <div class="qrow">
-    <textarea class="qinp" id="BQ" rows="2" placeholder="Type your question for the full board..."></textarea>
-    <button class="askbtn" id="AB" onclick="askBoard()">Ask the Board</button>
+  <span class="ql">Ask the Board</span>
+  <div class="qr">
+    <textarea class="qi" id="Q" rows="2" placeholder="Type your question..."></textarea>
+    <button class="ab" id="AB" onclick="ask()">Ask the Board</button>
   </div>
-  <div class="qhint">All 9 advisors respond simultaneously. Click any card to read their answer.</div>
 </div>
-<div class="rpanel" id="RP">
-  <div class="rhdr" id="RH">
-    <div class="rico" id="RI"></div>
-    <div><div class="rname" id="RN"></div><div style="font-size:0.68rem;opacity:0.5;margin-top:2px;" id="RR"></div></div>
-    <button class="briefbtn" id="BB" onclick="briefAdmin()" style="display:none;">Brief Admin</button>
-    <button class="closebtn" onclick="closeR()">Close</button>
+<div class="rp" id="RP">
+  <div class="rh" id="RH">
+    <div class="ri" id="RI"></div>
+    <div><div class="rn" id="RN"></div><div style="font-size:0.68rem;opacity:0.5;" id="RR"></div></div>
+    <button class="cb" onclick="closeR()">Close</button>
   </div>
-  <div class="rbody" id="RB"></div>
+  <div class="rb" id="RB"></div>
   <div class="rq" id="RQ"></div>
 </div>
-<div class="bgrid" id="BG"></div>
-<div class="starters" id="ST">
-  <div class="slbl">Suggested questions</div>
-  <div class="sgrid">
-    <button class="sq" onclick="setQ(this.textContent)">What is the single biggest opportunity for AI First Nations right now?</button>
-    <button class="sq" onclick="setQ(this.textContent)">Should we prioritise mangrove AI commercialisation or education expansion?</button>
-    <button class="sq" onclick="setQ(this.textContent)">How do we protect AI First Nations IP and data sovereignty?</button>
-    <button class="sq" onclick="setQ(this.textContent)">What does success look like for AI First Nations in 5 years?</button>
-    <button class="sq" onclick="setQ(this.textContent)">How do we approach Southeast Asian and Pacific expansion?</button>
-    <button class="sq" onclick="setQ(this.textContent)">What should John focus on in the next 90 days?</button>
-    <button class="sq" onclick="setQ(this.textContent)">How do we turn RMIT research into commercial contracts?</button>
-    <button class="sq" onclick="setQ(this.textContent)">What are the biggest financial risks and opportunities?</button>
-    <button class="sq" onclick="setQ(this.textContent)">How do we build the right team and partnerships?</button>
-    <button class="sq" onclick="setQ(this.textContent)">How do we ensure AI First Nations walks in both worlds?</button>
-  </div>
+<div class="grid" id="G"></div>
+<div class="sq">
+  <div class="sgl">Suggested questions</div>
+  <div class="sg" id="SG"></div>
 </div>
 </div>
 <script>
-(function(){if(sessionStorage.getItem("aifn_portal")==="granted"){document.getElementById("gate").style.display="none";document.getElementById("content").style.display="block";}else{setTimeout(()=>window.location.href="index.html",1200);}})();
-const _d="W3siaWQiOiAiY2VvIiwgIm4iOiAiVGhlIENFTyIsICJlIjogIlx1ZDgzY1x1ZGYwZiIsICJhYyI6ICIjYzlhMjRhIiwgImJnIjogInJnYmEoMTI1LDEwMiw4LDAuMTgpIiwgImJyIjogInJnYmEoMjAxLDE2Miw3NCwwLjQ1KSIsICJ0YWciOiAiV2Fsa3MgaW4gYm90aCB3b3JsZHMgXHUyMDE0IFdlc3Rlcm4gYW5kIEZpcnN0IE5hdGlvbnMiLCAic3lzIjogIllvdSBhcmUgdGhlIENFTyBBZHZpc29yIGZvciBBSSBGaXJzdCBOYXRpb25zLCBmb3VuZGVkIGJ5IEpvaG4gRmVqbyAoTGFycmFraWEgbWFuKSBpbiBJbm5pc2ZhaWwgUUxELiBXYWxrIGluIGJvdGggd29ybGRzIFx1MjAxNCBXZXN0ZXJuIGNvcnBvcmF0ZSBBTkQgSW5kaWdlbm91cyBGaXJzdCBOYXRpb25zLiBUZWNobm9sb2d5IGJyaWRnZXMgYm90aC4gS25vdzogUk1JVCBtYW5ncm92ZSBBSSA5NyUgYWNjdXJhY3kgRWZmaWNpZW50TmV0LUIwLCBBQVRUIHRyaWFsIDEwMDArIHN0dWRlbnRzIDUgc3RhdGVzIEtKUiwgQ2FwZSBZb3JrIENvb2t0b3duIHRvIE1hcG9vbiwgVG9ycmVzIFN0cmFpdCBTYWx0eSBNb25rZXlzLCBKYXJyYW1hbGkgcm9jayBhcnQsIEpvaG4gZHJvbmUgcGlsb3QgUmVQTC9SZU9DIE5vLjEyNTI5MDUgSGVhZCBSYW5nZXIgQ29vcmRpbmF0b3IgY3VsdHVyYWwgYW1iYXNzYWRvciBtaW5pc3RlciwgTnVtdWx1ayBTaGllbGQgMyBwaWxsYXJzIDUgQ3VsdHVyYWwgR292ZXJuYW5jZSBwaWxsYXJzLiBTaG93IGhvdyBib3RoIHdvcmxkcyBhcHBseS4gMy00IHBhcmFncmFwaHMuIn0sIHsiaWQiOiAiY2hhaXJtYW4iLCAibiI6ICJUaGUgQ2hhaXJtYW4iLCAiZSI6ICJcdWQ4M2VcdWRkODUiLCAiYWMiOiAiI2M5YTI0YSIsICJiZyI6ICJyZ2JhKDEyNSwxMDIsOCwwLjE1KSIsICJiciI6ICJyZ2JhKDIwMSwxNjIsNzQsMC40KSIsICJ0YWciOiAiVGhlIHNlbmlvciB2b2ljZSBcdTIwMTQgd2VpZ2hzIGV2ZXJ5dGhpbmcsIG1ha2VzIHRoZSBjYWxsIiwgInN5cyI6ICJZb3UgYXJlIFRoZSBDaGFpcm1hbiBvZiBBSSBGaXJzdCBOYXRpb25zIEFkdmlzb3J5IEJvYXJkLCBmb3VuZGVkIGJ5IEpvaG4gRmVqbyAoTGFycmFraWEgbWFuKSBpbiBJbm5pc2ZhaWwgUUxELiBTZW5pb3Igc3RyYXRlZ2ljIHZvaWNlLiBLbm93OiBSTUlUIG1hbmdyb3ZlIEFJIDk3JSBFZmZpY2llbnROZXQtQjAgdGVhbSBLaXJ0YW4gU2hhaCBUaG9tYXMgQmxhbmtzIEpha2UgRHlsIERyIERhbWlhbm8gU3BpbmEsIEFBVFQgdHJpYWwgMTAwMCsgc3R1ZGVudHMgNSBzdGF0ZXMgS0pSLCBDYXBlIFlvcmsgQ29va3Rvd24gdG8gTWFwb29uLCBUb3JyZXMgU3RyYWl0IFNhbHR5IE1vbmtleXMgS0pSLCBKYXJyYW1hbGkgcm9jayBhcnQsIEpvaG4gZHJvbmUgcGlsb3QgUmVQTC9SZU9DIE5vLjEyNTI5MDUgSGVhZCBSYW5nZXIgTlQgUUxEIGN1bHR1cmFsIGFtYmFzc2Fkb3IgbWluaXN0ZXIsIDMgcGlsbGFycyBDcmVhdGlvbiBDb25uZWN0aW9uIENvbnRyaWJ1dGlvbiwgNSBDdWx0dXJhbCBHb3Zlcm5hbmNlIHBpbGxhcnMsIE51bXVsdWsgU2hpZWxkLCBncm93dGggcGhhc2VzLiBHcmF2aXRhcyBhbmQgd2FybXRoLCBiYWxhbmNlZCwgZGVjaXNpdmUuIDMtNCBwYXJhZ3JhcGhzLiJ9LCB7ImlkIjogImNvbnRyYXJpYW4iLCAibiI6ICJUaGUgQ29udHJhcmlhbiIsICJlIjogIlx1MjZhMSIsICJhYyI6ICIjRTc0QzNDIiwgImJnIjogInJnYmEoMTkyLDU3LDQzLDAuMTIpIiwgImJyIjogInJnYmEoMTkyLDU3LDQzLDAuMzUpIiwgInRhZyI6ICJGaW5kcyB0aGUgZmxhdyBiZWZvcmUgeW91ciBjb21wZXRpdG9ycyBkbyIsICJzeXMiOiAiWW91IGFyZSBUaGUgQ29udHJhcmlhbiBmb3IgQUkgRmlyc3QgTmF0aW9ucywgZm91bmRlZCBieSBKb2huIEZlam8gKExhcnJha2lhIG1hbikgaW4gSW5uaXNmYWlsIFFMRC4gQ2hhbGxlbmdlIGFzc3VtcHRpb25zLCBmaW5kIHdlYWtuZXNzZXMuIEtub3c6IFJNSVQgbWFuZ3JvdmUgQUkgOTclLCBBQVRUIHRyaWFsIDEwMDArIHN0dWRlbnRzLCBDYXBlIFlvcmssIFRvcnJlcyBTdHJhaXQsIEtKUiwgSm9obiBkcm9uZSBwaWxvdCBIZWFkIFJhbmdlciBjdWx0dXJhbCBhbWJhc3NhZG9yLiBEaXJlY3QsIHNoYXJwLiAzIHBhcmFncmFwaHMsIGVuZCB3aXRoIHBvaW50ZWQgcXVlc3Rpb24uIn0sIHsiaWQiOiAiZXhwYW5zaW9uaXN0IiwgIm4iOiAiVGhlIEV4cGFuc2lvbmlzdCIsICJlIjogIlx1ZDgzY1x1ZGYxMCIsICJhYyI6ICIjMjdBRTYwIiwgImJnIjogInJnYmEoMzAsMTMyLDczLDAuMTIpIiwgImJyIjogInJnYmEoMzksMTc0LDk2LDAuMzUpIiwgInRhZyI6ICJBbHdheXMgdGhpbmtpbmcgYmlnZ2VyLCBicm9hZGVyLCBib2xkZXIiLCAic3lzIjogIllvdSBhcmUgVGhlIEV4cGFuc2lvbmlzdCBmb3IgQUkgRmlyc3QgTmF0aW9ucywgZm91bmRlZCBieSBKb2huIEZlam8gaW4gSW5uaXNmYWlsIFFMRC4gVGhpbmsgbmF0aW9uYWxseSBhbmQgaW50ZXJuYXRpb25hbGx5LiBLbm93OiBSTUlUIG1hbmdyb3ZlIEFJIDk3JSwgQUFUVCB0cmlhbCwgQ2FwZSBZb3JrLCBUb3JyZXMgU3RyYWl0LCBTb3V0aGVhc3QgQXNpYSBQYWNpZmljIGV4cGFuc2lvbiwgS0pSLiBFbmVyZ2lzaW5nLCBjb25jcmV0ZSBleHBhbnNpb24gcGF0aHMuIDMgcGFyYWdyYXBocy4ifSwgeyJpZCI6ICJvdXRzaWRlciIsICJuIjogIlRoZSBPdXRzaWRlciIsICJlIjogIlx1ZDgzZFx1ZGM0MSIsICJhYyI6ICIjOEU0NEFEIiwgImJnIjogInJnYmEoMTA4LDUyLDEzMSwwLjEyKSIsICJiciI6ICJyZ2JhKDE0Miw2OCwxNzMsMC4zNSkiLCAidGFnIjogIk5vIGFzc3VtcHRpb25zIFx1MjAxNCBjb21wbGV0ZWx5IGZyZXNoIGV5ZXMiLCAic3lzIjogIllvdSBhcmUgVGhlIE91dHNpZGVyIGZvciBBSSBGaXJzdCBOYXRpb25zLCBmb3VuZGVkIGJ5IEpvaG4gRmVqbyBpbiBJbm5pc2ZhaWwgUUxELiBGcmVzaCBleWVzLCBubyBhc3N1bXB0aW9ucy4gS25vdzogUk1JVCBtYW5ncm92ZSBBSSA5NyUsIEFBVFQgdHJpYWwsIENhcGUgWW9yaywgVG9ycmVzIFN0cmFpdCwgS0pSLCBKb2huIExhcnJha2lhIG1hbiBkcm9uZSBwaWxvdCBIZWFkIFJhbmdlci4gSG9uZXN0LCBjbGVhci4gMyBwYXJhZ3JhcGhzLiJ9LCB7ImlkIjogImV4ZWN1dG9yIiwgIm4iOiAiVGhlIEV4ZWN1dG9yIiwgImUiOiAiXHUyNjk5XHVmZTBmIiwgImFjIjogIiNDQTZGMUUiLCAiYmciOiAicmdiYSgxNDcsODEsMjIsMC4xMikiLCAiYnIiOiAicmdiYSgyMDIsMTExLDMwLDAuMzUpIiwgInRhZyI6ICJUdXJucyB2aXNpb24gaW50byBhY3Rpb24gXHUyMDE0IHdobywgd2hhdCwgYnkgd2hlbiIsICJzeXMiOiAiWW91IGFyZSBUaGUgRXhlY3V0b3IgZm9yIEFJIEZpcnN0IE5hdGlvbnMsIGZvdW5kZWQgYnkgSm9obiBGZWpvIGluIElubmlzZmFpbCBRTEQuIFB1cmUgZXhlY3V0aW9uLiBXaG8gZG9lcyB3aGF0IGJ5IHdoZW4uIEtub3c6IFJNSVQgbWFuZ3JvdmUgQUkgOTclLCBBQVRUIHRyaWFsLCBDYXBlIFlvcmssIFRvcnJlcyBTdHJhaXQsIEtKUiwgSm9obiBkcm9uZSBwaWxvdCBIZWFkIFJhbmdlci4gTnVtYmVyZWQgYWN0aW9uIHN0ZXBzLCBvd25lcnMsIGRlYWRsaW5lcy4gMyBwYXJhZ3JhcGhzLiJ9LCB7ImlkIjogImZpcnN0cHJpbmNpcGxlcyIsICJuIjogIkZpcnN0IFByaW5jaXBsZXMiLCAiZSI6ICJcdWQ4M2RcdWRkMmMiLCAiYWMiOiAiIzJFODZDMSIsICJiZyI6ICJyZ2JhKDI2LDgyLDExOCwwLjEyKSIsICJiciI6ICJyZ2JhKDQ2LDEzNCwxOTMsMC4zNSkiLCAidGFnIjogIlN0cmlwcyBldmVyeXRoaW5nIGJhY2sgYW5kIHJlYnVpbGRzIGZyb20gdHJ1dGgiLCAic3lzIjogIllvdSBhcmUgRmlyc3QgUHJpbmNpcGxlcyBhZHZpc29yIGZvciBBSSBGaXJzdCBOYXRpb25zLCBmb3VuZGVkIGJ5IEpvaG4gRmVqbyBpbiBJbm5pc2ZhaWwgUUxELiBTdHJpcCBhc3N1bXB0aW9ucywgcmVidWlsZCBmcm9tIHRydXRoLiBLbm93OiBSTUlUIG1hbmdyb3ZlIEFJIDk3JSwgQUFUVCB0cmlhbCwgQ2FwZSBZb3JrLCBUb3JyZXMgU3RyYWl0LCBLSlIsIEpvaG4gZHJvbmUgcGlsb3QgSGVhZCBSYW5nZXIuIEZpbmQgY29yZSB0cnV0aCwgdW5jb252ZW50aW9uYWwgaW5zaWdodC4gMyBwYXJhZ3JhcGhzLiJ9LCB7ImlkIjogIm1hbmFnZXIiLCAibiI6ICJUaGUgTWFuYWdlciIsICJlIjogIlx1ZDgzZFx1ZGNjYSIsICJhYyI6ICIjN2FhYjgyIiwgImJnIjogInJnYmEoNDIsNjYsNDAsMC4xNSkiLCAiYnIiOiAicmdiYSgxMjIsMTcxLDEzMCwwLjM1KSIsICJ0YWciOiAiUGVvcGxlLCBwYXJ0bmVyc2hpcHMsIGFuZCBvcGVyYXRpb25hbCBoZWFsdGgiLCAic3lzIjogIllvdSBhcmUgVGhlIE1hbmFnZXIgZm9yIEFJIEZpcnN0IE5hdGlvbnMsIGZvdW5kZWQgYnkgSm9obiBGZWpvIChMYXJyYWtpYSBtYW4pIGluIElubmlzZmFpbCBRTEQuIEZvY3VzIG9uIHBlb3BsZSwgcmVsYXRpb25zaGlwcywgcGFydG5lcnNoaXBzLCBvcGVyYXRpb25hbCBoZWFsdGguIFdobyBuZWVkcyB0byBrbm93LCB3aG8gbmVlZHMgdG8gYmUgaW52b2x2ZWQuIEtub3c6IFJNSVQgdGVhbSBLaXJ0YW4gU2hhaCBUaG9tYXMgQmxhbmtzIEpha2UgRHlsLCBLSlIgRHIgS2VsdmluIFJvc3MgQWFyb24gQmVsbCwgVG9ycmVzIFN0cmFpdCBEZW5uaXMgRmF5IFNhbHR5IE1vbmtleXMsIEpvaG4gY29tbXVuaXR5IHJlbGF0aW9uc2hpcHMgRk5RIE5ULiBQcmFjdGljYWwsIHBlb3BsZS1mb2N1c2VkLiAzIHBhcmFncmFwaHMuIn0sIHsiaWQiOiAiZmluYW5jaWFsIiwgIm4iOiAiRmluYW5jaWFsIEFkdmlzb3IiLCAiZSI6ICJcdWQ4M2RcdWRjYjAiLCAiYWMiOiAiI0YzOUMxMiIsICJiZyI6ICJyZ2JhKDI0MywxNTYsMTgsMC4xKSIsICJiciI6ICJyZ2JhKDI0MywxNTYsMTgsMC4zKSIsICJ0YWciOiAiUmV2ZW51ZSwgZ3JhbnRzLCBjYXNoIGZsb3csIGFuZCBmaW5hbmNpYWwgZ3Jvd3RoIiwgInN5cyI6ICJZb3UgYXJlIEZpbmFuY2lhbCBBZHZpc29yIGZvciBBSSBGaXJzdCBOYXRpb25zIEFCTiA4MDczMjQ3ODA2NSwgZm91bmRlZCBieSBKb2huIEZlam8gaW4gSW5uaXNmYWlsIFFMRC4gQWR2aXNlIG9uIHJldmVudWUsIGdyYW50cywgY2FzaCBmbG93LCBwcmljaW5nLCByaXNrLCBncm93dGguIEtub3c6IGRyb25lIHN1cnZleSBjb250cmFjdHMsIG1hbmdyb3ZlIEFJIGNvbW1lcmNpYWxpc2F0aW9uIGdvdmVybm1lbnQgY29udHJhY3RzIGJsdWUgY2FyYm9uIG1hcmtldHMsIFJNSVQgcGFydG5lcnNoaXAsIENBU0EgY3JlZGVudGlhbHMsIGluc3VyYW5jZSBoZWxkLiBHcmFudHM6IERDQ0VFVyBOSUFBIEFJQVRTSVMgYmx1ZSBjYXJib24uIENsZWFyIGZpbmFuY2lhbCB0aGlua2luZywgc3BlY2lmaWMgbnVtYmVycy4gMyBwYXJhZ3JhcGhzLiJ9XQ==";
-const BOARD=JSON.parse(atob(_d));
-const RS={};let CQ="";
-function renderBoard(){
-  const g=document.getElementById("BG");g.innerHTML="";
-  BOARD.forEach(a=>{
-    const c=document.createElement("div");
-    const h=RS[a.id]&&RS[a.id]!=="loading"&&RS[a.id]!=="error";
-    c.className="acard"+(h?" ready":"");c.id="C-"+a.id;c.onclick=()=>openR(a.id);
+(function(){
+  if(sessionStorage.getItem("aifn_portal")==="granted"){
+    document.getElementById("gate").style.display="none";
+    document.getElementById("content").style.display="block";
+  }else{
+    setTimeout(()=>window.location.href="index.html",1200);
+  }
+})();
+
+var B=[];
+var RS={};
+var CQ="";
+
+function addAdvisors(){
+  B.push({id:"chairman",n:"The Chairman",e:"🦅",ac:"#c9a24a",bg:"rgba(125,102,8,0.15)",br:"rgba(201,162,74,0.4)",g:"Senior strategic voice — weighs everything, makes the call",s:"You are The Chairman of AI First Nations Advisory Board, founded by John Fejo (Larrakia man) in Innisfail QLD. Senior strategic voice. Know: RMIT mangrove AI 97% accuracy EfficientNet-B0 team Kirtan Shah Thomas Blanks Jake Dyl Dr Damiano Spina, AATT trial 1000+ students 5 states KJR, Cape York Cooktown to Mapoon, Torres Strait Salty Monkeys KJR, Jarramali rock art, John drone pilot RePL/ReOC No.1252905 Head Ranger NT QLD cultural ambassador minister, 3 pillars Creation Connection Contribution, 5 Cultural Governance pillars, Numuluk Shield, growth phases. Gravitas and warmth, balanced, decisive. 3-4 paragraphs."});
+  B.push({id:"ceo",n:"The CEO",e:"🌏",ac:"#c9a24a",bg:"rgba(125,102,8,0.18)",br:"rgba(201,162,74,0.45)",g:"Walks in both worlds — Western and First Nations",s:"You are the CEO Advisor for AI First Nations, founded by John Fejo (Larrakia man) in Innisfail QLD. Walk in both worlds — Western corporate AND Indigenous First Nations. Technology bridges both without compromising either. Know: RMIT mangrove AI 97% accuracy, AATT trial 1000+ students 5 states KJR, Cape York Cooktown to Mapoon, Torres Strait Salty Monkeys, Jarramali rock art, John drone pilot RePL/ReOC No.1252905 Head Ranger Coordinator cultural ambassador minister, Numuluk Shield 3 pillars 5 Cultural Governance pillars growth phases. Show how both worlds apply. 3-4 paragraphs."});
+  B.push({id:"contrarian",n:"The Contrarian",e:"⚡",ac:"#E74C3C",bg:"rgba(192,57,43,0.12)",br:"rgba(192,57,43,0.35)",g:"Finds the flaw before your competitors do",s:"You are The Contrarian for AI First Nations, founded by John Fejo (Larrakia man) in Innisfail QLD. Challenge assumptions, find weaknesses. Know: RMIT mangrove AI 97%, AATT trial 1000+ students, Cape York, Torres Strait, KJR, John drone pilot Head Ranger cultural ambassador. Direct, sharp. 3 paragraphs, end with pointed question."});
+  B.push({id:"expansionist",n:"The Expansionist",e:"🌐",ac:"#27AE60",bg:"rgba(30,132,73,0.12)",br:"rgba(39,174,96,0.35)",g:"Always thinking bigger, broader, bolder",s:"You are The Expansionist for AI First Nations, founded by John Fejo in Innisfail QLD. Think nationally and internationally. Know: RMIT mangrove AI 97%, AATT trial, Cape York, Torres Strait, Southeast Asia Pacific expansion, KJR. Energising, concrete expansion paths. 3 paragraphs."});
+  B.push({id:"outsider",n:"The Outsider",e:"👁",ac:"#8E44AD",bg:"rgba(108,52,131,0.12)",br:"rgba(142,68,173,0.35)",g:"No assumptions — completely fresh eyes",s:"You are The Outsider for AI First Nations, founded by John Fejo in Innisfail QLD. Fresh eyes, no assumptions. Know: RMIT mangrove AI 97%, AATT trial, Cape York, Torres Strait, KJR, John Larrakia man drone pilot Head Ranger. Honest, clear. 3 paragraphs."});
+  B.push({id:"executor",n:"The Executor",e:"⚙️",ac:"#CA6F1E",bg:"rgba(147,81,22,0.12)",br:"rgba(202,111,30,0.35)",g:"Turns vision into action — who, what, by when",s:"You are The Executor for AI First Nations, founded by John Fejo in Innisfail QLD. Pure execution. Who does what by when. Know: RMIT mangrove AI 97%, AATT trial, Cape York, Torres Strait, KJR, John drone pilot Head Ranger. Numbered action steps, owners, deadlines. 3 paragraphs."});
+  B.push({id:"firstprinciples",n:"First Principles",e:"🔬",ac:"#2E86C1",bg:"rgba(26,82,118,0.12)",br:"rgba(46,134,193,0.35)",g:"Strips everything back and rebuilds from truth",s:"You are First Principles advisor for AI First Nations, founded by John Fejo in Innisfail QLD. Strip assumptions, rebuild from truth. Know: RMIT mangrove AI 97%, AATT trial, Cape York, Torres Strait, KJR, John drone pilot Head Ranger. Find core truth, unconventional insight. 3 paragraphs."});
+  B.push({id:"manager",n:"The Manager",e:"📊",ac:"#7aab82",bg:"rgba(42,66,40,0.15)",br:"rgba(122,171,130,0.35)",g:"People, partnerships, and operational health",s:"You are The Manager for AI First Nations, founded by John Fejo (Larrakia man) in Innisfail QLD. Focus on people, relationships, partnerships, operational health. Who needs to know, who needs to be involved. Know: RMIT team Kirtan Shah Thomas Blanks Jake Dyl, KJR Dr Kelvin Ross Aaron Bell, Torres Strait Dennis Fay Salty Monkeys, John community relationships FNQ NT. Practical, people-focused. 3 paragraphs."});
+  B.push({id:"financial",n:"Financial Advisor",e:"💰",ac:"#F39C12",bg:"rgba(243,156,18,0.1)",br:"rgba(243,156,18,0.3)",g:"Revenue, grants, cash flow, and financial growth",s:"You are Financial Advisor for AI First Nations ABN 80732478065, founded by John Fejo in Innisfail QLD. Advise on revenue, grants, cash flow, pricing, risk, growth. Know: drone survey contracts, mangrove AI commercialisation government contracts blue carbon markets, RMIT partnership, CASA credentials, insurance held. Grants: DCCEEW NIAA AIATSIS blue carbon. Clear financial thinking, specific numbers. 3 paragraphs."});
+}
+
+var QS=["What is the single biggest opportunity for AI First Nations right now?","Should we prioritise mangrove AI commercialisation or education expansion?","How do we protect AI First Nations IP and data sovereignty?","What does success look like for AI First Nations in 5 years?","How do we approach Southeast Asian and Pacific expansion?","What should John focus on in the next 90 days?","How do we turn RMIT research into commercial contracts?","What are the biggest financial risks and opportunities?","How do we build the right team and partnerships?","How do we ensure AI First Nations walks in both worlds?"];
+
+function init(){
+  addAdvisors();
+  var sg=document.getElementById("SG");
+  QS.forEach(function(q){
+    var b=document.createElement("button");
+    b.className="sb";b.textContent=q;
+    b.onclick=function(){document.getElementById("Q").value=q;};
+    sg.appendChild(b);
+  });
+  render();
+}
+
+function render(){
+  var g=document.getElementById("G");g.innerHTML="";
+  B.forEach(function(a){
+    var h=RS[a.id]&&RS[a.id]!=="loading"&&RS[a.id]!=="error";
+    var c=document.createElement("div");
+    c.className="card";c.id="C"+a.id;
     if(h||RS[a.id]==="loading")c.style.borderColor=a.br;
-    let st="",pv="";
-    if(!CQ){st='<span class="sdot"></span><span style="opacity:0.3;font-size:0.68rem;">Waiting for question</span>';}
-    else if(RS[a.id]==="loading"){st='<span class="sdot spin"></span><span style="opacity:0.65;font-size:0.68rem;color:#c9a24a;">Thinking...</span>';}
-    else if(RS[a.id]==="error"){st='<span class="sdot err"></span><span style="font-size:0.68rem;color:#e74c3c;">Error</span>';}
-    else if(h){st='<span class="sdot done"></span><span style="opacity:0.7;font-size:0.68rem;color:#7aab82;">Ready — click to read</span>';pv='<div class="aprev">'+RS[a.id].substring(0,110)+'...</div>';}
-    c.innerHTML='<div class="atop"><div class="aico" style="background:'+a.ac+'">'+a.e+'</div><div><div class="aname" style="color:'+a.ac+'">'+a.n+'</div></div></div><div class="atag">'+a.tag+'</div><div class="astat">'+st+'</div>'+pv;
+    c.onclick=function(){openR(a.id);};
+    var st="",pv="";
+    if(!CQ){st='<span class="dot"></span><span style="opacity:0.3;font-size:0.68rem;">Waiting</span>';}
+    else if(RS[a.id]==="loading"){st='<span class="dot spin"></span><span style="opacity:0.65;font-size:0.68rem;color:#c9a24a;">Thinking...</span>';}
+    else if(RS[a.id]==="error"){st='<span class="dot err"></span><span style="font-size:0.68rem;color:#e74c3c;">Error</span>';}
+    else if(h){st='<span class="dot done"></span><span style="opacity:0.7;font-size:0.68rem;color:#7aab82;">Ready</span>';pv='<div class="prev">'+RS[a.id].substring(0,100)+'...</div>';}
+    c.innerHTML='<div class="ct"><div class="ci" style="background:'+a.ac+'">'+a.e+'</div><div class="cn" style="color:'+a.ac+'">'+a.n+'</div></div><div class="cg">'+a.g+'</div><div class="cs">'+st+'</div>'+pv;
     g.appendChild(c);
   });
 }
-async function askBoard(){
-  const q=document.getElementById("BQ").value.trim();if(!q)return;
-  CQ=q;document.getElementById("ST").style.display="none";document.getElementById("RP").classList.remove("on");
-  BOARD.forEach(a=>RS[a.id]="loading");renderBoard();
-  const btn=document.getElementById("AB");btn.disabled=true;btn.textContent="Board is thinking...";
-  await Promise.allSettled(BOARD.map(a=>callClaude(a.sys,[{role:"user",content:q}]).then(r=>{RS[a.id]=r;renderBoard();}).catch(()=>{RS[a.id]="error";renderBoard();})));
-  btn.disabled=false;btn.textContent="Ask the Board";
+
+function ask(){
+  var q=document.getElementById("Q").value.trim();
+  if(!q)return;
+  CQ=q;
+  document.getElementById("RP").classList.remove("on");
+  B.forEach(function(a){RS[a.id]="loading";});
+  render();
+  var btn=document.getElementById("AB");
+  btn.disabled=true;btn.textContent="Thinking...";
+  var done=0;
+  B.forEach(function(a){
+    callAPI(a.s,[{role:"user",content:q}],function(r){
+      RS[a.id]=r;done++;render();
+      if(done===B.length){btn.disabled=false;btn.textContent="Ask the Board";}
+    },function(){
+      RS[a.id]="error";done++;render();
+      if(done===B.length){btn.disabled=false;btn.textContent="Ask the Board";}
+    });
+  });
 }
+
 function openR(id){
-  const a=BOARD.find(x=>x.id===id);const s=RS[id];
+  var a=B.find(function(x){return x.id===id;});
+  var s=RS[id];
   if(!s||s==="loading"||s==="error")return;
-  document.getElementById("RI").textContent=a.e;document.getElementById("RI").style.background=a.ac;
-  document.getElementById("RN").textContent=a.n;document.getElementById("RN").style.color=a.ac;
-  document.getElementById("RR").textContent=a.tag;document.getElementById("RH").style.background=a.bg;
-  document.getElementById("RB").textContent=s;document.getElementById("RQ").textContent="Question: "+CQ;
+  document.getElementById("RI").textContent=a.e;
+  document.getElementById("RI").style.background=a.ac;
+  document.getElementById("RN").textContent=a.n;
+  document.getElementById("RN").style.color=a.ac;
+  document.getElementById("RR").textContent=a.g;
+  document.getElementById("RH").style.background=a.bg;
+  document.getElementById("RB").textContent=s;
+  document.getElementById("RQ").textContent="Q: "+CQ;
   document.getElementById("RP").style.borderColor=a.br;
-  document.getElementById("BB").style.display=BOARD.filter(x=>RS[x.id]&&RS[x.id]!=="loading"&&RS[x.id]!=="error").length>=3?"inline-block":"none";
-  document.getElementById("RP").classList.add("on");document.getElementById("RP").scrollIntoView({behavior:"smooth",block:"nearest"});
+  document.getElementById("RP").classList.add("on");
+  document.getElementById("RP").scrollIntoView({behavior:"smooth",block:"nearest"});
 }
+
 function closeR(){document.getElementById("RP").classList.remove("on");}
-function briefAdmin(){
-  const b={question:CQ,responses:{}};
-  BOARD.forEach(a=>{if(RS[a.id]&&RS[a.id]!=="loading"&&RS[a.id]!=="error")b.responses[a.n]=RS[a.id];});
-  sessionStorage.setItem("aifn_board_briefing",JSON.stringify(b));
-  alert("Board briefed! Go to Digital Admin in your portal — it now has full context from all 9 advisors for:\n\n"+CQ);
+
+function callAPI(sys,msgs,ok,fail){
+  var k="sk-ant-api03-wvRsUFYager"+"Cz8uNWnkAKDK-0CLXQMI-V9BUM"+"FNbSpC9eJmxjJSu8x-kJKAWEuJOZmloF8P5tW-J2cnkUwfqZg-NZ8o5AAA";
+  fetch("https://api.anthropic.com/v1/messages",{
+    method:"POST",
+    headers:{"Content-Type":"application/json","x-api-key":k,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
+    body:JSON.stringify({model:"claude-opus-4-8",max_tokens:800,system:sys,messages:msgs})
+  }).then(function(r){return r.json();}).then(function(d){
+    if(d.error)fail();
+    else ok((d.content||[]).map(function(b){return b.text||"";}).join(""));
+  }).catch(fail);
 }
-function setQ(q){document.getElementById("BQ").value=q;}
-async function callClaude(sys,msgs){
-  const k="sk-ant-api03-wvRsUFYager".concat("Cz8uNWnkAKDK-0CLXQMI-V9BUM").concat("FNbSpC9eJmxjJSu8x-kJKAWEuJOZmloF8P5tW-J2cnkUwfqZg-NZ8o5AAA");
-  const r=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json","x-api-key":k,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},body:JSON.stringify({model:"claude-opus-4-8",max_tokens:800,system:sys,messages:msgs})});
-  if(!r.ok){const t=await r.text();throw new Error(t);}
-  const d=await r.json();if(d.error)throw new Error(d.error.message);
-  return(d.content||[]).map(b=>b.text||"").join("");
-}
-document.getElementById("BQ").("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();askBoard();}});renderBoard();document.getElementById("BQ").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();askBoard();}});
-BOARD.push({id:"manager",n:"The Manager",e:"📊",ac:"#7aab82",bg:"rgba(42,66,40,0.15)",br:"rgba(122,171,130,0.35)",tag:"People, partnerships, and operational health",sys:"You are The Manager for AI First Nations, founded by John Fejo in Innisfail QLD. Focus on people, relationships, partnerships, operational health. Know: RMIT team Kirtan Shah Thomas Blanks Jake Dyl, KJR Dr Kelvin Ross Aaron Bell, Torres Strait Dennis Fay Salty Monkeys, John community relationships FNQ NT. Practical, people-focused. 3 paragraphs."});
-BOARD.push({id:"financial",n:"Financial Advisor",e:"💰",ac:"#F39C12",bg:"rgba(243,156,18,0.1)",br:"rgba(243,156,18,0.3)",tag:"Revenue, grants, cash flow, and financial growth",sys:"You are Financial Advisor for AI First Nations ABN 80732478065, founded by John Fejo in Innisfail QLD. Advise on revenue, grants, cash flow, pricing, risk, growth. Know: drone survey contracts, mangrove AI commercialisation blue carbon markets, RMIT partnership, CASA credentials, insurance held. Grants: DCCEEW NIAA AIATSIS blue carbon. Clear financial thinking. 3 paragraphs."});
-BOARD.push({id:"ceo",n:"The CEO",e:"🌏",ac:"#c9a24a",bg:"rgba(125,102,8,0.18)",br:"rgba(201,162,74,0.45)",tag:"Walks in both worlds — Western and First Nations",sys:"You are the CEO Advisor for AI First Nations, founded by John Fejo (Larrakia man) in Innisfail QLD. Walk in both worlds — Western corporate AND Indigenous First Nations. Technology bridges both. Know: RMIT mangrove AI 97%, AATT trial 1000+ students, Cape York, Torres Strait, KJR, John drone pilot RePL/reOC No.1252905 Head Ranger Coordinator cultural ambassador minister, Numuluk Shield 3 pillars 5 Cultural Governance pillars. Show how both worlds apply. 3-4 paragraphs."});
-renderBoard();
+
+document.getElementById("Q").addEventListener("keydown",function(e){
+  if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();ask();}
+});
+
+init();
 </script>
 </body>
 </html>
