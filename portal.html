@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal | AI First Nations</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{background:#111009;color:#ede5d4;font-family:'DM Sans',sans-serif;font-weight:300;min-height:100vh;}
+#gate{position:fixed;inset:0;background:#111009;display:flex;align-items:center;justify-content:center;z-index:999;}
+#gate p{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:#c9a24a;opacity:0.7;}
+#content{display:none;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 3rem;background:rgba(17,16,9,0.97);border-bottom:1px solid rgba(255,255,255,0.07);}
+.brand{display:flex;align-items:center;gap:0.8rem;font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#c9a24a;}
+.brand img{height:44px;width:auto;}
+.nav-right{display:flex;gap:1.5rem;align-items:center;}
+.nav-right a{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:#ede5d4;opacity:0.65;text-decoration:none;transition:all 0.3s;}
+.nav-right a:hover{opacity:1;color:#c9a24a;}
+.logout{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;background:none;border:1px solid rgba(255,255,255,0.15);color:#ede5d4;opacity:0.5;padding:0.4rem 1rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.3s;}
+.logout:hover{opacity:1;border-color:#bf5417;color:#bf5417;}
+
+/* PORTAL HERO */
+.portal-hero{padding:4rem 3rem 3rem;background:linear-gradient(160deg,#2a4228 0%,#1e1b10 60%,#111009 100%);border-bottom:1px solid rgba(255,255,255,0.07);}
+.portal-badge{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:#7aab82;background:rgba(42,66,40,0.4);border:1px solid rgba(62,107,64,0.35);padding:0.4rem 1rem;margin-bottom:1.2rem;}
+.portal-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,3.2rem);font-weight:300;color:#f8f3ea;margin-bottom:0.5rem;}
+.portal-hero p{font-size:0.9rem;opacity:0.65;max-width:500px;line-height:1.8;}
+
+/* PORTAL GRID */
+.portal-body{padding:3rem;}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#c9a24a;letter-spacing:0.06em;margin-bottom:1.2rem;padding-bottom:0.6rem;border-bottom:1px solid rgba(255,255,255,0.08);}
+.portal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:3rem;}
+.portal-card{background:#1e1b10;border:1px solid rgba(255,255,255,0.08);padding:1.8rem 1.5rem;text-decoration:none;color:#ede5d4;transition:all 0.3s;display:block;position:relative;overflow:hidden;}
+.portal-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(to right,#bf5417,#7aab82);transform:scaleX(0);transform-origin:left;transition:transform 0.3s;}
+.portal-card:hover{background:#2e2910;border-color:rgba(201,162,74,0.25);}
+.portal-card:hover::before{transform:scaleX(1);}
+.card-icon{font-size:1.8rem;margin-bottom:1rem;display:block;}
+.card-title{font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:#c9a24a;margin-bottom:0.4rem;}
+.card-desc{font-size:0.82rem;opacity:0.65;line-height:1.65;}
+.card-arrow{position:absolute;top:1.5rem;right:1.5rem;font-size:0.8rem;opacity:0.3;}
+
+/* QUICK STATS */
+.quick-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:3rem;}
+.qs{background:#1e1b10;border:1px solid rgba(255,255,255,0.07);padding:1.5rem;text-align:center;}
+.qs-num{font-family:'Cormorant Garamond',serif;font-size:2rem;color:#c9a24a;display:block;line-height:1;margin-bottom:0.3rem;}
+.qs-label{font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;opacity:0.55;}
+
+/* RECENT */
+.recent-list{display:flex;flex-direction:column;gap:0.8rem;margin-bottom:3rem;}
+.recent-item{background:#1e1b10;border:1px solid rgba(255,255,255,0.07);padding:1.2rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;}
+.recent-item-left{display:flex;align-items:center;gap:1rem;}
+.recent-icon{font-size:1.2rem;flex-shrink:0;}
+.recent-title{font-size:0.9rem;color:#ede5d4;margin-bottom:0.2rem;}
+.recent-sub{font-size:0.75rem;opacity:0.5;}
+.recent-badge{font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.6rem;border-radius:2px;white-space:nowrap;}
+.badge-active{background:rgba(62,107,64,0.25);color:#7aab82;border:1px solid rgba(62,107,64,0.4);}
+.badge-complete{background:rgba(201,162,74,0.15);color:#c9a24a;border:1px solid rgba(201,162,74,0.3);}
+
+@media(max-width:900px){
+  .portal-grid{grid-template-columns:1fr 1fr;}
+  .quick-stats{grid-template-columns:1fr 1fr;}
+  nav{padding:0 1.5rem;}
+  .portal-body{padding:2rem 1.5rem;}
+  .portal-hero{padding:3rem 1.5rem 2rem;}
+}
+@media(max-width:600px){
+  .portal-grid{grid-template-columns:1fr;}
+  .quick-stats{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- SECURITY GATE -->
+<div id="gate"><p>Verifying access...</p></div>
+
+<!-- PORTAL CONTENT -->
+<div id="content">
+
+<nav>
+  <div class="brand">
+    <img src="images/logo.jpg" alt="AI First Nations">
+    AI First Nations
+  </div>
+  <div class="nav-right">
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="projects.html">Projects</a>
+    <a href="education.html">Education</a>
+    <a href="research.html">Research</a>
+    <a href="advisory.html">Advisory Board</a>
+    <a href="contact.html">Contact</a>
+    <button class="logout" onclick="logout()">🔒 Logout</button>
+  </div>
+</nav>
+
+<div class="portal-hero">
+  <div class="portal-badge">🔒 Secure Portal · Authorised Access Only</div>
+  <h1>Welcome, John 🦅</h1>
+  <p>AI First Nations Aboriginal Corporation · ABN 80 732 478 065 · Innisfail, Far North Queensland</p>
+</div>
+
+<div class="portal-body">
+
+  <!-- Quick Stats -->
+  <div class="section-title">At a Glance</div>
+  <div class="quick-stats">
+    <div class="qs"><span class="qs-num">97%</span><span class="qs-label">AI Accuracy</span></div>
+    <div class="qs"><span class="qs-num">8</span><span class="qs-label">Active Pages</span></div>
+    <div class="qs"><span class="qs-num">6</span><span class="qs-label">AI Advisors</span></div>
+    <div class="qs"><span class="qs-num">$40</span><span class="qs-label">API Credits</span></div>
+  </div>
+
+  <!-- Main Navigation Cards -->
+  <div class="section-title">Portal Navigation</div>
+  <div class="portal-grid">
+    <a href="about.html" class="portal-card">
+      <span class="card-icon">🦅</span>
+      <div class="card-title">About</div>
+      <div class="card-desc">John Fejo, leadership team, cultural governance, and the AI First Nations story.</div>
+      <span class="card-arrow">→</span>
+    </a>
+    <a href="services.html" class="portal-card">
+      <span class="card-icon">🌿</span>
+      <div class="card-title">Services</div>
+      <div class="card-desc">Drone operations, mangrove monitoring, cultural burns, AI analytics, and training.</div>
+      <span class="card-arrow">→</span>
+    </a>
+    <a href="projects.html" class="portal-card">
+      <span class="card-icon">📡</span>
+      <div class="card-title">Projects</div>
+      <div class="card-desc">RMIT mangrove AI, AATT trial, Cape York, Torres Strait, and Jarramali rock art.</div>
+      <span class="card-arrow">→</span>
+    </a>
+    <a href="education.html" class="portal-card">
+      <span class="card-icon">🎓</span>
+      <div class="card-title">Education</div>
+      <div class="card-desc">Named programs, youth pathways, corporate training, and leadership development.</div>
+      <span class="card-arrow">→</span>
+    </a>
+    <a href="research.html" class="portal-card">
+      <span class="card-icon">🔬</span>
+      <div class="card-title">Research</div>
+      <div class="card-desc">RMIT final report, model performance, research pipeline, and academic partners.</div>
+      <span class="card-arrow">→</span>
+    </a>
+    <a href="advisory.html" class="portal-card">
+      <span class="card-icon">🧠</span>
+      <div class="card-title">Advisory Board</div>
+      <div class="card-desc">Six AI advisors — Chairman, Contrarian, Expansionist, Executor, Outsider, First Principles.</div>
+      <span class="card-arrow">→</span>
+    </a>
+  </div>
+
+  <!-- Active Projects -->
+  <div class="section-title">Active Projects</div>
+  <div class="recent-list">
+    <div class="recent-item">
+      <div class="recent-item-left">
+        <span class="recent-icon">🌿</span>
+        <div>
+          <div class="recent-title">AI Mangrove Classification System</div>
+          <div class="recent-sub">RMIT University · EfficientNet-B0 · 97% accuracy</div>
+        </div>
+      </div>
+      <span class="recent-badge badge-active">Active</span>
+    </div>
+    <div class="recent-item">
+      <div class="recent-item-left">
+        <span class="recent-icon">🌊</span>
+        <div>
+          <div class="recent-title">Cape York & Torres Strait Environmental Resilience</div>
+          <div class="recent-sub">Cooktown to Mapoon · Biosecurity · Marine Debris</div>
+        </div>
+      </div>
+      <span class="recent-badge badge-active">Active</span>
+    </div>
+    <div class="recent-item">
+      <div class="recent-item-left">
+        <span class="recent-icon">🛡️</span>
+        <div>
+          <div class="recent-title">AATT — Aboriginal Ambassador</div>
+          <div class="recent-sub">Australian Government · KJR · 1,000+ students · 5 states</div>
+        </div>
+      </div>
+      <span class="recent-badge badge-complete">Completed</span>
+    </div>
+    <div class="recent-item">
+      <div class="recent-item-left">
+        <span class="recent-icon">🪨</span>
+        <div>
+          <div class="recent-title">Jarramali Rock Art Documentation</div>
+          <div class="recent-sub">KJR Partnership · Cultural Heritage · Drone Mapping</div>
+        </div>
+      </div>
+      <span class="recent-badge badge-complete">Completed</span>
+    </div>
+    <div class="recent-item">
+      <div class="recent-item-left">
+        <span class="recent-icon">📡</span>
+        <div>
+          <div class="recent-title">Autonomous Sub-Canopy Drone System</div>
+          <div class="recent-sub">RMIT Semester 2 2026 · Proposed</div>
+        </div>
+      </div>
+      <span class="recent-badge" style="background:rgba(191,84,23,0.15);color:#d9732e;border:1px solid rgba(191,84,23,0.3);">Upcoming</span>
+    </div>
+  </div>
+
+  <!-- Quick Links -->
+  <div class="section-title">Quick Links</div>
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+    <a href="contact.html" style="background:#1e1b10;border:1px solid rgba(255,255,255,0.08);color:#ede5d4;padding:0.8rem 1.5rem;text-decoration:none;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;transition:all 0.3s;" onmouseover="this.style.borderColor='rgba(201,162,74,0.3)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'">✉️ Contact</a>
+    <a href="privacy.html" style="background:#1e1b10;border:1px solid rgba(255,255,255,0.08);color:#ede5d4;padding:0.8rem 1.5rem;text-decoration:none;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;transition:all 0.3s;" onmouseover="this.style.borderColor='rgba(201,162,74,0.3)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'">🔒 Privacy Policy</a>
+    <a href="advisory.html" style="background:#bf5417;color:#f8f3ea;padding:0.8rem 1.5rem;text-decoration:none;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;transition:background 0.3s;" onmouseover="this.style.background='#d9732e'" onmouseout="this.style.background='#bf5417'">🦅 Advisory Board</a>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+// Security check on load
+(function(){
+  const access = sessionStorage.getItem('aifn_portal');
+  if(access === 'granted'){
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+  } else {
+    // Redirect to home after brief pause
+    setTimeout(function(){
+      window.location.href = 'index.html';
+    }, 1000);
+  }
+})();
+
+function logout(){
+  sessionStorage.removeItem('aifn_portal');
+  window.location.href = 'index.html';
+}
+</script>
+</body>
+</html>
