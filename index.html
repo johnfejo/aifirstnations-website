@@ -24,16 +24,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:70px;display:flex;ali
 /* HERO */
 .hero{position:relative;height:100vh;min-height:600px;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(42,66,40,0.4) 0%,transparent 65%),radial-gradient(ellipse 60% 40% at 80% 20%,rgba(191,84,23,0.15) 0%,transparent 60%),linear-gradient(165deg,#0a1209 0%,#111009 40%,#1e1508 70%,#0e0c05 100%);}
-.hero-watermark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;}
-.hero-watermark img{width:520px;max-width:70vw;opacity:0.12;}
-.hero-content{position:relative;z-index:2;max-width:800px;padding:0 2rem;}
-.hero-logo{width:180px;margin:0 auto 2rem;}
-.hero-kicker{font-size:0.7rem;letter-spacing:0.26em;text-transform:uppercase;color:#7aab82;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:center;gap:1rem;}
+.hero-watermark{position:absolute;right:-2%;top:50%;transform:translateY(-50%);pointer-events:none;}
+.hero-watermark img{width:480px;max-width:50vw;opacity:0.18;}
+.hero-content{position:relative;z-index:2;max-width:600px;padding:0 2rem;text-align:left;margin-left:5%;}
+
+.hero-kicker{font-size:0.7rem;letter-spacing:0.26em;text-transform:uppercase;color:#7aab82;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:flex-start;gap:1rem;}
 .hero-kicker::before,.hero-kicker::after{content:'';width:30px;height:1px;background:#7aab82;display:block;}
 h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,6vw,6rem);font-weight:300;line-height:1.0;color:#f8f3ea;margin-bottom:1.5rem;}
 h1 em{font-style:italic;color:#c9a24a;}
 .hero-p{font-size:0.95rem;opacity:0.75;max-width:520px;margin:0 auto 2.5rem;line-height:1.9;}
-.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+.hero-btns{display:flex;gap:1rem;justify-content:flex-start;flex-wrap:wrap;}
 .btn-ember{background:#bf5417;color:#f8f3ea;padding:0.9rem 2.2rem;font-size:0.75rem;letter-spacing:0.13em;text-transform:uppercase;text-decoration:none;transition:background 0.3s;display:inline-block;}
 .btn-ember:hover{background:#d9732e;}
 .btn-outline{background:transparent;color:#ede5d4;border:1px solid rgba(237,229,212,0.3);padding:0.9rem 2.2rem;font-size:0.75rem;letter-spacing:0.13em;text-transform:uppercase;text-decoration:none;transition:all 0.3s;display:inline-block;cursor:pointer;font-family:'DM Sans',sans-serif;}
@@ -122,6 +122,12 @@ footer{background:#1e1b10;border-top:1px solid rgba(255,255,255,0.07);padding:2.
     AI First Nations
   </div>
   <div class="nav-right">
+    <a href="#what-we-do" class="nav-contact">Home</a>
+    <a href="about.html" class="nav-contact">About</a>
+    <a href="services.html" class="nav-contact">Services</a>
+    <a href="projects.html" class="nav-contact">Projects</a>
+    <a href="education.html" class="nav-contact">Education</a>
+    <a href="research.html" class="nav-contact">Research</a>
     <a href="#contact" class="nav-contact">Contact</a>
     <button class="nav-portal" onclick="openPortal()">🔒 Portal Login</button>
   </div>
@@ -132,7 +138,6 @@ footer{background:#1e1b10;border-top:1px solid rgba(255,255,255,0.07);padding:2.
   <div class="hero-bg"></div>
   <div class="hero-watermark"><img src="images/logo.jpg" alt=""></div>
   <div class="hero-content">
-    <img src="images/logo.jpg" alt="AI First Nations" class="hero-logo">
     <div class="hero-kicker">Indigenous-Led · Drone Intelligence · AI for Country</div>
     <h1>Protecting<br><em>Country</em><br>from Above</h1>
     <p class="hero-p">Drone technology, artificial intelligence, and 65,000 years of Traditional Knowledge — working together to monitor, restore, and care for Country across Australia and beyond.</p>
