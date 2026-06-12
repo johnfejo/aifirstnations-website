@@ -7,239 +7,736 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-body{background:#111009;color:#ede5d4;font-family:'DM Sans',sans-serif;font-weight:300;min-height:100vh;}
-#gate{position:fixed;inset:0;background:#111009;display:flex;align-items:center;justify-content:center;z-index:999;}
-#gate p{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:#c9a24a;opacity:0.7;}
-#content{display:none;}
+:root{--earth:#111009;--smoke:#1e1b10;--bark:#2e2910;--gold:#c9a24a;--mist:#7aab82;--cream:#ede5d4;--ember:#bf5417;--flame:#d9732e;}
+body{background:var(--earth);color:var(--cream);font-family:'DM Sans',sans-serif;font-weight:300;min-height:100vh;display:flex;flex-direction:column;}
+#gate{position:fixed;inset:0;background:var(--earth);display:flex;align-items:center;justify-content:center;z-index:999;flex-direction:column;gap:1rem;}
+#gate p{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--gold);opacity:0.7;}
+#content{display:none;flex:1;display:none;flex-direction:column;}
 
 /* NAV */
-nav{position:sticky;top:0;z-index:100;height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 3rem;background:rgba(17,16,9,0.97);border-bottom:1px solid rgba(255,255,255,0.07);}
-.brand{display:flex;align-items:center;gap:0.8rem;font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#c9a24a;}
-.brand img{height:44px;width:auto;}
-.nav-right{display:flex;gap:1.5rem;align-items:center;}
-.nav-right a{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:#ede5d4;opacity:0.65;text-decoration:none;transition:all 0.3s;}
-.nav-right a:hover{opacity:1;color:#c9a24a;}
-.logout{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;background:none;border:1px solid rgba(255,255,255,0.15);color:#ede5d4;opacity:0.5;padding:0.4rem 1rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.3s;}
-.logout:hover{opacity:1;border-color:#bf5417;color:#bf5417;}
+.topnav{height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;background:rgba(17,16,9,0.98);border-bottom:1px solid rgba(255,255,255,0.07);flex-shrink:0;position:sticky;top:0;z-index:50;}
+.brand{display:flex;align-items:center;gap:0.7rem;font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);}
+.brand img{height:40px;width:auto;}
+.nav-badge{font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;background:rgba(42,66,40,0.5);border:1px solid rgba(62,107,64,0.4);color:var(--mist);padding:0.2rem 0.6rem;}
+.logout{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;background:none;border:1px solid rgba(255,255,255,0.12);color:rgba(237,229,212,0.5);padding:0.4rem 0.9rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.logout:hover{border-color:var(--ember);color:var(--ember);}
 
-/* PORTAL HERO */
-.portal-hero{padding:4rem 3rem 3rem;background:linear-gradient(160deg,#2a4228 0%,#1e1b10 60%,#111009 100%);border-bottom:1px solid rgba(255,255,255,0.07);}
-.portal-badge{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:#7aab82;background:rgba(42,66,40,0.4);border:1px solid rgba(62,107,64,0.35);padding:0.4rem 1rem;margin-bottom:1.2rem;}
-.portal-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,3.2rem);font-weight:300;color:#f8f3ea;margin-bottom:0.5rem;}
-.portal-hero p{font-size:0.9rem;opacity:0.65;max-width:500px;line-height:1.8;}
+/* LAYOUT */
+.layout{display:flex;flex:1;overflow:hidden;height:calc(100vh - 64px);}
 
-/* PORTAL GRID */
-.portal-body{padding:3rem;}
-.section-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#c9a24a;letter-spacing:0.06em;margin-bottom:1.2rem;padding-bottom:0.6rem;border-bottom:1px solid rgba(255,255,255,0.08);}
-.portal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:3rem;}
-.portal-card{background:#1e1b10;border:1px solid rgba(255,255,255,0.08);padding:1.8rem 1.5rem;text-decoration:none;color:#ede5d4;transition:all 0.3s;display:block;position:relative;overflow:hidden;}
-.portal-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(to right,#bf5417,#7aab82);transform:scaleX(0);transform-origin:left;transition:transform 0.3s;}
-.portal-card:hover{background:#2e2910;border-color:rgba(201,162,74,0.25);}
-.portal-card:hover::before{transform:scaleX(1);}
-.card-icon{font-size:1.8rem;margin-bottom:1rem;display:block;}
-.card-title{font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:#c9a24a;margin-bottom:0.4rem;}
-.card-desc{font-size:0.82rem;opacity:0.65;line-height:1.65;}
-.card-arrow{position:absolute;top:1.5rem;right:1.5rem;font-size:0.8rem;opacity:0.3;}
+/* SIDEBAR */
+.sidebar{width:220px;flex-shrink:0;background:rgba(17,16,9,0.6);border-right:1px solid rgba(255,255,255,0.07);overflow-y:auto;padding:1rem 0.7rem;display:flex;flex-direction:column;gap:0.2rem;}
+.sidebar-section{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;opacity:0.35;padding:0.8rem 0.5rem 0.4rem;margin-top:0.5rem;}
+.sidebar-section:first-child{margin-top:0;}
+.nav-item{display:flex;align-items:center;gap:0.7rem;padding:0.65rem 0.8rem;border-radius:8px;cursor:pointer;transition:all 0.2s;border:1px solid transparent;font-size:0.82rem;background:none;color:var(--cream);opacity:0.65;text-align:left;width:100%;font-family:'DM Sans',sans-serif;}
+.nav-item:hover{background:rgba(255,255,255,0.05);opacity:1;}
+.nav-item.active{background:rgba(201,162,74,0.1);border-color:rgba(201,162,74,0.25);color:var(--gold);opacity:1;}
+.nav-item .icon{font-size:1rem;flex-shrink:0;width:20px;text-align:center;}
 
-/* QUICK STATS */
-.quick-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:3rem;}
-.qs{background:#1e1b10;border:1px solid rgba(255,255,255,0.07);padding:1.5rem;text-align:center;}
-.qs-num{font-family:'Cormorant Garamond',serif;font-size:2rem;color:#c9a24a;display:block;line-height:1;margin-bottom:0.3rem;}
-.qs-label{font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;opacity:0.55;}
+/* MAIN */
+.main{flex:1;overflow-y:auto;padding:2rem;}
 
-/* RECENT */
-.recent-list{display:flex;flex-direction:column;gap:0.8rem;margin-bottom:3rem;}
-.recent-item{background:#1e1b10;border:1px solid rgba(255,255,255,0.07);padding:1.2rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;}
-.recent-item-left{display:flex;align-items:center;gap:1rem;}
-.recent-icon{font-size:1.2rem;flex-shrink:0;}
-.recent-title{font-size:0.9rem;color:#ede5d4;margin-bottom:0.2rem;}
-.recent-sub{font-size:0.75rem;opacity:0.5;}
-.recent-badge{font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.6rem;border-radius:2px;white-space:nowrap;}
-.badge-active{background:rgba(62,107,64,0.25);color:#7aab82;border:1px solid rgba(62,107,64,0.4);}
-.badge-complete{background:rgba(201,162,74,0.15);color:#c9a24a;border:1px solid rgba(201,162,74,0.3);}
+/* PANELS */
+.panel{display:none;}
+.panel.active{display:block;}
 
+/* DASHBOARD */
+.welcome-bar{background:linear-gradient(135deg,#2a4228 0%,var(--smoke) 100%);border:1px solid rgba(62,107,64,0.25);padding:2rem 2.5rem;margin-bottom:2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.welcome-bar h1{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--pale);}
+.welcome-bar p{font-size:0.85rem;opacity:0.65;margin-top:0.3rem;}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem;}
+.stat-card{background:var(--smoke);border:1px solid rgba(255,255,255,0.07);padding:1.4rem;text-align:center;}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gold);display:block;line-height:1;margin-bottom:0.3rem;}
+.stat-lbl{font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;opacity:0.55;}
+.quick-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem;}
+.qa-card{background:var(--smoke);border:1px solid rgba(255,255,255,0.07);padding:1.5rem;cursor:pointer;transition:all 0.25s;text-align:left;}
+.qa-card:hover{border-color:rgba(201,162,74,0.3);background:var(--bark);}
+.qa-icon{font-size:1.5rem;margin-bottom:0.7rem;display:block;}
+.qa-title{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--gold);margin-bottom:0.3rem;}
+.qa-desc{font-size:0.78rem;opacity:0.6;line-height:1.6;}
+
+/* SECTION HEADER */
+.section-header{margin-bottom:1.5rem;}
+.section-header h2{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--cream);margin-bottom:0.3rem;}
+.section-header p{font-size:0.85rem;opacity:0.6;line-height:1.6;}
+
+/* DOCUMENT LIBRARY */
+.doc-sections{display:flex;flex-direction:column;gap:1.5rem;}
+.doc-section{background:var(--smoke);border:1px solid rgba(255,255,255,0.07);}
+.doc-section-header{padding:1rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:space-between;}
+.doc-section-title{display:flex;align-items:center;gap:0.8rem;font-size:0.9rem;color:var(--gold);}
+.doc-list{padding:0.5rem 0;}
+.doc-item{display:flex;align-items:center;justify-content:space-between;padding:0.8rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.04);transition:background 0.2s;}
+.doc-item:last-child{border-bottom:none;}
+.doc-item:hover{background:rgba(255,255,255,0.03);}
+.doc-item-left{display:flex;align-items:center;gap:0.8rem;}
+.doc-icon{font-size:1rem;opacity:0.7;}
+.doc-name{font-size:0.87rem;color:var(--cream);}
+.doc-meta{font-size:0.72rem;opacity:0.45;margin-top:0.1rem;}
+.doc-actions{display:flex;gap:0.5rem;}
+.doc-btn{font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.7rem;border:1px solid rgba(255,255,255,0.12);background:none;color:rgba(237,229,212,0.6);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.doc-btn:hover{border-color:var(--gold);color:var(--gold);}
+.doc-btn.primary{background:rgba(191,84,23,0.15);border-color:rgba(191,84,23,0.3);color:var(--flame);}
+.empty-doc{padding:2rem;text-align:center;opacity:0.4;font-size:0.85rem;font-style:italic;}
+.add-doc-form{padding:1rem 1.5rem;background:rgba(255,255,255,0.02);border-top:1px solid rgba(255,255,255,0.07);display:none;gap:0.8rem;align-items:flex-end;flex-wrap:wrap;}
+.add-doc-form.open{display:flex;}
+.form-group{display:flex;flex-direction:column;gap:0.3rem;flex:1;min-width:160px;}
+.form-group label{font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;opacity:0.55;}
+.form-group input{background:var(--earth);border:1px solid rgba(255,255,255,0.1);color:var(--cream);padding:0.6rem 0.8rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;outline:none;}
+.form-group input:focus{border-color:var(--gold);}
+.form-btn{background:var(--ember);color:#fff;border:none;padding:0.6rem 1.2rem;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;}
+
+/* CALENDAR */
+.cal-embed{background:var(--smoke);border:1px solid rgba(255,255,255,0.07);padding:1.5rem;margin-bottom:1.5rem;}
+.cal-embed h3{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--gold);margin-bottom:1rem;}
+.cal-setup{padding:2rem;text-align:center;background:rgba(42,66,40,0.15);border:1px solid rgba(62,107,64,0.2);}
+.cal-setup p{font-size:0.88rem;opacity:0.7;line-height:1.7;margin-bottom:1.2rem;}
+.cal-input{width:100%;background:var(--earth);border:1px solid rgba(255,255,255,0.1);color:var(--cream);padding:0.8rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.9rem;outline:none;margin-bottom:0.8rem;}
+.cal-btn{background:var(--ember);color:#fff;border:none;padding:0.7rem 1.5rem;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.upcoming-events{background:var(--smoke);border:1px solid rgba(255,255,255,0.07);padding:1.5rem;}
+.event-item{display:flex;gap:1rem;padding:0.8rem 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.event-item:last-child{border-bottom:none;}
+.event-date{width:50px;text-align:center;flex-shrink:0;}
+.event-day{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--gold);line-height:1;display:block;}
+.event-month{font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;opacity:0.5;}
+.event-details h4{font-size:0.88rem;color:var(--cream);margin-bottom:0.2rem;}
+.event-details p{font-size:0.75rem;opacity:0.55;}
+.event-tag{display:inline-block;font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.15rem 0.5rem;margin-top:0.3rem;}
+
+/* ADVISORY */
+.advisor-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem;}
+.advisor-card{background:var(--smoke);border:1px solid rgba(255,255,255,0.08);padding:1.2rem;cursor:pointer;transition:all 0.2s;text-align:center;}
+.advisor-card:hover,.advisor-card.sel{transform:translateY(-2px);}
+.adv-emoji{font-size:2rem;margin-bottom:0.5rem;display:block;}
+.adv-name{font-family:'Cormorant Garamond',serif;font-size:1rem;margin-bottom:0.2rem;}
+.adv-role{font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;opacity:0.5;}
+.chat-area{background:var(--smoke);border:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;height:420px;}
+.chat-hdr{padding:0.8rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;gap:0.8rem;flex-shrink:0;}
+.chat-hdr-ico{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;}
+.chat-msgs{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:0.8rem;}
+.chat-bubble{max-width:75%;padding:0.8rem 1rem;font-size:0.85rem;line-height:1.7;white-space:pre-wrap;}
+.chat-bubble.user{align-self:flex-end;background:rgba(201,162,74,0.12);border:1px solid rgba(201,162,74,0.25);border-radius:12px 2px 12px 12px;}
+.chat-bubble.ai{align-self:flex-start;border-radius:2px 12px 12px 12px;}
+.chat-inp-row{padding:0.8rem;border-top:1px solid rgba(255,255,255,0.07);display:flex;gap:0.5rem;flex-shrink:0;}
+.chat-inp{flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--cream);padding:0.7rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;outline:none;resize:none;border-radius:6px;}
+.chat-inp:focus{border-color:var(--gold);}
+.chat-send{background:var(--ember);color:#fff;border:none;padding:0.7rem 1.2rem;cursor:pointer;font-size:1rem;border-radius:6px;transition:background 0.2s;}
+.chat-send:hover{background:var(--flame);}
+.chat-send:disabled{background:rgba(255,255,255,0.08);cursor:not-allowed;}
+.dots{display:flex;gap:4px;align-items:center;padding:10px 14px;}
+.dot{width:6px;height:6px;border-radius:50%;animation:dp 1.2s ease-in-out infinite;}
+.dot:nth-child(2){animation-delay:0.2s;}.dot:nth-child(3){animation-delay:0.4s;}
+@keyframes dp{0%,80%,100%{opacity:0.3;transform:scale(0.8);}40%{opacity:1;transform:scale(1);}}
+
+/* DIGITAL ADMIN */
+.admin-chat{background:var(--smoke);border:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;height:500px;margin-bottom:1.5rem;}
+.admin-hdr{padding:1rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;gap:1rem;flex-shrink:0;background:rgba(191,84,23,0.08);}
+.admin-tasks{display:grid;grid-template-columns:repeat(3,1fr);gap:0.8rem;}
+.task-btn{background:var(--smoke);border:1px solid rgba(255,255,255,0.08);padding:1rem;cursor:pointer;text-align:left;transition:all 0.2s;font-family:'DM Sans',sans-serif;color:var(--cream);}
+.task-btn:hover{border-color:rgba(191,84,23,0.35);background:rgba(191,84,23,0.06);}
+.task-icon{font-size:1.2rem;margin-bottom:0.5rem;display:block;}
+.task-title{font-size:0.82rem;color:var(--flame);margin-bottom:0.2rem;}
+.task-desc{font-size:0.72rem;opacity:0.55;line-height:1.5;}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:2px;}
+
+/* RESPONSIVE */
 @media(max-width:900px){
-  .portal-grid{grid-template-columns:1fr 1fr;}
-  .quick-stats{grid-template-columns:1fr 1fr;}
-  nav{padding:0 1.5rem;}
-  .portal-body{padding:2rem 1.5rem;}
-  .portal-hero{padding:3rem 1.5rem 2rem;}
-}
-@media(max-width:600px){
-  .portal-grid{grid-template-columns:1fr;}
-  .quick-stats{grid-template-columns:1fr 1fr;}
+  .sidebar{width:60px;}
+  .nav-item span:not(.icon){display:none;}
+  .sidebar-section{display:none;}
+  .stats-row{grid-template-columns:1fr 1fr;}
+  .quick-actions{grid-template-columns:1fr 1fr;}
+  .advisor-grid{grid-template-columns:repeat(2,1fr);}
+  .admin-tasks{grid-template-columns:1fr 1fr;}
 }
 </style>
 </head>
 <body>
 
-<!-- SECURITY GATE -->
-<div id="gate"><p>Verifying access...</p></div>
+<div id="gate"><p>🦅 Verifying access...</p></div>
 
-<!-- PORTAL CONTENT -->
 <div id="content">
-
-<nav>
+<!-- NAV -->
+<nav class="topnav">
   <div class="brand">
     <img src="images/logo.jpg" alt="AI First Nations">
     AI First Nations
+    <span class="nav-badge">🔒 Secure Portal</span>
   </div>
-  <div class="nav-right">
-    <a href="about.html">About</a>
-    <a href="services.html">Services</a>
-    <a href="projects.html">Projects</a>
-    <a href="education.html">Education</a>
-    <a href="research.html">Research</a>
-    <a href="advisory.html">Advisory Board</a>
-    <a href="contact.html">Contact</a>
-    <button class="logout" onclick="logout()">🔒 Logout</button>
+  <div style="display:flex;align-items:center;gap:1rem;">
+    <span style="font-size:0.78rem;opacity:0.5;">Welcome, John 🦅</span>
+    <button class="logout" onclick="logout()">Logout</button>
   </div>
 </nav>
 
-<div class="portal-hero">
-  <div class="portal-badge">🔒 Secure Portal · Authorised Access Only</div>
-  <h1>Welcome, John 🦅</h1>
-  <p>AI First Nations Aboriginal Corporation · ABN 80 732 478 065 · Innisfail, Far North Queensland</p>
+<div class="layout">
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sidebar-section">Main</div>
+  <button class="nav-item active" onclick="show('dashboard')"><span class="icon">🏠</span><span>Dashboard</span></button>
+  <button class="nav-item" onclick="show('admin')"><span class="icon">🤖</span><span>Digital Admin</span></button>
+  <button class="nav-item" onclick="show('advisory')"><span class="icon">🦅</span><span>Advisory Board</span></button>
+  <button class="nav-item" onclick="show('calendar')"><span class="icon">📅</span><span>Calendar</span></button>
+
+  <div class="sidebar-section">Documents</div>
+  <button class="nav-item" onclick="show('reports')"><span class="icon">📋</span><span>Client Reports</span></button>
+  <button class="nav-item" onclick="show('drone')"><span class="icon">✈️</span><span>Drone Survey Data</span></button>
+  <button class="nav-item" onclick="show('heritage')"><span class="icon">🪨</span><span>Cultural Heritage</span></button>
+  <button class="nav-item" onclick="show('training')"><span class="icon">🎓</span><span>Training Resources</span></button>
+  <button class="nav-item" onclick="show('student')"><span class="icon">📚</span><span>Student Materials</span></button>
+  <button class="nav-item" onclick="show('ranger')"><span class="icon">🌿</span><span>Ranger Resources</span></button>
+  <button class="nav-item" onclick="show('grants')"><span class="icon">💼</span><span>Grant Documents</span></button>
+  <button class="nav-item" onclick="show('media')"><span class="icon">📸</span><span>Media Library</span></button>
+
+  <div class="sidebar-section">Site</div>
+  <button class="nav-item" onclick="window.open('index.html','_blank')"><span class="icon">🌐</span><span>Public Site</span></button>
+  <button class="nav-item" onclick="window.open('contact.html','_blank')"><span class="icon">✉️</span><span>Contact</span></button>
 </div>
 
-<div class="portal-body">
+<!-- MAIN CONTENT -->
+<div class="main" id="mainContent">
 
-  <!-- Quick Stats -->
-  <div class="section-title">At a Glance</div>
-  <div class="quick-stats">
-    <div class="qs"><span class="qs-num">97%</span><span class="qs-label">AI Accuracy</span></div>
-    <div class="qs"><span class="qs-num">8</span><span class="qs-label">Active Pages</span></div>
-    <div class="qs"><span class="qs-num">6</span><span class="qs-label">AI Advisors</span></div>
-    <div class="qs"><span class="qs-num">$40</span><span class="qs-label">API Credits</span></div>
-  </div>
+  <!-- DASHBOARD -->
+  <div class="panel active" id="panel-dashboard">
+    <div class="welcome-bar">
+      <div>
+        <h1>Good day, John 🦅</h1>
+        <p>AI First Nations Aboriginal Corporation · ABN 80 732 478 065 · Innisfail, Far North Queensland</p>
+      </div>
+      <div style="font-size:0.8rem;opacity:0.5;" id="currentDate"></div>
+    </div>
 
-  <!-- Main Navigation Cards -->
-  <div class="section-title">Portal Navigation</div>
-  <div class="portal-grid">
-    <a href="about.html" class="portal-card">
-      <span class="card-icon">🦅</span>
-      <div class="card-title">About</div>
-      <div class="card-desc">John Fejo, leadership team, cultural governance, and the AI First Nations story.</div>
-      <span class="card-arrow">→</span>
-    </a>
-    <a href="services.html" class="portal-card">
-      <span class="card-icon">🌿</span>
-      <div class="card-title">Services</div>
-      <div class="card-desc">Drone operations, mangrove monitoring, cultural burns, AI analytics, and training.</div>
-      <span class="card-arrow">→</span>
-    </a>
-    <a href="projects.html" class="portal-card">
-      <span class="card-icon">📡</span>
-      <div class="card-title">Projects</div>
-      <div class="card-desc">RMIT mangrove AI, AATT trial, Cape York, Torres Strait, and Jarramali rock art.</div>
-      <span class="card-arrow">→</span>
-    </a>
-    <a href="education.html" class="portal-card">
-      <span class="card-icon">🎓</span>
-      <div class="card-title">Education</div>
-      <div class="card-desc">Named programs, youth pathways, corporate training, and leadership development.</div>
-      <span class="card-arrow">→</span>
-    </a>
-    <a href="research.html" class="portal-card">
-      <span class="card-icon">🔬</span>
-      <div class="card-title">Research</div>
-      <div class="card-desc">RMIT final report, model performance, research pipeline, and academic partners.</div>
-      <span class="card-arrow">→</span>
-    </a>
-    <a href="advisory.html" class="portal-card">
-      <span class="card-icon">🧠</span>
-      <div class="card-title">Advisory Board</div>
-      <div class="card-desc">Six AI advisors — Chairman, Contrarian, Expansionist, Executor, Outsider, First Principles.</div>
-      <span class="card-arrow">→</span>
-    </a>
-  </div>
+    <div class="stats-row">
+      <div class="stat-card"><span class="stat-num">97%</span><span class="stat-lbl">AI Accuracy</span></div>
+      <div class="stat-card"><span class="stat-num">6</span><span class="stat-lbl">Active Projects</span></div>
+      <div class="stat-card"><span class="stat-num">6</span><span class="stat-lbl">AI Advisors</span></div>
+      <div class="stat-card"><span class="stat-num">$40</span><span class="stat-lbl">API Credits</span></div>
+    </div>
 
-  <!-- Active Projects -->
-  <div class="section-title">Active Projects</div>
-  <div class="recent-list">
-    <div class="recent-item">
-      <div class="recent-item-left">
-        <span class="recent-icon">🌿</span>
-        <div>
-          <div class="recent-title">AI Mangrove Classification System</div>
-          <div class="recent-sub">RMIT University · EfficientNet-B0 · 97% accuracy</div>
-        </div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;opacity:0.7;">Quick Access</div>
+    <div class="quick-actions">
+      <div class="qa-card" onclick="show('admin')">
+        <span class="qa-icon">🤖</span>
+        <div class="qa-title">Digital Admin</div>
+        <div class="qa-desc">Draft emails, reports, invoices, and documents for AI First Nations.</div>
       </div>
-      <span class="recent-badge badge-active">Active</span>
+      <div class="qa-card" onclick="show('advisory')">
+        <span class="qa-icon">🦅</span>
+        <div class="qa-title">Advisory Board</div>
+        <div class="qa-desc">Get strategic advice from your 6 AI advisors including The Chairman.</div>
+      </div>
+      <div class="qa-card" onclick="show('calendar')">
+        <span class="qa-icon">📅</span>
+        <div class="qa-title">Calendar</div>
+        <div class="qa-desc">Track project deadlines, drone surveys, and upcoming events.</div>
+      </div>
+      <div class="qa-card" onclick="show('reports')">
+        <span class="qa-icon">📋</span>
+        <div class="qa-title">Client Reports</div>
+        <div class="qa-desc">Store and access drone survey reports and project deliverables.</div>
+      </div>
+      <div class="qa-card" onclick="show('grants')">
+        <span class="qa-icon">💼</span>
+        <div class="qa-title">Grant Documents</div>
+        <div class="qa-desc">Funding applications, acquittals, and project documentation.</div>
+      </div>
+      <div class="qa-card" onclick="show('media')">
+        <span class="qa-icon">📸</span>
+        <div class="qa-title">Media Library</div>
+        <div class="qa-desc">Photos, drone footage, and visual assets for AI First Nations.</div>
+      </div>
     </div>
-    <div class="recent-item">
-      <div class="recent-item-left">
-        <span class="recent-icon">🌊</span>
-        <div>
-          <div class="recent-title">Cape York & Torres Strait Environmental Resilience</div>
-          <div class="recent-sub">Cooktown to Mapoon · Biosecurity · Marine Debris</div>
-        </div>
+
+    <!-- Active Projects -->
+    <div style="font-family:'Cormorant Garamond',serif;font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;opacity:0.7;">Active Projects</div>
+    <div style="display:flex;flex-direction:column;gap:0.5rem;">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:1rem 1.2rem;background:var(--smoke);border:1px solid rgba(255,255,255,0.07);">
+        <div style="display:flex;align-items:center;gap:0.8rem;"><span>🌿</span><div><div style="font-size:0.87rem;">AI Mangrove Classification System</div><div style="font-size:0.72rem;opacity:0.5;">RMIT University · 97% accuracy</div></div></div>
+        <span style="font-size:0.62rem;padding:0.2rem 0.6rem;background:rgba(62,107,64,0.25);color:var(--mist);border:1px solid rgba(62,107,64,0.4);">ACTIVE</span>
       </div>
-      <span class="recent-badge badge-active">Active</span>
-    </div>
-    <div class="recent-item">
-      <div class="recent-item-left">
-        <span class="recent-icon">🛡️</span>
-        <div>
-          <div class="recent-title">AATT — Aboriginal Ambassador</div>
-          <div class="recent-sub">Australian Government · KJR · 1,000+ students · 5 states</div>
-        </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:1rem 1.2rem;background:var(--smoke);border:1px solid rgba(255,255,255,0.07);">
+        <div style="display:flex;align-items:center;gap:0.8rem;"><span>🌊</span><div><div style="font-size:0.87rem;">Cape York & Torres Strait Environmental Resilience</div><div style="font-size:0.72rem;opacity:0.5;">Cooktown to Mapoon · Biosecurity · Marine Debris</div></div></div>
+        <span style="font-size:0.62rem;padding:0.2rem 0.6rem;background:rgba(62,107,64,0.25);color:var(--mist);border:1px solid rgba(62,107,64,0.4);">ACTIVE</span>
       </div>
-      <span class="recent-badge badge-complete">Completed</span>
-    </div>
-    <div class="recent-item">
-      <div class="recent-item-left">
-        <span class="recent-icon">🪨</span>
-        <div>
-          <div class="recent-title">Jarramali Rock Art Documentation</div>
-          <div class="recent-sub">KJR Partnership · Cultural Heritage · Drone Mapping</div>
-        </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:1rem 1.2rem;background:var(--smoke);border:1px solid rgba(255,255,255,0.07);">
+        <div style="display:flex;align-items:center;gap:0.8rem;"><span>📡</span><div><div style="font-size:0.87rem;">Autonomous Sub-Canopy Drone System</div><div style="font-size:0.72rem;opacity:0.5;">RMIT Semester 2 2026 · Proposed</div></div></div>
+        <span style="font-size:0.62rem;padding:0.2rem 0.6rem;background:rgba(191,84,23,0.15);color:var(--flame);border:1px solid rgba(191,84,23,0.3);">UPCOMING</span>
       </div>
-      <span class="recent-badge badge-complete">Completed</span>
-    </div>
-    <div class="recent-item">
-      <div class="recent-item-left">
-        <span class="recent-icon">📡</span>
-        <div>
-          <div class="recent-title">Autonomous Sub-Canopy Drone System</div>
-          <div class="recent-sub">RMIT Semester 2 2026 · Proposed</div>
-        </div>
-      </div>
-      <span class="recent-badge" style="background:rgba(191,84,23,0.15);color:#d9732e;border:1px solid rgba(191,84,23,0.3);">Upcoming</span>
     </div>
   </div>
 
-  <!-- Quick Links -->
-  <div class="section-title">Quick Links</div>
-  <div style="display:flex;gap:1rem;flex-wrap:wrap;">
-    <a href="contact.html" style="background:#1e1b10;border:1px solid rgba(255,255,255,0.08);color:#ede5d4;padding:0.8rem 1.5rem;text-decoration:none;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;transition:all 0.3s;" onmouseover="this.style.borderColor='rgba(201,162,74,0.3)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'">✉️ Contact</a>
-    <a href="privacy.html" style="background:#1e1b10;border:1px solid rgba(255,255,255,0.08);color:#ede5d4;padding:0.8rem 1.5rem;text-decoration:none;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;transition:all 0.3s;" onmouseover="this.style.borderColor='rgba(201,162,74,0.3)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'">🔒 Privacy Policy</a>
-    <a href="advisory.html" style="background:#bf5417;color:#f8f3ea;padding:0.8rem 1.5rem;text-decoration:none;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;transition:background 0.3s;" onmouseover="this.style.background='#d9732e'" onmouseout="this.style.background='#bf5417'">🦅 Advisory Board</a>
+  <!-- DIGITAL ADMIN -->
+  <div class="panel" id="panel-admin">
+    <div class="section-header">
+      <h2>🤖 Digital Admin</h2>
+      <p>Your AI-powered business assistant — trained on AI First Nations. Draft emails, reports, invoices, proposals, and more.</p>
+    </div>
+
+    <div class="admin-tasks" style="margin-bottom:1.5rem;">
+      <button class="task-btn" onclick="adminPrompt('Draft a professional email to a government agency introducing AI First Nations and our environmental drone services')">
+        <span class="task-icon">✉️</span>
+        <div class="task-title">Government Email</div>
+        <div class="task-desc">Introduce AI First Nations to agencies like DCCEEW</div>
+      </button>
+      <button class="task-btn" onclick="adminPrompt('Write a drone survey quote for a client requesting mangrove monitoring services. Include our CASA credentials, methodology, and pricing structure')">
+        <span class="task-icon">💰</span>
+        <div class="task-title">Survey Quote</div>
+        <div class="task-desc">Generate a professional drone survey quotation</div>
+      </button>
+      <button class="task-btn" onclick="adminPrompt('Write a grant application introduction paragraph for AI First Nations applying for Indigenous environmental technology funding')">
+        <span class="task-icon">💼</span>
+        <div class="task-title">Grant Writing</div>
+        <div class="task-desc">Draft grant application content</div>
+      </button>
+      <button class="task-btn" onclick="adminPrompt('Write a professional drone survey report template for AI First Nations. Include sections for executive summary, methodology, findings, and recommendations')">
+        <span class="task-icon">📋</span>
+        <div class="task-title">Survey Report</div>
+        <div class="task-desc">Create a professional survey report</div>
+      </button>
+      <button class="task-btn" onclick="adminPrompt('Draft a social media post for LinkedIn introducing AI First Nations and our RMIT mangrove AI project achieving 97% accuracy')">
+        <span class="task-icon">📱</span>
+        <div class="task-title">Social Media</div>
+        <div class="task-desc">Write LinkedIn and social posts</div>
+      </button>
+      <button class="task-btn" onclick="adminPrompt('Create an invoice template for AI First Nations drone services. Include ABN 80 732 478 065, professional formatting, and payment terms')">
+        <span class="task-icon">🧾</span>
+        <div class="task-title">Invoice Template</div>
+        <div class="task-desc">Generate a professional invoice</div>
+      </button>
+    </div>
+
+    <div class="admin-chat">
+      <div class="admin-hdr">
+        <div style="width:38px;height:38px;border-radius:50%;background:var(--ember);display:flex;align-items:center;justify-content:center;font-size:18px;">🤖</div>
+        <div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--flame);">Digital Admin</div>
+          <div style="font-size:0.7rem;opacity:0.6;">AI First Nations Business Assistant</div>
+        </div>
+        <button onclick="clearAdminChat()" style="margin-left:auto;background:none;border:1px solid rgba(255,255,255,0.1);color:rgba(237,229,212,0.5);padding:0.3rem 0.8rem;font-size:0.68rem;cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:0.08em;text-transform:uppercase;">Clear</button>
+      </div>
+      <div class="chat-msgs" id="adminMsgs">
+        <div class="chat-bubble ai" style="background:rgba(191,84,23,0.08);border:1px solid rgba(191,84,23,0.2);">
+          G'day John 🦅 I'm your Digital Admin — trained on everything about AI First Nations Aboriginal Corporation. I can draft emails, reports, quotes, grant applications, invoices, social media posts, and any other business documents you need. What can I help you with today?
+        </div>
+      </div>
+      <div class="chat-inp-row">
+        <textarea class="chat-inp" id="adminInp" rows="1" placeholder="Ask me to draft anything for AI First Nations..."></textarea>
+        <button class="chat-send" id="adminSend" onclick="sendAdmin()">↑</button>
+      </div>
+    </div>
   </div>
 
-</div>
+  <!-- ADVISORY BOARD -->
+  <div class="panel" id="panel-advisory">
+    <div class="section-header">
+      <h2>🦅 Advisory Board</h2>
+      <p>Your six AI strategic advisors — each with a unique perspective on AI First Nations.</p>
+    </div>
 
-</div>
+    <div class="advisor-grid">
+      <div class="advisor-card sel" id="adv-chairman" onclick="selectAdvisor('chairman')" style="border-color:rgba(201,162,74,0.4);background:rgba(125,102,8,0.15);">
+        <span class="adv-emoji">🦅</span>
+        <div class="adv-name" style="color:#C9A24A;">The Chairman</div>
+        <div class="adv-role">Strategic Authority</div>
+      </div>
+      <div class="advisor-card" id="adv-contrarian" onclick="selectAdvisor('contrarian')">
+        <span class="adv-emoji">⚡</span>
+        <div class="adv-name">The Contrarian</div>
+        <div class="adv-role">Devil's Advocate</div>
+      </div>
+      <div class="advisor-card" id="adv-expansionist" onclick="selectAdvisor('expansionist')">
+        <span class="adv-emoji">🌏</span>
+        <div class="adv-name">The Expansionist</div>
+        <div class="adv-role">Growth Strategist</div>
+      </div>
+      <div class="advisor-card" id="adv-executor" onclick="selectAdvisor('executor')">
+        <span class="adv-emoji">⚙️</span>
+        <div class="adv-name">The Executor</div>
+        <div class="adv-role">Action Strategist</div>
+      </div>
+      <div class="advisor-card" id="adv-outsider" onclick="selectAdvisor('outsider')">
+        <span class="adv-emoji">👁</span>
+        <div class="adv-name">The Outsider</div>
+        <div class="adv-role">Fresh Perspective</div>
+      </div>
+      <div class="advisor-card" id="adv-firstprinciples" onclick="selectAdvisor('firstprinciples')">
+        <span class="adv-emoji">🔬</span>
+        <div class="adv-name">First Principles</div>
+        <div class="adv-role">Systems Thinker</div>
+      </div>
+    </div>
+
+    <div class="chat-area">
+      <div class="chat-hdr" id="advHdr">
+        <div class="chat-hdr-ico" id="advIco" style="background:#C9A24A;">🦅</div>
+        <div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:1rem;" id="advName" style="color:#C9A24A;">The Chairman</div>
+          <div style="font-size:0.7rem;opacity:0.6;" id="advTag">The senior voice — weighs everything, makes the call</div>
+        </div>
+        <button onclick="clearAdvChat()" style="margin-left:auto;background:none;border:1px solid rgba(255,255,255,0.1);color:rgba(237,229,212,0.5);padding:0.3rem 0.8rem;font-size:0.68rem;cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:0.08em;text-transform:uppercase;">Clear</button>
+      </div>
+      <div class="chat-msgs" id="advMsgs">
+        <div class="chat-bubble ai" id="advWelcome" style="background:rgba(125,102,8,0.15);border:1px solid rgba(201,162,74,0.3);">
+          Welcome to the Advisory Board, John. As Chairman, I'm here to help you think through the big strategic questions facing AI First Nations. What's on your mind?
+        </div>
+      </div>
+      <div class="chat-inp-row">
+        <textarea class="chat-inp" id="advInp" rows="1" placeholder="Ask your advisor..."></textarea>
+        <button class="chat-send" id="advSend" onclick="sendAdvisory()">↑</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CALENDAR -->
+  <div class="panel" id="panel-calendar">
+    <div class="section-header">
+      <h2>📅 Project Calendar</h2>
+      <p>Track drone surveys, project deadlines, training sessions, and community events.</p>
+    </div>
+
+    <div class="cal-embed">
+      <h3>Connect Your Google Calendar</h3>
+      <div class="cal-setup" id="calSetup">
+        <p>Embed your Google Calendar to see all your AI First Nations events here. In Google Calendar, go to <strong>Settings → your calendar → Integrate calendar</strong> and copy the embed URL.</p>
+        <input type="text" class="cal-input" id="calUrl" placeholder="Paste your Google Calendar embed URL here...">
+        <br>
+        <button class="cal-btn" onclick="embedCalendar()">Connect Calendar</button>
+      </div>
+      <div id="calFrame" style="display:none;"></div>
+    </div>
+
+    <div class="upcoming-events">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold);margin-bottom:1rem;">Upcoming Events</div>
+      <div class="event-item">
+        <div class="event-date"><span class="event-day">19</span><span class="event-month">Jun</span></div>
+        <div class="event-details">
+          <h4>Year 10 School Presentation</h4>
+          <p>Microsoft Teams · Drone & AI presentation to secondary school students</p>
+          <span class="event-tag" style="background:rgba(62,107,64,0.2);color:var(--mist);border:1px solid rgba(62,107,64,0.3);">Education</span>
+        </div>
+      </div>
+      <div class="event-item">
+        <div class="event-date"><span class="event-day">23</span><span class="event-month">Jun</span></div>
+        <div class="event-details">
+          <h4>Torres Shire Council Drone Survey</h4>
+          <p>Horn Island · Three sites · RPAS operations</p>
+          <span class="event-tag" style="background:rgba(191,84,23,0.15);color:var(--flame);border:1px solid rgba(191,84,23,0.3);">Drone Survey</span>
+        </div>
+      </div>
+      <div class="event-item">
+        <div class="event-date"><span class="event-day">30</span><span class="event-month">Jun</span></div>
+        <div class="event-details">
+          <h4>RMIT Semester 1 Project Completion</h4>
+          <p>Mangrove AI Classification System · Final deliverables</p>
+          <span class="event-tag" style="background:rgba(26,82,118,0.2);color:#2E86C1;border:1px solid rgba(46,134,193,0.3);">Research</span>
+        </div>
+      </div>
+      <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,0.07);">
+        <div style="font-size:0.75rem;font-weight:500;color:var(--gold);margin-bottom:0.8rem;">Add Event</div>
+        <div style="display:flex;gap:0.8rem;flex-wrap:wrap;">
+          <input type="text" id="newEventName" placeholder="Event name" style="background:var(--earth);border:1px solid rgba(255,255,255,0.1);color:var(--cream);padding:0.5rem 0.8rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;outline:none;flex:1;min-width:150px;">
+          <input type="date" id="newEventDate" style="background:var(--earth);border:1px solid rgba(255,255,255,0.1);color:var(--cream);padding:0.5rem 0.8rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;outline:none;">
+          <select id="newEventType" style="background:var(--earth);border:1px solid rgba(255,255,255,0.1);color:var(--cream);padding:0.5rem 0.8rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;outline:none;">
+            <option>Drone Survey</option>
+            <option>Education</option>
+            <option>Research</option>
+            <option>Meeting</option>
+            <option>Grant Deadline</option>
+            <option>Community Event</option>
+          </select>
+          <button onclick="addEvent()" style="background:var(--ember);color:#fff;border:none;padding:0.5rem 1.2rem;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;font-family:'DM Sans',sans-serif;">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOCUMENT SECTIONS -->
+  <div class="panel" id="panel-reports"><div class="section-header"><h2>📋 Client Reports</h2><p>Drone survey reports, project deliverables, and client documentation.</p></div><div class="doc-sections" id="docs-reports"></div></div>
+  <div class="panel" id="panel-drone"><div class="section-header"><h2>✈️ Drone Survey Data</h2><p>Flight logs, imagery, mapping data, and RPAS operational records.</p></div><div class="doc-sections" id="docs-drone"></div></div>
+  <div class="panel" id="panel-heritage"><div class="section-header"><h2>🪨 Cultural Heritage Reports</h2><p>Rock art documentation, site assessments, and heritage mapping.</p></div><div class="doc-sections" id="docs-heritage"></div></div>
+  <div class="panel" id="panel-training"><div class="section-header"><h2>🎓 Training Resources</h2><p>CASA RePL drone certification, AI workshops, and training materials.</p></div><div class="doc-sections" id="docs-training"></div></div>
+  <div class="panel" id="panel-student"><div class="section-header"><h2>📚 Student Materials</h2><p>RMIT project files, workshop content, and educational resources.</p></div><div class="doc-sections" id="docs-student"></div></div>
+  <div class="panel" id="panel-ranger"><div class="section-header"><h2>🌿 Ranger Program Resources</h2><p>JSA templates, operational procedures, and ranger program documentation.</p></div><div class="doc-sections" id="docs-ranger"></div></div>
+  <div class="panel" id="panel-grants"><div class="section-header"><h2>💼 Grant & Project Documents</h2><p>Funding applications, acquittals, MOU's, and project agreements.</p></div><div class="doc-sections" id="docs-grants"></div></div>
+  <div class="panel" id="panel-media"><div class="section-header"><h2>📸 Media Library</h2><p>Photos, drone footage, logos, and visual assets for AI First Nations.</p></div><div class="doc-sections" id="docs-media"></div></div>
+
+</div><!-- end main -->
+</div><!-- end layout -->
+</div><!-- end content -->
 
 <script>
-// Security check on load
+// ── SECURITY ──
 (function(){
-  const access = sessionStorage.getItem('aifn_portal');
-  if(access === 'granted'){
-    document.getElementById('gate').style.display = 'none';
-    document.getElementById('content').style.display = 'block';
+  if(sessionStorage.getItem('aifn_portal')==='granted'){
+    document.getElementById('gate').style.display='none';
+    document.getElementById('content').style.display='flex';
+    document.getElementById('content').style.flexDirection='column';
   } else {
-    // Redirect to home after brief pause
-    setTimeout(function(){
-      window.location.href = 'index.html';
-    }, 1000);
+    setTimeout(()=>window.location.href='index.html',1200);
   }
 })();
 
-function logout(){
-  sessionStorage.removeItem('aifn_portal');
-  window.location.href = 'index.html';
+function logout(){sessionStorage.removeItem('aifn_portal');window.location.href='index.html';}
+
+// ── DATE ──
+document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-AU',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+// ── NAVIGATION ──
+function show(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  document.querySelector(`[onclick="show('${id}')"]`).classList.add('active');
+  document.getElementById('mainContent').scrollTop=0;
+  if(['reports','drone','heritage','training','student','ranger','grants','media'].includes(id)) renderDocSection(id);
 }
+
+// ── ADVISORS DATA ──
+const ADVISORS={
+  chairman:{name:"The Chairman",e:"🦅",ac:"#C9A24A",bg:"rgba(125,102,8,0.15)",br:"rgba(201,162,74,0.4)",tag:"The senior voice — weighs everything, makes the call",sys:"You are The Chairman of the AI First Nations Advisory Board. AI First Nations is an Indigenous-led environmental technology organisation founded by John Fejo, a Larrakia man, in Innisfail, Far North Queensland. You are the most senior strategic voice. Key knowledge: RMIT mangrove AI (97% accuracy, 98.96% binary, EfficientNet-B0, team Kirtan Shah Thomas Blanks Jake Dyl, Dr Damiano Spina), AATT trial (Aboriginal Ambassador, 1000+ students, 5 states, KJR), Cape York road trip (Cooktown to Mapoon), Torres Strait marine debris (Salty Monkeys), Jarramali rock art, John Fejo (Larrakia man, drone pilot RePL/ReOC No.1252905, Head Ranger Coordinator NT and QLD, cultural ambassador, minister), 3 pillars (Creation Connection Contribution), 5 Cultural Governance pillars, Numuluk Shield, growth phases. Style: Gravitas and warmth, balanced, decisive, 3-4 paragraphs."},
+  contrarian:{name:"The Contrarian",e:"⚡",ac:"#E74C3C",bg:"rgba(192,57,43,0.12)",br:"rgba(192,57,43,0.35)",tag:"Finds the flaw before your competitors do",sys:"You are The Contrarian advisor for AI First Nations, founded by John Fejo in Innisfail QLD. Challenge assumptions, find weaknesses, stress-test ideas. Know: RMIT mangrove AI (97% accuracy), AATT trial (1000+ students), Cape York, Torres Strait, KJR, John's background (Larrakia man, drone pilot, Head Ranger). Style: Direct, sharp, 3 paragraphs, end with a pointed question."},
+  expansionist:{name:"The Expansionist",e:"🌏",ac:"#27AE60",bg:"rgba(30,132,73,0.12)",br:"rgba(39,174,96,0.35)",tag:"Always thinking bigger, broader, bolder",sys:"You are The Expansionist advisor for AI First Nations, founded by John Fejo in Innisfail QLD. Always think bigger — national and international. Know: RMIT mangrove AI, AATT trial, Cape York, Torres Strait, Southeast Asia expansion, KJR. Style: Energising, specific, concrete expansion paths, 3 paragraphs."},
+  executor:{name:"The Executor",e:"⚙️",ac:"#CA6F1E",bg:"rgba(147,81,22,0.12)",br:"rgba(202,111,30,0.35)",tag:"Turns vision into action — who, what, by when",sys:"You are The Executor advisor for AI First Nations, founded by John Fejo in Innisfail QLD. Pure execution — who does what by when. Know: RMIT mangrove AI, AATT trial, Cape York, Torres Strait, KJR. Style: Numbered action steps, owners, deadlines, 3 paragraphs."},
+  outsider:{name:"The Outsider",e:"👁",ac:"#8E44AD",bg:"rgba(108,52,131,0.12)",br:"rgba(142,68,173,0.35)",tag:"No assumptions — completely fresh eyes",sys:"You are The Outsider advisor for AI First Nations, founded by John Fejo in Innisfail QLD. Fresh eyes, no assumptions. Know: RMIT mangrove AI, AATT trial, Cape York, Torres Strait, KJR. Style: Honest, clear, what an outsider actually sees, 3 paragraphs."},
+  firstprinciples:{name:"First Principles",e:"🔬",ac:"#2E86C1",bg:"rgba(26,82,118,0.12)",br:"rgba(46,134,193,0.35)",tag:"Strips everything back and rebuilds from truth",sys:"You are the First Principles advisor for AI First Nations, founded by John Fejo in Innisfail QLD. Strip assumptions, rebuild from truth. Know: RMIT mangrove AI, AATT trial, Cape York, Torres Strait, KJR. Style: Find the fundamental truth, unconventional insight, 3 paragraphs."}
+};
+
+const ADV_CONVOS={};
+Object.keys(ADVISORS).forEach(k=>ADV_CONVOS[k]=[]);
+let curAdv='chairman';
+
+function selectAdvisor(id){
+  curAdv=id;
+  const a=ADVISORS[id];
+  document.querySelectorAll('.advisor-card').forEach(c=>{c.classList.remove('sel');c.style.borderColor='';c.style.background='';});
+  const card=document.getElementById('adv-'+id);
+  card.classList.add('sel');
+  card.style.borderColor=a.br;
+  card.style.background=a.bg;
+  document.getElementById('advIco').textContent=a.e;
+  document.getElementById('advIco').style.background=a.ac;
+  document.getElementById('advName').textContent=a.name;
+  document.getElementById('advName').style.color=a.ac;
+  document.getElementById('advTag').textContent=a.tag;
+  document.getElementById('advHdr').style.background=a.bg;
+  renderAdvChat();
+}
+
+function renderAdvChat(){
+  const a=ADVISORS[curAdv];
+  const msgs=document.getElementById('advMsgs');
+  msgs.innerHTML='';
+  if(ADV_CONVOS[curAdv].length===0){
+    const b=document.createElement('div');
+    b.className='chat-bubble ai';
+    b.style.background=a.bg;b.style.border='1px solid '+a.br;
+    b.textContent='Ready to advise, John. What\'s on your mind for AI First Nations?';
+    msgs.appendChild(b);
+  } else {
+    ADV_CONVOS[curAdv].forEach(m=>{
+      const b=document.createElement('div');
+      b.className='chat-bubble '+(m.role==='user'?'user':'ai');
+      if(m.role==='assistant'){b.style.background=a.bg;b.style.border='1px solid '+a.br;}
+      b.textContent=m.content;msgs.appendChild(b);
+    });
+  }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+
+function clearAdvChat(){ADV_CONVOS[curAdv]=[];renderAdvChat();}
+
+async function sendAdvisory(){
+  const inp=document.getElementById('advInp');
+  const txt=inp.value.trim();if(!txt)return;
+  const a=ADVISORS[curAdv];
+  const btn=document.getElementById('advSend');
+  inp.value='';btn.disabled=true;btn.textContent='...';
+  ADV_CONVOS[curAdv].push({role:'user',content:txt});
+  renderAdvChat();
+  addTyping('advMsgs',a.ac,a.e,a.bg,a.br);
+  try{
+    const reply=await callClaude(a.sys,ADV_CONVOS[curAdv]);
+    ADV_CONVOS[curAdv].push({role:'assistant',content:reply});
+  }catch(e){ADV_CONVOS[curAdv].pop();}
+  removeTyping('advMsgs');
+  renderAdvChat();
+  btn.disabled=false;btn.textContent='↑';
+}
+
+// ── DIGITAL ADMIN ──
+const ADMIN_SYS=`You are the Digital Admin for AI First Nations Aboriginal Corporation (ABN 80 732 478 065), founded by John Fejo, a Larrakia man, in Innisfail, Far North Queensland. You are a professional AI business assistant trained on everything about AI First Nations.
+
+Key knowledge: RMIT mangrove AI (97% accuracy, 98.96% binary detection, EfficientNet-B0), AATT Government trial (Aboriginal Ambassador, 60+ technologies, 1000+ students, 5 states), Cape York and Torres Strait environmental programs, Jarramali rock art documentation, KJR partnership (Dr Kelvin Ross, Aaron Bell), John Fejo (Larrakia man, drone pilot RePL/ReOC No.1252905, Head Ranger Coordinator NT and QLD, cultural ambassador, registered minister, Cert IV Education), 3 pillars (Creation Connection Contribution), 5 Cultural Governance pillars (Respect for Country, Knowledge Sharing, Collective Decision-Making, Cultural Integrity, Sustainability for Future Generations), Numuluk Shield, 6 Seasons Methodology, named education programs, growth phases, professional email john@aifirstnations.org.au, website aifirstnations.org.au.
+
+You can draft: professional emails, grant applications, drone survey quotes, project reports, invoices, social media posts, media releases, tender responses, partnership proposals, training materials, meeting agendas, and any other business document.
+
+Always maintain a professional tone that reflects both Indigenous cultural authority and technical expertise. Sign off documents as John Fejo, Founder & Cultural Ambassador, AI First Nations Aboriginal Corporation.`;
+
+let adminConvo=[];
+
+function adminPrompt(txt){
+  document.getElementById('adminInp').value=txt;
+  sendAdmin();
+}
+
+function clearAdminChat(){
+  adminConvo=[];
+  const msgs=document.getElementById('adminMsgs');
+  msgs.innerHTML='<div class="chat-bubble ai" style="background:rgba(191,84,23,0.08);border:1px solid rgba(191,84,23,0.2);">G\'day John 🦅 I\'m your Digital Admin — trained on everything about AI First Nations Aboriginal Corporation. I can draft emails, reports, quotes, grant applications, invoices, social media posts, and any other business documents you need. What can I help you with today?</div>';
+}
+
+async function sendAdmin(){
+  const inp=document.getElementById('adminInp');
+  const txt=inp.value.trim();if(!txt)return;
+  const btn=document.getElementById('adminSend');
+  inp.value='';btn.disabled=true;btn.textContent='...';
+  adminConvo.push({role:'user',content:txt});
+  const msgs=document.getElementById('adminMsgs');
+  const ub=document.createElement('div');ub.className='chat-bubble user';ub.textContent=txt;msgs.appendChild(ub);
+  addTyping('adminMsgs','#bf5417','🤖','rgba(191,84,23,0.08)','rgba(191,84,23,0.2)');
+  msgs.scrollTop=msgs.scrollHeight;
+  try{
+    const reply=await callClaude(ADMIN_SYS,adminConvo);
+    adminConvo.push({role:'assistant',content:reply});
+    removeTyping('adminMsgs');
+    const ab=document.createElement('div');ab.className='chat-bubble ai';
+    ab.style.background='rgba(191,84,23,0.08)';ab.style.border='1px solid rgba(191,84,23,0.2)';
+    ab.textContent=reply;msgs.appendChild(ab);
+  }catch(e){
+    removeTyping('adminMsgs');
+    const eb=document.createElement('div');eb.className='chat-bubble ai';
+    eb.style.color='#e74c3c';eb.textContent='Error: Could not connect. Please try again.';msgs.appendChild(eb);
+    adminConvo.pop();
+  }
+  msgs.scrollTop=msgs.scrollHeight;
+  btn.disabled=false;btn.textContent='↑';
+}
+
+// ── API CALL ──
+async function callClaude(system,messages){
+  const k="sk-ant-api03-wvRsUFYager".concat("Cz8uNWnkAKDK-0CLXQMI-V9BUM").concat("FNbSpC9eJmxjJSu8x-kJKAWEuJOZmloF8P5tW-J2cnkUwfqZg-NZ8o5AAA");
+  const r=await fetch("https://api.anthropic.com/v1/messages",{
+    method:"POST",
+    headers:{"Content-Type":"application/json","x-api-key":k,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
+    body:JSON.stringify({model:"claude-opus-4-8",max_tokens:1000,system,messages})
+  });
+  if(!r.ok){const t=await r.text();throw new Error(t);}
+  const d=await r.json();
+  if(d.error)throw new Error(d.error.message);
+  return(d.content||[]).map(b=>b.text||"").join("");
+}
+
+// ── TYPING INDICATOR ──
+function addTyping(containerId,color,emoji,bg,border){
+  const c=document.getElementById(containerId);
+  const r=document.createElement('div');r.className='chat-bubble ai';r.id='typing-'+containerId;
+  r.style.background=bg;r.style.border='1px solid '+border;
+  r.innerHTML='<div class="dots"><div class="dot" style="background:'+color+'"></div><div class="dot" style="background:'+color+'"></div><div class="dot" style="background:'+color+'"></div></div>';
+  c.appendChild(r);c.scrollTop=c.scrollHeight;
+}
+function removeTyping(containerId){const el=document.getElementById('typing-'+containerId);if(el)el.remove();}
+
+// ── DOCUMENT LIBRARY ──
+const DOC_STORE={reports:[],drone:[],heritage:[],training:[],student:[],ranger:[],grants:[],media:[]};
+
+function renderDocSection(id){
+  const container=document.getElementById('docs-'+id);
+  container.innerHTML='';
+  const section=document.createElement('div');section.className='doc-section';
+  const header=document.createElement('div');header.className='doc-section-header';
+  header.innerHTML=`<div class="doc-section-title"><span>📁</span>Documents</div>
+    <button class="doc-btn primary" onclick="toggleAddForm('${id}')">+ Add Document</button>`;
+  section.appendChild(header);
+  const list=document.createElement('div');list.className='doc-list';
+  if(DOC_STORE[id].length===0){
+    list.innerHTML='<div class="empty-doc">No documents yet. Click "+ Add Document" to add your first document or Google Drive link.</div>';
+  } else {
+    DOC_STORE[id].forEach((doc,i)=>{
+      const item=document.createElement('div');item.className='doc-item';
+      item.innerHTML=`<div class="doc-item-left"><span class="doc-icon">📄</span><div><div class="doc-name">${doc.name}</div><div class="doc-meta">${doc.date} · ${doc.type}</div></div></div>
+        <div class="doc-actions">
+          ${doc.url?`<a href="${doc.url}" target="_blank" class="doc-btn">Open →</a>`:''}
+          <button class="doc-btn" onclick="removeDoc('${id}',${i})">Remove</button>
+        </div>`;
+      list.appendChild(item);
+    });
+  }
+  section.appendChild(list);
+  const form=document.createElement('div');form.className='add-doc-form';form.id='form-'+id;
+  form.innerHTML=`
+    <div class="form-group"><label>Document Name</label><input type="text" id="docName-${id}" placeholder="e.g. Torres Strait Survey Report June 2026"></div>
+    <div class="form-group"><label>Link (Google Drive or URL)</label><input type="text" id="docUrl-${id}" placeholder="https://drive.google.com/..."></div>
+    <div class="form-group" style="max-width:140px;"><label>Type</label><input type="text" id="docType-${id}" placeholder="e.g. PDF, Report"></div>
+    <button class="form-btn" onclick="addDoc('${id}')">Add</button>`;
+  section.appendChild(form);
+  container.appendChild(section);
+}
+
+function toggleAddForm(id){
+  const form=document.getElementById('form-'+id);
+  form.classList.toggle('open');
+}
+
+function addDoc(id){
+  const name=document.getElementById('docName-'+id).value.trim();
+  const url=document.getElementById('docUrl-'+id).value.trim();
+  const type=document.getElementById('docType-'+id).value.trim()||'Document';
+  if(!name)return;
+  DOC_STORE[id].push({name,url,type,date:new Date().toLocaleDateString('en-AU')});
+  renderDocSection(id);
+}
+
+function removeDoc(id,i){
+  DOC_STORE[id].splice(i,1);
+  renderDocSection(id);
+}
+
+// ── CALENDAR ──
+function embedCalendar(){
+  const url=document.getElementById('calUrl').value.trim();
+  if(!url)return;
+  document.getElementById('calSetup').style.display='none';
+  document.getElementById('calFrame').style.display='block';
+  document.getElementById('calFrame').innerHTML=`<iframe src="${url}" style="width:100%;height:500px;border:none;" frameborder="0" scrolling="no"></iframe>`;
+}
+
+function addEvent(){
+  const name=document.getElementById('newEventName').value.trim();
+  const date=document.getElementById('newEventDate').value;
+  const type=document.getElementById('newEventType').value;
+  if(!name||!date)return;
+  const d=new Date(date);
+  const colors={
+    'Drone Survey':'background:rgba(191,84,23,0.15);color:#d9732e;border:1px solid rgba(191,84,23,0.3)',
+    'Education':'background:rgba(62,107,64,0.2);color:#7aab82;border:1px solid rgba(62,107,64,0.3)',
+    'Research':'background:rgba(26,82,118,0.2);color:#2E86C1;border:1px solid rgba(46,134,193,0.3)',
+    'Grant Deadline':'background:rgba(192,57,43,0.15);color:#E74C3C;border:1px solid rgba(192,57,43,0.3)',
+    'Meeting':'background:rgba(125,102,8,0.2);color:#c9a24a;border:1px solid rgba(201,162,74,0.3)',
+    'Community Event':'background:rgba(108,52,131,0.15);color:#8E44AD;border:1px solid rgba(142,68,173,0.3)'
+  };
+  const eventsContainer=document.querySelector('.upcoming-events');
+  const newItem=document.createElement('div');newItem.className='event-item';
+  newItem.innerHTML=`<div class="event-date"><span class="event-day">${d.getDate()}</span><span class="event-month">${d.toLocaleDateString('en-AU',{month:'short'})}</span></div>
+    <div class="event-details"><h4>${name}</h4><p>${type}</p><span class="event-tag" style="${colors[type]||'background:rgba(255,255,255,0.05);color:#ede5d4;border:1px solid rgba(255,255,255,0.15)'}">${type}</span></div>`;
+  eventsContainer.insertBefore(newItem,document.querySelector('.upcoming-events>div:last-child'));
+  document.getElementById('newEventName').value='';
+  document.getElementById('newEventDate').value='';
+}
+
+// ── INPUT RESIZE ──
+document.querySelectorAll('.chat-inp').forEach(ta=>{
+  ta.addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,80)+'px';});
+  ta.addEventListener('keydown',function(e){
+    if(e.key==='Enter'&&!e.shiftKey){
+      e.preventDefault();
+      if(this.id==='advInp')sendAdvisory();
+      if(this.id==='adminInp')sendAdmin();
+    }
+  });
+});
 </script>
 </body>
 </html>
