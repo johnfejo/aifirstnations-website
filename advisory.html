@@ -47,7 +47,7 @@ body{background:var(--earth);color:var(--cream);font-family:'DM Sans',sans-serif
 .board-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
 
 /* ADVISOR CARD */
-.adv-card{background:var(--smoke);border:1px solid rgba(255,255,255,0.08);padding:1.5rem;cursor:pointer;transition:all 0.25s;position:relative;overflow:hidden;}
+.adv-card{background:var(--smoke);border:1px solid rgba(255,255,255,0.08);padding:1.2rem;cursor:pointer;transition:all 0.25s;position:relative;overflow:hidden;}
 .adv-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;transform:scaleX(0);transform-origin:left;transition:transform 0.3s;}
 .adv-card:hover{transform:translateY(-2px);}
 .adv-card:hover::before,.adv-card.has-response::before{transform:scaleX(1);}
@@ -145,6 +145,7 @@ body{background:var(--earth);color:var(--cream);font-family:'DM Sans',sans-serif
       <div class="response-name" id="responseName"></div>
       <div style="font-size:0.72rem;opacity:0.55;margin-top:2px;" id="responseRole"></div>
     </div>
+    <button class="brief-btn" id="briefBtn" onclick="briefAdmin()" style="margin-left:auto;background:rgba(191,84,23,0.15);border:1px solid rgba(191,84,23,0.3);color:#d9732e;padding:0.3rem 0.8rem;font-size:0.68rem;cursor:pointer;font-family:DM Sans,sans-serif;letter-spacing:0.08em;text-transform:uppercase;display:none;">📋 Brief the Admin</button>
     <button class="close-response" onclick="closeResponse()">Close ✕</button>
   </div>
   <div class="response-body" id="responseBody"></div>
@@ -371,7 +372,25 @@ function openResponse(id){
   document.getElementById('responseHeader').style.background=a.bg;
   panel.style.borderColor=a.br;
   panel.classList.add('active');
+  // Show brief admin button when all responses ready
+  const readyCount = BOARD.filter(a=>responses[a.id] && responses[a.id]!=='loading' && responses[a.id]!=='error').length;
+  document.getElementById('briefBtn').style.display = readyCount >= 3 ? 'block' : 'none';
   panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function briefAdmin(){
+  // Collect all ready responses and store for admin
+  const briefing = {
+    question: currentQuestion,
+    responses: {}
+  };
+  BOARD.forEach(a=>{
+    if(responses[a.id] && responses[a.id]!=='loading' && responses[a.id]!=='error'){
+      briefing.responses[a.name] = responses[a.id];
+    }
+  });
+  sessionStorage.setItem('aifn_board_briefing', JSON.stringify(briefing));
+  alert('✅ Admin has been briefed with the Board\'s responses.\n\nGo to Digital Admin in the portal and it will have full context from the Board for your question:\n\n"'+currentQuestion+'"');
 }
 
 function closeResponse(){
