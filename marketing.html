@@ -102,3 +102,129 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
   <button class="quick-btn" onclick="quickPost('Write a post about the Jarramali Rock Art Documentation Project — how AI First Nations used drones to help preserve significant Aboriginal cultural heritage sites.')">🪨 Rock Art Heritage Post</button>
   <button class="quick-btn" onclick="quickPost('Write a weekly content calendar for AI First Nations with 5 post ideas across LinkedIn Facebook and Instagram covering our projects programs and cultural work.')">📅 Weekly Content Calendar</button>
 </div>
+<div class="main">
+  <div class="platform-hdr" id="platHdr" style="background:rgba(10,102,194,0.1);border-bottom:1px solid rgba(10,102,194,0.2);">
+    <div class="platform-hdr-icon" id="platIcon" style="background:#0A66C2;">in</div>
+    <div>
+      <div class="platform-hdr-name" id="platName" style="color:#4da6ff;">LinkedIn</div>
+      <div class="platform-hdr-desc" id="platDesc">Professional · 150-300 words · Industry insights · Hashtags</div>
+    </div>
+    <button class="clr-btn" onclick="clearChat()">Clear</button>
+  </div>
+  <div class="msgs" id="msgs">
+    <div class="msg-a" id="welcomeMsg">
+      G'day John 🦅 I'm your Virtual Marketing Assistant — trained on everything about AI First Nations.<br><br>
+      I can generate ready-to-post content for <strong>LinkedIn, Facebook, Instagram, YouTube, Press Releases,</strong> and <strong>Newsletters</strong>.<br><br>
+      Select a platform on the left, use the Quick Generate buttons, or tell me what you need. Every piece of content is written in AI First Nations' voice — culturally grounded, professionally authoritative, and ready to post.
+    </div>
+  </div>
+  <div class="inp-area">
+    <div class="inp-box">
+      <textarea class="inp-ta" id="userInp" rows="1" placeholder="Tell me what content you need..."></textarea>
+      <button class="send-btn" id="sendBtn" onclick="sendMsg()" style="background:var(--ember);color:#fff;" disabled>↑</button>
+    </div>
+    <div class="inp-hint">Enter to send · Shift+Enter for new line · All content is ready to copy and post</div>
+  </div>
+</div>
+</div>
+</div>
+<script>
+(function(){if(sessionStorage.getItem("aifn_portal")==="granted"){document.getElementById("gate").style.display="none";document.getElementById("content").style.display="block";}else{setTimeout(function(){window.location.href="index.html";},1200);}})();
+
+var PLATFORMS={
+  linkedin:{name:"LinkedIn",icon:"in",iconBg:"#0A66C2",hdrBg:"rgba(10,102,194,0.1)",hdrBorder:"rgba(10,102,194,0.2)",nameColor:"#4da6ff",desc:"Professional · 150-300 words · Industry insights · Hashtags",instruction:"Write this as a LinkedIn post for AI First Nations. Professional, authoritative, 150-300 words. Include relevant hashtags like #IndigenousInnovation #AIFirstNations #EnvironmentalTechnology #DroneOperations #MangroveConservation #IndigenousLeadership. End with website aifirstnations.org.au"},
+  facebook:{name:"Facebook",icon:"f",iconBg:"#1877F2",hdrBg:"rgba(24,119,242,0.1)",hdrBorder:"rgba(24,119,242,0.2)",nameColor:"#4d8ffc",desc:"Community · 100-200 words · Warm storytelling · Community pride",instruction:"Write this as a Facebook post for AI First Nations. Warm, community-focused, 100-200 words. Accessible language, celebrate achievements, connect with community pride. End with website aifirstnations.org.au"},
+  instagram:{name:"Instagram",icon:"📷",iconBg:"linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)",hdrBg:"rgba(220,39,67,0.08)",hdrBorder:"rgba(220,39,67,0.2)",nameColor:"#f06292",desc:"Visual-first · 50-100 words · Punchy · 5-8 hashtags",instruction:"Write this as an Instagram caption for AI First Nations. Visual-first, punchy, 50-100 words. Strong opening line. 5-8 relevant hashtags at the end. End with website link aifirstnations.org.au"},
+  youtube:{name:"YouTube",icon:"▶",iconBg:"#FF0000",hdrBg:"rgba(255,0,0,0.08)",hdrBorder:"rgba(255,0,0,0.2)",nameColor:"#ff6b6b",desc:"Video description · 100-150 words · Keywords · Timestamps structure",instruction:"Write this as a YouTube video description for AI First Nations. 100-150 words, keyword-rich for SEO. Include a suggested title, description, and timestamps structure. Include subscribe CTA and website aifirstnations.org.au"},
+  press:{name:"Press Release",icon:"📰",iconBg:"rgba(201,162,74,0.2)",hdrBg:"rgba(201,162,74,0.08)",hdrBorder:"rgba(201,162,74,0.2)",nameColor:"#c9a24a",desc:"Formal · Third person · Newsworthy · Quote from John Fejo",instruction:"Write this as a formal press release for AI First Nations. Third person, professional journalism style. Include a compelling headline, dateline (Innisfail QLD), opening paragraph with the news, supporting paragraphs, a quote from John Fejo (Founder and Cultural Ambassador), and a boilerplate About AI First Nations section. End with contact: john@aifirstnations.org.au"},
+  email:{name:"Newsletter",icon:"✉️",iconBg:"rgba(122,171,130,0.2)",hdrBg:"rgba(122,171,130,0.08)",hdrBorder:"rgba(122,171,130,0.2)",nameColor:"#7aab82",desc:"Email newsletter · Stakeholders · Partners · Professional",instruction:"Write this as an email newsletter for AI First Nations stakeholders, partners, and supporters. Professional but warm, 200-350 words. Include a compelling subject line, greeting, body sections, and sign-off from John Fejo, Founder and Cultural Ambassador, AI First Nations Aboriginal Corporation."}
+};
+
+var currentPlatform="linkedin";
+var convo=[];
+
+var MSYS="You are the Virtual Marketing Assistant for AI First Nations Aboriginal Corporation (ABN 80 732 478 065), founded by John Fejo, a Larrakia man, in Innisfail, Far North Queensland. Create compelling, authentic, professional social media and marketing content. Know: RMIT mangrove AI 97% accuracy EfficientNet-B0 team Kirtan Shah Thomas Blanks Jake Dyl Dr Damiano Spina, AATT Aboriginal Ambassador 1000+ students 5 states KJR, Cape York Cooktown to Mapoon, Torres Strait marine debris Salty Monkeys, Jarramali rock art documentation, John Fejo Larrakia man drone pilot RePL/ReOC No.1252905 Head Ranger Coordinator NT QLD cultural ambassador minister, 3 pillars Creation Connection Contribution, 5 Cultural Governance pillars Respect for Country Knowledge Sharing Collective Decision-Making Cultural Integrity Sustainability for Future Generations, Numuluk Shield 6 Seasons Methodology, named programs Ngarrakan Ngardiji Numuluk Yumani Ngardiji Barrwa Ngardiji Wungal Ngardiji Larrakia Wanggaman, partners RMIT KJR Australian Government Salty Monkeys Indigenous Datathon, website aifirstnations.org.au, email john@aifirstnations.org.au. Brand voice: Authoritative yet warm. Culturally grounded. Forward-thinking. Walks in both worlds. Never compromises cultural integrity for technology.";
+
+function setPlatform(id){
+  currentPlatform=id;
+  var p=PLATFORMS[id];
+  document.querySelectorAll(".platform-btn").forEach(function(b){b.classList.remove("active");b.style.borderColor="transparent";b.style.background="none";});
+  var btn=document.getElementById("btn-"+id);
+  if(btn){btn.classList.add("active");btn.style.borderColor="rgba(255,255,255,0.2)";btn.style.background="rgba(255,255,255,0.05)";}
+  document.getElementById("platHdr").style.background=p.hdrBg;
+  document.getElementById("platHdr").style.borderBottomColor=p.hdrBorder;
+  document.getElementById("platIcon").textContent=p.icon;
+  document.getElementById("platIcon").style.background=p.iconBg;
+  document.getElementById("platName").textContent=p.name;
+  document.getElementById("platName").style.color=p.nameColor;
+  document.getElementById("platDesc").textContent=p.desc;
+  document.getElementById("userInp").placeholder="Tell me what "+p.name+" content you need...";
+}
+
+function quickPost(prompt){
+  var p=PLATFORMS[currentPlatform];
+  var fullPrompt=p.instruction+"\n\n"+prompt;
+  document.getElementById("userInp").value=prompt;
+  sendWithPrompt(fullPrompt,prompt);
+}
+
+function clearChat(){convo=[];var m=document.getElementById("msgs");m.innerHTML='<div class="msg-a" id="welcomeMsg">Ready to create content for AI First Nations. Select a platform and tell me what you need — or use the Quick Generate buttons on the left.</div>';}
+
+function sendMsg(){
+  var inp=document.getElementById("userInp");
+  var txt=inp.value.trim();if(!txt)return;
+  var p=PLATFORMS[currentPlatform];
+  var fullPrompt=p.instruction+"\n\n"+txt;
+  sendWithPrompt(fullPrompt,txt);
+}
+
+function sendWithPrompt(fullPrompt,displayText){
+  var inp=document.getElementById("userInp");
+  var btn=document.getElementById("sendBtn");
+  inp.value="";inp.style.height="auto";
+  btn.disabled=true;btn.textContent="...";
+  var msgs=document.getElementById("msgs");
+  var welcome=document.getElementById("welcomeMsg");if(welcome)welcome.remove();
+  var ub=document.createElement("div");ub.className="msg-u";ub.textContent=displayText;msgs.appendChild(ub);
+  var tb=document.createElement("div");tb.className="msg-a";tb.textContent="Creating your content...";tb.id="typing";msgs.appendChild(tb);
+  msgs.scrollTop=msgs.scrollHeight;
+  convo.push({role:"user",content:fullPrompt});
+  callAPI(function(r){
+    convo.push({role:"assistant",content:r});
+    var t=document.getElementById("typing");if(t)t.remove();
+    var ab=document.createElement("div");ab.className="msg-a";
+    ab.innerHTML='<div style="margin-bottom:0.8rem;">'+r.replace(/\n/g,"<br>")+'</div><button class="copy-btn" onclick="copyText(this)">📋 Copy to Clipboard</button>';
+    ab.querySelector(".copy-btn").setAttribute("data-text",r);
+    msgs.appendChild(ab);msgs.scrollTop=msgs.scrollHeight;
+    btn.disabled=false;btn.textContent="↑";updateSendBtn();
+  },function(){
+    var t=document.getElementById("typing");if(t)t.remove();
+    convo.pop();
+    var eb=document.createElement("div");eb.className="msg-a";eb.style.color="#e74c3c";eb.textContent="Could not generate content. Please try again.";msgs.appendChild(eb);
+    btn.disabled=false;btn.textContent="↑";updateSendBtn();
+  });
+}
+
+function copyText(btn){
+  var text=btn.getAttribute("data-text");
+  navigator.clipboard.writeText(text).then(function(){btn.textContent="✅ Copied!";setTimeout(function(){btn.textContent="📋 Copy to Clipboard";},2000);}).catch(function(){btn.textContent="📋 Copy to Clipboard";});
+}
+
+function callAPI(ok,fail){
+  var k="sk-ant-api03-wvRsUFYager"+"Cz8uNWnkAKDK-0CLXQMI-V9BUM"+"FNbSpC9eJmxjJSu8x-kJKAWEuJOZmloF8P5tW-J2cnkUwfqZg-NZ8o5AAA";
+  fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json","x-api-key":k,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},body:JSON.stringify({model:"claude-opus-4-8",max_tokens:1000,system:MSYS,messages:convo})}).then(function(r){return r.json();}).then(function(d){if(d.error)fail();else ok((d.content||[]).map(function(b){return b.text||"";}).join(""));}).catch(fail);
+}
+
+function updateSendBtn(){
+  var btn=document.getElementById("sendBtn");
+  var has=document.getElementById("userInp").value.trim().length>0;
+  btn.disabled=!has;
+  btn.style.background=has?"var(--ember)":"rgba(255,255,255,0.07)";
+  btn.style.color=has?"#fff":"rgba(237,229,212,0.3)";
+}
+
+document.getElementById("userInp").addEventListener("input",function(){this.style.height="auto";this.style.height=Math.min(this.scrollHeight,100)+"px";updateSendBtn();});
+document.getElementById("userInp").addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();if(!document.getElementById("sendBtn").disabled)sendMsg();}});
+</script>
+</body>
+</html>
