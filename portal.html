@@ -41,15 +41,20 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
 .qt{font-family:"Cormorant Garamond",serif;font-size:1rem;color:var(--gold);margin-bottom:0.3rem;}
 .qd{font-size:0.78rem;opacity:0.6;line-height:1.6;}
 .sh{font-family:"Cormorant Garamond",serif;font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;opacity:0.7;}
-.prow{display:flex;flex-direction:column;gap:0.5rem;margin-bottom:2rem;}
-.pi{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.2rem;background:var(--smoke);border:1px solid rgba(255,255,255,0.07);}
-.pil{display:flex;align-items:center;gap:0.8rem;}
-.pn{font-size:0.87rem;}
-.ps{font-size:0.72rem;opacity:0.5;}
-.pbadge{font-size:0.62rem;padding:0.2rem 0.6rem;}
-.active-b{background:rgba(62,107,64,0.25);color:var(--mist);border:1px solid rgba(62,107,64,0.4);}
-.upcoming-b{background:rgba(191,84,23,0.15);color:var(--flame);border:1px solid rgba(191,84,23,0.3);}
-.complete-b{background:rgba(201,162,74,0.15);color:var(--gold);border:1px solid rgba(201,162,74,0.3);}
+.tracker{display:flex;flex-direction:column;gap:0.5rem;margin-bottom:2rem;}
+.tr-item{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.2rem;background:var(--smoke);border:1px solid rgba(255,255,255,0.07);}
+.tr-left{display:flex;align-items:center;gap:0.8rem;flex:1;}
+.tr-name{font-size:0.87rem;}
+.tr-sub{font-size:0.72rem;opacity:0.5;margin-top:0.2rem;}
+.tr-right{display:flex;align-items:center;gap:1rem;}
+.tr-date{font-size:0.72rem;opacity:0.45;}
+.badge{font-size:0.62rem;padding:0.2rem 0.6rem;white-space:nowrap;}
+.b-active{background:rgba(62,107,64,0.25);color:var(--mist);border:1px solid rgba(62,107,64,0.4);}
+.b-upcoming{background:rgba(191,84,23,0.15);color:var(--flame);border:1px solid rgba(191,84,23,0.3);}
+.b-complete{background:rgba(201,162,74,0.15);color:var(--gold);border:1px solid rgba(201,162,74,0.3);}
+.b-pending{background:rgba(142,68,173,0.15);color:#8E44AD;border:1px solid rgba(142,68,173,0.3);}
+.progress-bar{width:80px;height:4px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:2px;transition:width 0.3s;}
 .sec-hdr{margin-bottom:1.5rem;}
 .sec-hdr h2{font-family:"Cormorant Garamond",serif;font-size:1.6rem;color:var(--cream);margin-bottom:0.3rem;}
 .sec-hdr p{font-size:0.85rem;opacity:0.6;}
@@ -58,7 +63,7 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
 .chat-ico{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;}
 .chat-msgs{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:0.8rem;}
 .msg-u{align-self:flex-end;background:rgba(201,162,74,0.12);border:1px solid rgba(201,162,74,0.25);padding:0.8rem 1rem;border-radius:12px 2px 12px 12px;max-width:75%;font-size:0.87rem;line-height:1.7;}
-.msg-a{align-self:flex-start;background:rgba(191,84,23,0.08);border:1px solid rgba(191,84,23,0.2);padding:0.8rem 1rem;border-radius:2px 12px 12px 12px;max-width:75%;font-size:0.87rem;line-height:1.7;white-space:pre-wrap;}
+.msg-a{align-self:flex-start;background:rgba(191,84,23,0.08);border:1px solid rgba(191,84,23,0.2);padding:0.8rem 1rem;border-radius:2px 12px 12px 12px;max-width:80%;font-size:0.87rem;line-height:1.7;white-space:pre-wrap;}
 .chat-inp{padding:0.8rem;border-top:1px solid rgba(255,255,255,0.07);display:flex;gap:0.5rem;flex-shrink:0;}
 .ci-inp{flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--cream);padding:0.7rem 1rem;font-family:"DM Sans",sans-serif;font-size:0.85rem;outline:none;resize:none;border-radius:6px;}
 .ci-inp:focus{border-color:var(--gold);}
@@ -117,6 +122,7 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
   <button class="ni" onclick="location.href='marketing.html'"><span class="ic">📣</span><span>Marketing</span></button>
   <button class="ni" onclick="show('cal')"><span class="ic">📅</span><span>Calendar</span></button>
   <div class="ss">Documents</div>
+  <button class="ni" onclick="show('contracts')"><span class="ic">📝</span><span>Contracts</span></button>
   <button class="ni" onclick="show('reports')"><span class="ic">📋</span><span>Client Reports</span></button>
   <button class="ni" onclick="show('drone')"><span class="ic">✈️</span><span>Drone Survey Data</span></button>
   <button class="ni" onclick="show('heritage')"><span class="ic">🪨</span><span>Cultural Heritage</span></button>
@@ -125,7 +131,8 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
   <button class="ni" onclick="show('ranger')"><span class="ic">🌿</span><span>Ranger Resources</span></button>
   <button class="ni" onclick="show('grants')"><span class="ic">💼</span><span>Grant Documents</span></button>
   <button class="ni" onclick="show('media')"><span class="ic">📸</span><span>Media Library</span></button>
-  <div class="ss">Site</div>
+  <div class="ss">Connect</div>
+  <button class="ni" onclick="window.open('https://www.linkedin.com/in/john-fejo-690434255','_blank')"><span class="ic">💼</span><span>LinkedIn</span></button>
   <button class="ni" onclick="window.open('index.html','_blank')"><span class="ic">🌐</span><span>Public Site</span></button>
 </div>
 <div class="main" id="MC"><div class="panel active" id="panel-dash">
@@ -141,27 +148,47 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
     <div class="qac" onclick="show('admin')"><span class="qi">🤖</span><div class="qt">Digital Admin</div><div class="qd">Draft emails, reports, invoices, and documents.</div></div>
     <div class="qac" onclick="location.href='advisory.html'"><span class="qi">🦅</span><div class="qt">Advisory Board</div><div class="qd">Ask your Board of Nine — all 9 advisors respond simultaneously.</div></div>
     <div class="qac" onclick="location.href='marketing.html'"><span class="qi">📣</span><div class="qt">Marketing Assistant</div><div class="qd">Generate LinkedIn, Facebook, Instagram, press releases and more.</div></div>
+    <div class="qac" onclick="show('contracts')"><span class="qi">📝</span><div class="qt">Contracts</div><div class="qd">Goondoi Arts agreement, Torres Shire Council quote, and all active contracts.</div></div>
+    <div class="qac" onclick="show('admin')"><span class="qi">🛡️</span><div class="qt">JSA Generator</div><div class="qd">Generate Job Safety Analysis for drone operations instantly.</div></div>
     <div class="qac" onclick="show('cal')"><span class="qi">📅</span><div class="qt">Calendar</div><div class="qd">Track project deadlines, drone surveys, and events.</div></div>
-    <div class="qac" onclick="show('reports')"><span class="qi">📋</span><div class="qt">Client Reports</div><div class="qd">Store and access drone survey reports and deliverables.</div></div>
-    <div class="qac" onclick="show('grants')"><span class="qi">💼</span><div class="qt">Grant Documents</div><div class="qd">Funding applications, acquittals, and project agreements.</div></div>
   </div>
-  <div class="sh">Active Projects</div>
-  <div class="prow">
-    <div class="pi"><div class="pil"><span>🌿</span><div><div class="pn">AI Mangrove Classification System</div><div class="ps">RMIT University · 97% accuracy</div></div></div><span class="pbadge active-b">ACTIVE</span></div>
-    <div class="pi"><div class="pil"><span>🌊</span><div><div class="pn">Cape York & Torres Strait Environmental Resilience</div><div class="ps">Cooktown to Mapoon · Biosecurity · Marine Debris</div></div></div><span class="pbadge active-b">ACTIVE</span></div>
-    <div class="pi"><div class="pil"><span>📡</span><div><div class="pn">Autonomous Sub-Canopy Drone System</div><div class="ps">RMIT Semester 2 2026</div></div></div><span class="pbadge upcoming-b">UPCOMING</span></div>
-    <div class="pi"><div class="pil"><span>🛡️</span><div><div class="pn">AATT — Aboriginal Ambassador</div><div class="ps">Australian Government · 1,000+ students</div></div></div><span class="pbadge complete-b">COMPLETE</span></div>
+  <div class="sh">Project Tracker</div>
+  <div class="tracker">
+    <div class="tr-item">
+      <div class="tr-left"><span style="font-size:1.2rem;">🌿</span><div><div class="tr-name">AI Mangrove Classification System</div><div class="tr-sub">RMIT University · EfficientNet-B0 · 97% accuracy · Dr Damiano Spina</div></div></div>
+      <div class="tr-right"><div class="progress-bar"><div class="progress-fill" style="width:90%;background:var(--mist);"></div></div><span class="badge b-active">ACTIVE</span></div>
+    </div>
+    <div class="tr-item">
+      <div class="tr-left"><span style="font-size:1.2rem;">📝</span><div><div class="tr-name">Goondoi Arts Drone Services Agreement</div><div class="tr-sub">Pond apple injection · Mowing · Environmental services</div></div></div>
+      <div class="tr-right"><div class="progress-bar"><div class="progress-fill" style="width:100%;background:var(--gold);"></div></div><span class="badge b-complete">SIGNED</span></div>
+    </div>
+    <div class="tr-item">
+      <div class="tr-left"><span style="font-size:1.2rem;">📡</span><div><div class="tr-name">Torres Shire Council Drone Survey</div><div class="tr-sub">Horn Island · 3 sites · Landfill, Rock Stockpile, Airport · DJI Matrice 4T RTK</div></div></div>
+      <div class="tr-right"><div class="tr-date">23 Jun 2026</div><div class="progress-bar"><div class="progress-fill" style="width:60%;background:var(--flame);"></div></div><span class="badge b-upcoming">UPCOMING</span></div>
+    </div>
+    <div class="tr-item">
+      <div class="tr-left"><span style="font-size:1.2rem;">🎓</span><div><div class="tr-name">Year 10 School Presentation</div><div class="tr-sub">Microsoft Teams · AI First Nations mission · Closing the Gap</div></div></div>
+      <div class="tr-right"><div class="tr-date">19 Jun 2026</div><div class="progress-bar"><div class="progress-fill" style="width:80%;background:var(--mist);"></div></div><span class="badge b-upcoming">UPCOMING</span></div>
+    </div>
+    <div class="tr-item">
+      <div class="tr-left"><span style="font-size:1.2rem;">🌊</span><div><div class="tr-name">Cape York & Torres Strait Environmental Resilience</div><div class="tr-sub">Cooktown to Mapoon · Biosecurity · Marine Debris · Salty Monkeys</div></div></div>
+      <div class="tr-right"><div class="progress-bar"><div class="progress-fill" style="width:75%;background:var(--mist);"></div></div><span class="badge b-active">ACTIVE</span></div>
+    </div>
+    <div class="tr-item">
+      <div class="tr-left"><span style="font-size:1.2rem;">📡</span><div><div class="tr-name">Autonomous Sub-Canopy Drone System</div><div class="tr-sub">RMIT Semester 2 2026 · Phase 2 proposal · World-first SLAM navigation</div></div></div>
+      <div class="tr-right"><div class="progress-bar"><div class="progress-fill" style="width:15%;background:var(--flame);"></div></div><span class="badge b-upcoming">PROPOSED</span></div>
+    </div>
   </div>
 </div>
 
 <div class="panel" id="panel-admin">
-  <div class="sec-hdr"><h2>🤖 Digital Admin</h2><p>Your AI business assistant — draft emails, reports, quotes, grants, and more.</p></div>
+  <div class="sec-hdr"><h2>🤖 Digital Admin</h2><p>Your AI business assistant — draft emails, reports, quotes, grants, JSAs, and more.</p></div>
   <div class="task-grid">
+    <button class="task" onclick="ap('Generate a complete Job Safety Analysis (JSA) for AI First Nations drone survey operations using the DJI Matrice 4T RTK. Include: Project details section, hazard identification table covering weather, airspace, site hazards, equipment failure, public safety; risk assessment matrix; control measures for each hazard; emergency procedures; operator qualifications (RePL/ReOC No.1252905); sign-off section for Chief Remote Pilot John Fejo.')"><span class="ticon">🛡️</span><div class="ttitle">JSA Generator</div><div class="tdesc">Generate a complete Job Safety Analysis for drone operations</div></button>
     <button class="task" onclick="ap('Draft a professional email to a government agency introducing AI First Nations and our environmental drone and AI services. Include CASA credentials RePL/ReOC No.1252905 and RMIT partnership achieving 97% accuracy.')"><span class="ticon">✉️</span><div class="ttitle">Government Email</div><div class="tdesc">Introduce AI First Nations to agencies</div></button>
     <button class="task" onclick="ap('Write a professional drone survey quote for a client requesting mangrove monitoring. Include CASA RePL/ReOC credentials No.1252905, methodology, deliverables, and pricing.')"><span class="ticon">💰</span><div class="ttitle">Survey Quote</div><div class="tdesc">Generate a drone survey quotation</div></button>
     <button class="task" onclick="ap('Write a compelling grant application introduction for AI First Nations applying for Indigenous environmental technology funding from DCCEEW or NIAA.')"><span class="ticon">💼</span><div class="ttitle">Grant Writing</div><div class="tdesc">Draft grant application content</div></button>
     <button class="task" onclick="ap('Write a professional drone survey report template for AI First Nations with sections for executive summary, methodology, findings, and recommendations.')"><span class="ticon">📋</span><div class="ttitle">Survey Report</div><div class="tdesc">Create a professional survey report</div></button>
-    <button class="task" onclick="ap('Draft a LinkedIn post for AI First Nations announcing our RMIT mangrove AI classification system achieving 97% species accuracy.')"><span class="ticon">📱</span><div class="ttitle">Social Media</div><div class="tdesc">Write LinkedIn and social posts</div></button>
     <button class="task" onclick="ap('Create a professional invoice template for AI First Nations drone services. Include ABN 80 732 478 065, CASA No.1252905, service line items, GST, and payment terms.')"><span class="ticon">🧾</span><div class="ttitle">Invoice</div><div class="tdesc">Generate a professional invoice</div></button>
   </div>
   <div class="chat-wrap">
@@ -170,10 +197,37 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
       <div><div style="font-family:Cormorant Garamond,serif;font-size:1rem;color:#d9732e;">Digital Admin</div><div style="font-size:0.7rem;opacity:0.6;">AI First Nations Business Assistant</div></div>
       <button onclick="clrAdmin()" style="margin-left:auto;background:none;border:1px solid rgba(255,255,255,0.1);color:rgba(237,229,212,0.5);padding:0.3rem 0.8rem;font-size:0.68rem;cursor:pointer;font-family:DM Sans,sans-serif;text-transform:uppercase;">Clear</button>
     </div>
-    <div class="chat-msgs" id="AM"><div class="msg-a">G'day John 🦅 I'm your Digital Admin — trained on everything about AI First Nations. What can I help you draft today?</div></div>
+    <div class="chat-msgs" id="AM"><div class="msg-a">G'day John 🦅 I'm your Digital Admin. Click JSA Generator for a complete drone operations safety analysis, or ask me to draft anything for AI First Nations.</div></div>
     <div class="chat-inp">
-      <textarea class="ci-inp" id="AI" rows="1" placeholder="Ask me to draft anything..."></textarea>
+      <textarea class="ci-inp" id="AI" rows="1" placeholder="Ask me to draft anything — JSA, email, quote, grant..."></textarea>
       <button class="cs-btn" id="AS" onclick="sndAdmin()">↑</button>
+    </div>
+  </div>
+</div>
+
+<div class="panel" id="panel-contracts">
+  <div class="sec-hdr"><h2>📝 Contracts</h2><p>Active agreements, quotes, and service contracts for AI First Nations.</p></div>
+  <div class="doc-sec">
+    <div class="doc-hdr"><div style="display:flex;align-items:center;gap:0.8rem;font-size:0.9rem;color:var(--gold);"><span>📋</span>Active Contracts</div><button class="dbtn" style="background:rgba(191,84,23,0.15);border-color:rgba(191,84,23,0.3);color:var(--flame);" onclick="tForm('contracts-active')">+ Add</button></div>
+    <div class="doc-list">
+      <div class="doc-item"><div><div style="font-size:0.87rem;">Goondoi Arts Aboriginal Corporation — Drone Services Agreement</div><div style="font-size:0.72rem;opacity:0.45;margin-top:0.1rem;">Signed · Pond apple injection · Mowing · Environmental monitoring</div></div><div style="display:flex;gap:0.5rem;align-items:center;"><span class="badge b-complete">SIGNED</span></div></div>
+      <div class="doc-item"><div><div style="font-size:0.87rem;">Torres Shire Council — Drone Survey Quote</div><div style="font-size:0.72rem;opacity:0.45;margin-top:0.1rem;">Pending · Horn Island · 3 sites · DJI Matrice 4T RTK · 23 Jun 2026</div></div><div style="display:flex;gap:0.5rem;align-items:center;"><span class="badge b-pending">PENDING</span></div></div>
+    </div>
+    <div class="add-form" id="form-contracts-active">
+      <div class="fg"><label>Contract Name</label><input type="text" id="dn-contracts-active" placeholder="e.g. NRMMRRD Pig Trapping Agreement"></div>
+      <div class="fg"><label>Google Drive / URL</label><input type="text" id="du-contracts-active" placeholder="https://drive.google.com/..."></div>
+      <div class="fg" style="max-width:120px;"><label>Status</label><input type="text" id="dt-contracts-active" placeholder="Signed"></div>
+      <button class="addbtn" onclick="addDoc('contracts-active')">Add</button>
+    </div>
+  </div>
+  <div class="doc-sec" style="margin-top:1rem;">
+    <div class="doc-hdr"><div style="display:flex;align-items:center;gap:0.8rem;font-size:0.9rem;color:var(--gold);"><span>📄</span>Quotes & Proposals</div><button class="dbtn" style="background:rgba(191,84,23,0.15);border-color:rgba(191,84,23,0.3);color:var(--flame);" onclick="tForm('contracts-quotes')">+ Add</button></div>
+    <div class="doc-list" id="list-contracts-quotes"><div class="empty-doc">No quotes added yet. Click + Add to store a quote or proposal.</div></div>
+    <div class="add-form" id="form-contracts-quotes">
+      <div class="fg"><label>Quote Name</label><input type="text" id="dn-contracts-quotes" placeholder="e.g. Port of Townsville Bid"></div>
+      <div class="fg"><label>Google Drive / URL</label><input type="text" id="du-contracts-quotes" placeholder="https://drive.google.com/..."></div>
+      <div class="fg" style="max-width:120px;"><label>Status</label><input type="text" id="dt-contracts-quotes" placeholder="Submitted"></div>
+      <button class="addbtn" onclick="addDoc('contracts-quotes')">Add</button>
     </div>
   </div>
 </div>
@@ -189,7 +243,7 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
     <div style="font-family:Cormorant Garamond,serif;font-size:1.1rem;color:#c9a24a;margin-bottom:1rem;">Upcoming Events</div>
     <div id="EL">
       <div class="ev"><div style="width:48px;text-align:center;flex-shrink:0;"><span class="ev-day">19</span><span class="ev-mon">Jun</span></div><div class="ev-info"><h4>Year 10 School Presentation</h4><p>Microsoft Teams · Drone & AI</p><span class="ev-tag" style="background:rgba(62,107,64,0.2);color:#7aab82;border:1px solid rgba(62,107,64,0.3);">Education</span></div></div>
-      <div class="ev"><div style="width:48px;text-align:center;flex-shrink:0;"><span class="ev-day">23</span><span class="ev-mon">Jun</span></div><div class="ev-info"><h4>Torres Shire Council Drone Survey</h4><p>Horn Island · Three sites</p><span class="ev-tag" style="background:rgba(191,84,23,0.15);color:#d9732e;border:1px solid rgba(191,84,23,0.3);">Drone Survey</span></div></div>
+      <div class="ev"><div style="width:48px;text-align:center;flex-shrink:0;"><span class="ev-day">23</span><span class="ev-mon">Jun</span></div><div class="ev-info"><h4>Torres Shire Council Drone Survey</h4><p>Horn Island · Three sites · DJI Matrice 4T RTK</p><span class="ev-tag" style="background:rgba(191,84,23,0.15);color:#d9732e;border:1px solid rgba(191,84,23,0.3);">Drone Survey</span></div></div>
       <div class="ev"><div style="width:48px;text-align:center;flex-shrink:0;"><span class="ev-day">30</span><span class="ev-mon">Jun</span></div><div class="ev-info"><h4>RMIT Semester 1 Completion</h4><p>Mangrove AI · Final deliverables</p><span class="ev-tag" style="background:rgba(26,82,118,0.2);color:#2E86C1;border:1px solid rgba(46,134,193,0.3);">Research</span></div></div>
     </div>
     <div class="add-ev">
@@ -221,17 +275,17 @@ function show(id){
   document.getElementById("MC").scrollTop=0;
   if(["reports","drone","heritage","training","student","ranger","grants","media"].indexOf(id)>-1)rDocs(id);
 }
-var ASYS="You are the Digital Admin for AI First Nations Aboriginal Corporation ABN 80732478065, founded by John Fejo, a Larrakia man, Innisfail QLD. Professional AI business assistant. Know: RMIT mangrove AI 97% accuracy EfficientNet-B0 team Kirtan Shah Thomas Blanks Jake Dyl Dr Damiano Spina, AATT 1000+ students 5 states KJR, Cape York Cooktown to Mapoon, Torres Strait Salty Monkeys, Jarramali rock art, John drone pilot RePL/ReOC No.1252905 Head Ranger NT QLD cultural ambassador minister Cert IV Education, 3 pillars Creation Connection Contribution, 5 Cultural Governance pillars, Numuluk Shield, named programs, KJR Dr Kelvin Ross Aaron Bell. Draft professional documents. Sign off as John Fejo, Founder and Cultural Ambassador, AI First Nations Aboriginal Corporation.";
+var ASYS="You are the Digital Admin for AI First Nations Aboriginal Corporation ABN 80732478065, founded by John Fejo, a Larrakia man, Innisfail QLD. Professional AI business assistant. Know: RMIT mangrove AI 97% accuracy EfficientNet-B0 team Kirtan Shah Thomas Blanks Jake Dyl Dr Damiano Spina, AATT 1000+ students 5 states KJR, Cape York Cooktown to Mapoon, Torres Strait Salty Monkeys, Jarramali rock art, John drone pilot RePL/ReOC No.1252905 Head Ranger NT QLD cultural ambassador minister Cert IV Education, 3 pillars Creation Connection Contribution, 5 Cultural Governance pillars, Numuluk Shield, named programs, KJR Dr Kelvin Ross Aaron Bell. For JSA requests generate a complete professional Job Safety Analysis document with all required sections including hazard register, risk matrix, control measures, and emergency procedures. Sign off as John Fejo, Founder and Cultural Ambassador and Chief Remote Pilot, AI First Nations Aboriginal Corporation.";
 var AC=[];
 function ap(t){document.getElementById("AI").value=t;sndAdmin();}
-function clrAdmin(){AC=[];document.getElementById("AM").innerHTML='<div class="msg-a">G\'day John 🦅 What can I help you draft today?</div>';}
+function clrAdmin(){AC=[];document.getElementById("AM").innerHTML='<div class="msg-a">G\'day John 🦅 Click JSA Generator for a complete drone operations safety analysis, or ask me to draft anything for AI First Nations.</div>';}
 function sndAdmin(){
   var inp=document.getElementById("AI");var txt=inp.value.trim();if(!txt)return;
   var btn=document.getElementById("AS");inp.value="";btn.disabled=true;btn.textContent="...";
   AC.push({role:"user",content:txt});
   var m=document.getElementById("AM");
   var ub=document.createElement("div");ub.className="msg-u";ub.textContent=txt;m.appendChild(ub);
-  var tb=document.createElement("div");tb.className="msg-a";tb.textContent="Thinking...";tb.id="AT";m.appendChild(tb);
+  var tb=document.createElement("div");tb.className="msg-a";tb.textContent="Drafting...";tb.id="AT";m.appendChild(tb);
   m.scrollTop=m.scrollHeight;
   cAPI(ASYS,AC,function(r){
     AC.push({role:"assistant",content:r});
@@ -246,10 +300,10 @@ function sndAdmin(){
 }
 function cAPI(sys,msgs,ok,fail){
   var k="sk-ant-api03-wvRsUFYager"+"Cz8uNWnkAKDK-0CLXQMI-V9BUM"+"FNbSpC9eJmxjJSu8x-kJKAWEuJOZmloF8P5tW-J2cnkUwfqZg-NZ8o5AAA";
-  fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json","x-api-key":k,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},body:JSON.stringify({model:"claude-opus-4-8",max_tokens:1000,system:sys,messages:msgs})}).then(function(r){return r.json();}).then(function(d){if(d.error)fail();else ok((d.content||[]).map(function(b){return b.text||"";}).join(""));}).catch(fail);
+  fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json","x-api-key":k,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},body:JSON.stringify({model:"claude-opus-4-8",max_tokens:1500,system:sys,messages:msgs})}).then(function(r){return r.json();}).then(function(d){if(d.error)fail();else ok((d.content||[]).map(function(b){return b.text||"";}).join(""));}).catch(fail);
 }
 document.getElementById("AI").addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sndAdmin();}});
-var DS={reports:[],drone:[],heritage:[],training:[],student:[],ranger:[],grants:[],media:[]};
+var DS={reports:[],drone:[],heritage:[],training:[],student:[],ranger:[],grants:[],media:[],"contracts-active":[],"contracts-quotes":[]};
 function rDocs(id){
   var c=document.getElementById("dr-"+id);if(!c)return;c.innerHTML="";
   var s=document.createElement("div");s.className="doc-sec";
@@ -264,9 +318,9 @@ function rDocs(id){
   f.innerHTML='<div class="fg"><label>Document Name</label><input type="text" id="dn-'+id+'" placeholder="e.g. Torres Strait Survey June 2026"></div><div class="fg"><label>Google Drive / URL</label><input type="text" id="du-'+id+'" placeholder="https://drive.google.com/..."></div><div class="fg" style="max-width:120px;"><label>Type</label><input type="text" id="dt-'+id+'" placeholder="PDF"></div><button class="addbtn" onclick="addDoc(\''+id+'\')">Add</button>';
   s.appendChild(f);c.appendChild(s);
 }
-function tForm(id){var f=document.getElementById("f-"+id);if(f)f.classList.toggle("open");}
-function addDoc(id){var n=document.getElementById("dn-"+id).value.trim();var u=document.getElementById("du-"+id).value.trim();var t=document.getElementById("dt-"+id).value.trim()||"Document";if(!n)return;DS[id].push({name:n,url:u,type:t,date:new Date().toLocaleDateString("en-AU")});rDocs(id);}
-function rmDoc(id,i){DS[id].splice(i,1);rDocs(id);}
+function tForm(id){var f=document.getElementById("form-"+id);if(f)f.classList.toggle("open");}
+function addDoc(id){var n=document.getElementById("dn-"+id).value.trim();var u=document.getElementById("du-"+id).value.trim();var t=document.getElementById("dt-"+id).value.trim()||"Document";if(!n)return;if(DS[id])DS[id].push({name:n,url:u,type:t,date:new Date().toLocaleDateString("en-AU")});rDocs(id);}
+function rmDoc(id,i){if(DS[id])DS[id].splice(i,1);rDocs(id);}
 function embCal(){var url=document.getElementById("CU").value.trim();if(!url)return;document.getElementById("CS").style.display="none";document.getElementById("CF").innerHTML='<iframe src="'+url+'" style="width:100%;height:500px;border:none;"></iframe>';}
 function addEv(){
   var n=document.getElementById("EN").value.trim();var d=document.getElementById("ED").value;var t=document.getElementById("ET").value;
