@@ -71,25 +71,7 @@ footer{background:#1e1b10;border-top:1px solid rgba(255,255,255,0.07);padding:2.
 .modal-btn{width:100%;background:#bf5417;color:#f8f3ea;border:none;padding:0.9rem;font-family:'DM Sans',sans-serif;font-size:0.78rem;letter-spacing:0.13em;text-transform:uppercase;cursor:pointer;margin-bottom:0.8rem;}
 .modal-cancel{font-size:0.72rem;opacity:0.45;cursor:pointer;letter-spacing:0.1em;text-transform:uppercase;background:none;border:none;color:#ede5d4;}
 .modal-error{color:#e74c3c;font-size:0.82rem;margin-bottom:1rem;display:none;}
-.drone-wrap{position:absolute;top:25%;left:-120px;z-index:3;animation:flyAcross 18s linear infinite;pointer-events:none;}
-@keyframes flyAcross{0%{left:-120px;top:25%;}50%{top:20%;}100%{left:calc(100vw + 120px);top:25%;}}
-.drone{position:relative;width:90px;height:50px;}
-.drone-body{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:42px;height:16px;background:linear-gradient(135deg,#2a2a2a,#1a1a1a);border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,0.5);}
-.drone-body::after{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:10px;height:10px;border-radius:50%;background:#bf5417;box-shadow:0 0 8px rgba(191,84,23,0.6);}
-.drone-arm{position:absolute;width:36px;height:3px;background:#1a1a1a;border-radius:2px;}
-.drone-arm.tl{left:0;top:28%;transform:rotate(-35deg);transform-origin:right center;}
-.drone-arm.tr{right:0;top:28%;transform:rotate(35deg);transform-origin:left center;}
-.drone-arm.bl{left:0;top:68%;transform:rotate(35deg);transform-origin:right center;}
-.drone-arm.br{right:0;top:68%;transform:rotate(-35deg);transform-origin:left center;}
-.prop{position:absolute;width:28px;height:5px;border-radius:4px;background:rgba(122,171,130,0.7);animation:spin 0.12s linear infinite;}
-.prop.tl{top:10px;left:0;}
-.prop.tr{top:10px;right:0;}
-.prop.bl{bottom:10px;left:0;}
-.prop.br{bottom:10px;right:0;}
-@keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
-.drone-shadow{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);width:40px;height:6px;background:rgba(0,0,0,0.2);border-radius:50%;filter:blur(3px);}
-.drone-light{position:absolute;bottom:2px;right:10px;width:4px;height:4px;border-radius:50%;background:#c9a24a;animation:blink 1.2s ease-in-out infinite;}
-@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.2;}}
+
 @media(max-width:768px){nav{padding:0 1.5rem;}.nav-right .nav-contact{display:none;}.section{padding:4rem 1.5rem;}.grid-2,.grid-3{grid-template-columns:1fr;}.stats{flex-wrap:wrap;}.stat{flex:1 1 45%;}.hero-content{margin-left:3%;}.hero-watermark img{width:280px;}.drone-wrap{top:15%;}}
 </style>
 </head>
