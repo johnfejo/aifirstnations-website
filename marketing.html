@@ -14,44 +14,45 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
 .topnav{height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;background:rgba(17,16,9,0.98);border-bottom:1px solid rgba(255,255,255,0.07);position:sticky;top:0;z-index:50;}
 .brand{font-family:"Cormorant Garamond",serif;font-size:0.95rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:0.6rem;}
 .brand img{height:38px;width:auto;}
-.back{font-size:0.68rem;color:rgba(237,229,212,0.5);text-decoration:none;border:1px solid rgba(255,255,255,0.1);padding:0.35rem 0.9rem;transition:all 0.2s;}
-.back:hover{color:var(--gold);border-color:var(--gold);}
+.back{font-size:0.68rem;color:rgba(237,229,212,0.5);text-decoration:none;border:1px solid rgba(255,255,255,0.1);padding:0.35rem 0.9rem;}
 .page-hdr{padding:2rem;background:linear-gradient(160deg,#1a0d1a,var(--smoke));border-bottom:1px solid rgba(255,255,255,0.07);}
 .page-hdr h1{font-family:"Cormorant Garamond",serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:300;color:#f8f3ea;margin-bottom:0.3rem;}
 .page-hdr p{font-size:0.85rem;opacity:0.6;}
-.layout{display:grid;grid-template-columns:280px 1fr;gap:0;min-height:calc(100vh - 120px);}
+.layout{display:grid;grid-template-columns:280px 1fr;min-height:calc(100vh - 120px);}
 .sidebar{background:rgba(17,16,9,0.5);border-right:1px solid rgba(255,255,255,0.07);padding:1.5rem 1rem;display:flex;flex-direction:column;gap:0.5rem;}
 .sidebar-label{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;opacity:0.35;padding:0 0.3rem 0.5rem;margin-top:1rem;}
 .sidebar-label:first-child{margin-top:0;}
 .platform-btn{display:flex;align-items:center;gap:0.8rem;padding:0.8rem 1rem;border-radius:8px;cursor:pointer;border:1px solid transparent;background:none;color:var(--cream);opacity:0.65;text-align:left;width:100%;font-family:"DM Sans",sans-serif;font-size:0.85rem;transition:all 0.2s;}
 .platform-btn:hover{background:rgba(255,255,255,0.05);opacity:1;}
-.platform-btn.active{opacity:1;border-color:rgba(255,255,255,0.15);}
+.platform-btn.active{opacity:1;border-color:rgba(255,255,255,0.15);background:rgba(255,255,255,0.04);}
 .platform-icon{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
-.quick-label{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;opacity:0.35;padding:0 0.3rem 0.5rem;margin-top:1rem;}
 .quick-btn{display:flex;align-items:center;gap:0.7rem;padding:0.65rem 1rem;border-radius:8px;cursor:pointer;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.02);color:rgba(237,229,212,0.7);text-align:left;width:100%;font-family:"DM Sans",sans-serif;font-size:0.78rem;transition:all 0.2s;line-height:1.4;}
 .quick-btn:hover{background:rgba(255,255,255,0.06);color:var(--cream);border-color:rgba(255,255,255,0.15);}
-.main{display:flex;flex-direction:column;height:calc(100vh - 120px);}
+.main{display:flex;flex-direction:column;}
 .platform-hdr{padding:1rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;gap:1rem;flex-shrink:0;}
 .platform-hdr-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
 .platform-hdr-name{font-family:"Cormorant Garamond",serif;font-size:1.2rem;font-weight:600;}
 .platform-hdr-desc{font-size:0.72rem;opacity:0.55;margin-top:2px;}
-.clr-btn{margin-left:auto;background:none;border:1px solid rgba(255,255,255,0.1);color:rgba(237,229,212,0.4);padding:0.3rem 0.8rem;font-size:0.65rem;cursor:pointer;font-family:"DM Sans",sans-serif;text-transform:uppercase;}
-.msgs{flex:1;overflow-y:auto;padding:1.5rem;display:flex;flex-direction:column;gap:1rem;}
+.clr-btn{background:none;border:1px solid rgba(255,255,255,0.1);color:rgba(237,229,212,0.4);padding:0.3rem 0.8rem;font-size:0.65rem;cursor:pointer;font-family:"DM Sans",sans-serif;text-transform:uppercase;}
+.open-platform-btn{background:rgba(10,102,194,0.15);border:1px solid rgba(10,102,194,0.3);color:#4da6ff;padding:0.3rem 0.9rem;font-size:0.65rem;cursor:pointer;font-family:"DM Sans",sans-serif;text-transform:uppercase;text-decoration:none;display:inline-block;}
+.msgs{flex:1;overflow-y:auto;padding:1.5rem;display:flex;flex-direction:column;gap:1rem;min-height:400px;max-height:calc(100vh - 320px);}
 .msg-u{align-self:flex-end;background:rgba(201,162,74,0.12);border:1px solid rgba(201,162,74,0.25);padding:0.8rem 1rem;border-radius:12px 2px 12px 12px;max-width:70%;font-size:0.87rem;line-height:1.7;}
-.msg-a{align-self:flex-start;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);padding:1rem 1.2rem;border-radius:2px 12px 12px 12px;max-width:85%;font-size:0.87rem;line-height:1.85;white-space:pre-wrap;}
-.copy-btn{display:inline-block;margin-top:0.8rem;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;background:rgba(201,162,74,0.1);border:1px solid rgba(201,162,74,0.25);color:var(--gold);padding:0.3rem 0.8rem;cursor:pointer;font-family:"DM Sans",sans-serif;}
+.msg-a{align-self:flex-start;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);padding:1rem 1.2rem;border-radius:2px 12px 12px 12px;max-width:85%;font-size:0.87rem;line-height:1.85;}
+.msg-actions{display:flex;gap:0.5rem;margin-top:0.8rem;flex-wrap:wrap;}
+.copy-btn{font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;background:rgba(201,162,74,0.1);border:1px solid rgba(201,162,74,0.25);color:var(--gold);padding:0.3rem 0.8rem;cursor:pointer;font-family:"DM Sans",sans-serif;}
 .copy-btn:hover{background:rgba(201,162,74,0.2);}
-.inp-area{padding:1rem 1.5rem;border-top:1px solid rgba(255,255,255,0.07);flex-shrink:0;}
+.platform-link-btn{font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.9rem;cursor:pointer;font-family:"DM Sans",sans-serif;text-decoration:none;display:inline-block;}
+.inp-area{padding:1rem 1.5rem;border-top:1px solid rgba(255,255,255,0.07);}
 .inp-box{display:flex;gap:0.8rem;align-items:flex-end;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.8rem 1rem;}
 .inp-box:focus-within{border-color:var(--gold);}
 .inp-ta{flex:1;background:none;border:none;outline:none;color:var(--cream);font-size:0.87rem;line-height:1.6;resize:none;font-family:"DM Sans",sans-serif;max-height:100px;overflow-y:auto;}
 .inp-ta::placeholder{color:rgba(237,229,212,0.3);}
-.send-btn{width:36px;height:36px;border-radius:8px;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px;flex-shrink:0;transition:all 0.2s;}
+.send-btn{width:36px;height:36px;border-radius:8px;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px;flex-shrink:0;}
 .send-btn:disabled{cursor:not-allowed;}
 .inp-hint{font-size:0.68rem;opacity:0.25;text-align:center;margin-top:0.6rem;}
 ::-webkit-scrollbar{width:4px;}
 ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:2px;}
-@media(max-width:900px){.layout{grid-template-columns:1fr;}.sidebar{display:flex;flex-direction:row;flex-wrap:wrap;border-right:none;border-bottom:1px solid rgba(255,255,255,0.07);}.platform-btn{width:auto;}.main{height:auto;}}
+@media(max-width:900px){.layout{grid-template-columns:1fr;}.sidebar{flex-direction:row;flex-wrap:wrap;border-right:none;border-bottom:1px solid rgba(255,255,255,0.07);}.platform-btn{width:auto;}}
 </style>
 </head>
 <body>
@@ -62,7 +63,7 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
   <a href="portal.html" class="back">← Portal</a>
 </nav>
 <div class="page-hdr">
-  <div style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ember);margin-bottom:0.5rem;">🔒 Secure · Marketing Suite</div>
+  <div style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ember);margin-bottom:0.5rem;">🔒 Marketing Suite</div>
   <h1>Virtual Marketing Assistant</h1>
   <p>Generate professional content for every platform — one click, ready to post.</p>
 </div>
@@ -93,13 +94,12 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
     <div class="platform-icon" style="background:rgba(122,171,130,0.2);border:1px solid rgba(122,171,130,0.3);">✉️</div>
     <div><div style="font-size:0.87rem;font-weight:500;">Newsletter</div><div style="font-size:0.7rem;opacity:0.5;">Email · Stakeholders · Partners</div></div>
   </button>
-
-  <div class="quick-label">Quick Generate</div>
-  <button class="quick-btn" onclick="quickPost('Write a LinkedIn post announcing AI First Nations RMIT mangrove AI system achieving 97% species classification accuracy. Professional tone, include our CASA credentials and research partnership.')">🌿 Mangrove AI Achievement</button>
-  <button class="quick-btn" onclick="quickPost('Write a post about AI First Nations environmental drone services protecting Country across Far North Queensland and the Torres Strait. Include our cultural governance approach.')">✈️ Drone Services Post</button>
-  <button class="quick-btn" onclick="quickPost('Write a post celebrating AI First Nations being selected as Aboriginal Ambassador for the Australian Government Age Assurance Technology Trial. Professional and inspiring.')">🏛️ Government Ambassador</button>
+  <div class="sidebar-label">Quick Generate</div>
+  <button class="quick-btn" onclick="quickPost('Write a LinkedIn post announcing AI First Nations RMIT mangrove AI system achieving 97% species classification accuracy. Professional tone, include CASA credentials and research partnership.')">🌿 Mangrove AI Achievement</button>
+  <button class="quick-btn" onclick="quickPost('Write a post about AI First Nations environmental drone services protecting Country across Far North Queensland and the Torres Strait.')">✈️ Drone Services Post</button>
+  <button class="quick-btn" onclick="quickPost('Write a post celebrating AI First Nations being selected as Aboriginal Ambassador for the Australian Government Age Assurance Technology Trial.')">🏛️ Government Ambassador</button>
   <button class="quick-btn" onclick="quickPost('Write a post about AI First Nations Junior Ranger and youth drone training programs. Inspiring, community-focused, celebrating Indigenous youth in technology.')">🎓 Youth Programs Post</button>
-  <button class="quick-btn" onclick="quickPost('Write a post about the Jarramali Rock Art Documentation Project — how AI First Nations used drones to help preserve significant Aboriginal cultural heritage sites.')">🪨 Rock Art Heritage Post</button>
+  <button class="quick-btn" onclick="quickPost('Write a post about the Jarramali Rock Art Documentation Project — how AI First Nations used drones to preserve significant Aboriginal cultural heritage sites.')">🪨 Rock Art Heritage Post</button>
   <button class="quick-btn" onclick="quickPost('Write a weekly content calendar for AI First Nations with 5 post ideas across LinkedIn Facebook and Instagram covering our projects programs and cultural work.')">📅 Weekly Content Calendar</button>
 </div>
 <div class="main">
@@ -109,48 +109,43 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
       <div class="platform-hdr-name" id="platName" style="color:#4da6ff;">LinkedIn</div>
       <div class="platform-hdr-desc" id="platDesc">Professional · 150-300 words · Industry insights · Hashtags</div>
     </div>
+    <a href="https://www.linkedin.com/in/john-fejo-690434255" target="_blank" class="open-platform-btn" id="platLink">Open LinkedIn →</a>
     <button class="clr-btn" onclick="clearChat()">Clear</button>
   </div>
   <div class="msgs" id="msgs">
-    <div class="msg-a" id="welcomeMsg">
-      G'day John 🦅 I'm your Virtual Marketing Assistant — trained on everything about AI First Nations.<br><br>
-      I can generate ready-to-post content for <strong>LinkedIn, Facebook, Instagram, YouTube, Press Releases,</strong> and <strong>Newsletters</strong>.<br><br>
-      Select a platform on the left, use the Quick Generate buttons, or tell me what you need. Every piece of content is written in AI First Nations' voice — culturally grounded, professionally authoritative, and ready to post.
-    </div>
+    <div class="msg-a" id="welcomeMsg">G'day John 🦅 I'm your Virtual Marketing Assistant — trained on everything about AI First Nations.<br><br>Select a platform, use the Quick Generate buttons, or tell me what content you need. Every post is written in AI First Nations voice — culturally grounded and ready to post.<br><br>For LinkedIn posts, click <strong>Open LinkedIn →</strong> at the top to go straight to your profile and post.</div>
   </div>
   <div class="inp-area">
     <div class="inp-box">
       <textarea class="inp-ta" id="userInp" rows="1" placeholder="Tell me what content you need..."></textarea>
       <button class="send-btn" id="sendBtn" onclick="sendMsg()" style="background:var(--ember);color:#fff;" disabled>↑</button>
     </div>
-    <div class="inp-hint">Enter to send · Shift+Enter for new line · All content is ready to copy and post</div>
+    <div class="inp-hint">Enter to send · Shift+Enter for new line</div>
   </div>
 </div>
 </div>
-</div>
-<script>
+</div><script>
 (function(){if(sessionStorage.getItem("aifn_portal")==="granted"){document.getElementById("gate").style.display="none";document.getElementById("content").style.display="block";}else{setTimeout(function(){window.location.href="index.html";},1200);}})();
 
 var PLATFORMS={
-  linkedin:{name:"LinkedIn",icon:"in",iconBg:"#0A66C2",hdrBg:"rgba(10,102,194,0.1)",hdrBorder:"rgba(10,102,194,0.2)",nameColor:"#4da6ff",desc:"Professional · 150-300 words · Industry insights · Hashtags",instruction:"Write this as a LinkedIn post for AI First Nations. Professional, authoritative, 150-300 words. Include relevant hashtags like #IndigenousInnovation #AIFirstNations #EnvironmentalTechnology #DroneOperations #MangroveConservation #IndigenousLeadership. End with website aifirstnations.org.au"},
-  facebook:{name:"Facebook",icon:"f",iconBg:"#1877F2",hdrBg:"rgba(24,119,242,0.1)",hdrBorder:"rgba(24,119,242,0.2)",nameColor:"#4d8ffc",desc:"Community · 100-200 words · Warm storytelling · Community pride",instruction:"Write this as a Facebook post for AI First Nations. Warm, community-focused, 100-200 words. Accessible language, celebrate achievements, connect with community pride. End with website aifirstnations.org.au"},
-  instagram:{name:"Instagram",icon:"📷",iconBg:"linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)",hdrBg:"rgba(220,39,67,0.08)",hdrBorder:"rgba(220,39,67,0.2)",nameColor:"#f06292",desc:"Visual-first · 50-100 words · Punchy · 5-8 hashtags",instruction:"Write this as an Instagram caption for AI First Nations. Visual-first, punchy, 50-100 words. Strong opening line. 5-8 relevant hashtags at the end. End with website link aifirstnations.org.au"},
-  youtube:{name:"YouTube",icon:"▶",iconBg:"#FF0000",hdrBg:"rgba(255,0,0,0.08)",hdrBorder:"rgba(255,0,0,0.2)",nameColor:"#ff6b6b",desc:"Video description · 100-150 words · Keywords · Timestamps structure",instruction:"Write this as a YouTube video description for AI First Nations. 100-150 words, keyword-rich for SEO. Include a suggested title, description, and timestamps structure. Include subscribe CTA and website aifirstnations.org.au"},
-  press:{name:"Press Release",icon:"📰",iconBg:"rgba(201,162,74,0.2)",hdrBg:"rgba(201,162,74,0.08)",hdrBorder:"rgba(201,162,74,0.2)",nameColor:"#c9a24a",desc:"Formal · Third person · Newsworthy · Quote from John Fejo",instruction:"Write this as a formal press release for AI First Nations. Third person, professional journalism style. Include a compelling headline, dateline (Innisfail QLD), opening paragraph with the news, supporting paragraphs, a quote from John Fejo (Founder and Cultural Ambassador), and a boilerplate About AI First Nations section. End with contact: john@aifirstnations.org.au"},
-  email:{name:"Newsletter",icon:"✉️",iconBg:"rgba(122,171,130,0.2)",hdrBg:"rgba(122,171,130,0.08)",hdrBorder:"rgba(122,171,130,0.2)",nameColor:"#7aab82",desc:"Email newsletter · Stakeholders · Partners · Professional",instruction:"Write this as an email newsletter for AI First Nations stakeholders, partners, and supporters. Professional but warm, 200-350 words. Include a compelling subject line, greeting, body sections, and sign-off from John Fejo, Founder and Cultural Ambassador, AI First Nations Aboriginal Corporation."}
+  linkedin:{name:"LinkedIn",icon:"in",iconBg:"#0A66C2",hdrBg:"rgba(10,102,194,0.1)",hdrBorder:"rgba(10,102,194,0.2)",nameColor:"#4da6ff",desc:"Professional · 150-300 words · Industry insights · Hashtags",url:"https://www.linkedin.com/in/john-fejo-690434255",urlLabel:"Open LinkedIn →",urlColor:"rgba(10,102,194,0.15)",urlBorder:"rgba(10,102,194,0.3)",urlText:"#4da6ff",instruction:"Write this as a LinkedIn post for AI First Nations. Professional, authoritative, 150-300 words. Include relevant hashtags like #IndigenousInnovation #AIFirstNations #EnvironmentalTechnology #DroneOperations #MangroveConservation #IndigenousLeadership. End with website aifirstnations.org.au"},
+  facebook:{name:"Facebook",icon:"f",iconBg:"#1877F2",hdrBg:"rgba(24,119,242,0.1)",hdrBorder:"rgba(24,119,242,0.2)",nameColor:"#4d8ffc",desc:"Community · 100-200 words · Warm storytelling",url:"https://www.facebook.com",urlLabel:"Open Facebook →",urlColor:"rgba(24,119,242,0.15)",urlBorder:"rgba(24,119,242,0.3)",urlText:"#4d8ffc",instruction:"Write this as a Facebook post for AI First Nations. Warm, community-focused, 100-200 words. Accessible language, celebrate achievements, connect with community pride. End with website aifirstnations.org.au"},
+  instagram:{name:"Instagram",icon:"📷",iconBg:"linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)",hdrBg:"rgba(220,39,67,0.08)",hdrBorder:"rgba(220,39,67,0.2)",nameColor:"#f06292",desc:"Visual-first · 50-100 words · 5-8 hashtags",url:"https://www.instagram.com",urlLabel:"Open Instagram →",urlColor:"rgba(220,39,67,0.12)",urlBorder:"rgba(220,39,67,0.3)",urlText:"#f06292",instruction:"Write this as an Instagram caption for AI First Nations. Visual-first, punchy, 50-100 words. Strong opening line. 5-8 relevant hashtags at the end. End with website link aifirstnations.org.au"},
+  youtube:{name:"YouTube",icon:"▶",iconBg:"#FF0000",hdrBg:"rgba(255,0,0,0.08)",hdrBorder:"rgba(255,0,0,0.2)",nameColor:"#ff6b6b",desc:"Video description · 100-150 words · Keywords",url:"https://www.youtube.com",urlLabel:"Open YouTube →",urlColor:"rgba(255,0,0,0.12)",urlBorder:"rgba(255,0,0,0.3)",urlText:"#ff6b6b",instruction:"Write this as a YouTube video description for AI First Nations. 100-150 words, keyword-rich for SEO. Include a suggested title, description, and timestamps structure. Include subscribe CTA and website aifirstnations.org.au"},
+  press:{name:"Press Release",icon:"📰",iconBg:"rgba(201,162,74,0.2)",hdrBg:"rgba(201,162,74,0.08)",hdrBorder:"rgba(201,162,74,0.2)",nameColor:"#c9a24a",desc:"Formal · Third person · Newsworthy · Quote from John Fejo",url:"",urlLabel:"",urlColor:"",urlBorder:"",urlText:"",instruction:"Write this as a formal press release for AI First Nations. Third person, professional journalism style. Include a compelling headline, dateline (Innisfail QLD), opening paragraph with the news, supporting paragraphs, a quote from John Fejo (Founder and Cultural Ambassador), and a boilerplate About AI First Nations section. End with contact: john@aifirstnations.org.au"},
+  email:{name:"Newsletter",icon:"✉️",iconBg:"rgba(122,171,130,0.2)",hdrBg:"rgba(122,171,130,0.08)",hdrBorder:"rgba(122,171,130,0.2)",nameColor:"#7aab82",desc:"Email newsletter · Stakeholders · Partners",url:"",urlLabel:"",urlColor:"",urlBorder:"",urlText:"",instruction:"Write this as an email newsletter for AI First Nations stakeholders, partners, and supporters. Professional but warm, 200-350 words. Include a compelling subject line, greeting, body sections, and sign-off from John Fejo, Founder and Cultural Ambassador, AI First Nations Aboriginal Corporation."}
 };
 
 var currentPlatform="linkedin";
 var convo=[];
-
-var MSYS="You are the Virtual Marketing Assistant for AI First Nations Aboriginal Corporation (ABN 80 732 478 065), founded by John Fejo, a Larrakia man, in Innisfail, Far North Queensland. Create compelling, authentic, professional social media and marketing content. Know: RMIT mangrove AI 97% accuracy EfficientNet-B0 team Kirtan Shah Thomas Blanks Jake Dyl Dr Damiano Spina, AATT Aboriginal Ambassador 1000+ students 5 states KJR, Cape York Cooktown to Mapoon, Torres Strait marine debris Salty Monkeys, Jarramali rock art documentation, John Fejo Larrakia man drone pilot RePL/ReOC No.1252905 Head Ranger Coordinator NT QLD cultural ambassador minister, 3 pillars Creation Connection Contribution, 5 Cultural Governance pillars Respect for Country Knowledge Sharing Collective Decision-Making Cultural Integrity Sustainability for Future Generations, Numuluk Shield 6 Seasons Methodology, named programs Ngarrakan Ngardiji Numuluk Yumani Ngardiji Barrwa Ngardiji Wungal Ngardiji Larrakia Wanggaman, partners RMIT KJR Australian Government Salty Monkeys Indigenous Datathon, website aifirstnations.org.au, email john@aifirstnations.org.au. Brand voice: Authoritative yet warm. Culturally grounded. Forward-thinking. Walks in both worlds. Never compromises cultural integrity for technology.";
+var MSYS="You are the Virtual Marketing Assistant for AI First Nations Aboriginal Corporation ABN 80732478065, founded by John Fejo, a Larrakia man, in Innisfail QLD. Create compelling, authentic, professional social media and marketing content. Know: RMIT mangrove AI 97% accuracy EfficientNet-B0 team Kirtan Shah Thomas Blanks Jake Dyl Dr Damiano Spina, AATT Aboriginal Ambassador 1000+ students 5 states KJR, Cape York Cooktown to Mapoon, Torres Strait marine debris Salty Monkeys, Jarramali rock art, John Fejo Larrakia man drone pilot RePL/ReOC No.1252905 Head Ranger NT QLD cultural ambassador minister, 3 pillars Creation Connection Contribution, 5 Cultural Governance pillars, Numuluk Shield 6 Seasons, named programs Ngarrakan Ngardiji, partners RMIT KJR Australian Government Salty Monkeys Indigenous Datathon, website aifirstnations.org.au, LinkedIn https://www.linkedin.com/in/john-fejo-690434255. Brand voice: Authoritative yet warm. Culturally grounded. Forward-thinking. Walks in both worlds.";
 
 function setPlatform(id){
   currentPlatform=id;
   var p=PLATFORMS[id];
   document.querySelectorAll(".platform-btn").forEach(function(b){b.classList.remove("active");b.style.borderColor="transparent";b.style.background="none";});
   var btn=document.getElementById("btn-"+id);
-  if(btn){btn.classList.add("active");btn.style.borderColor="rgba(255,255,255,0.2)";btn.style.background="rgba(255,255,255,0.05)";}
+  if(btn){btn.classList.add("active");}
   document.getElementById("platHdr").style.background=p.hdrBg;
   document.getElementById("platHdr").style.borderBottomColor=p.hdrBorder;
   document.getElementById("platIcon").textContent=p.icon;
@@ -159,23 +154,28 @@ function setPlatform(id){
   document.getElementById("platName").style.color=p.nameColor;
   document.getElementById("platDesc").textContent=p.desc;
   document.getElementById("userInp").placeholder="Tell me what "+p.name+" content you need...";
+  var lnk=document.getElementById("platLink");
+  if(p.url){lnk.href=p.url;lnk.textContent=p.urlLabel;lnk.style.display="inline-block";lnk.style.background=p.urlColor;lnk.style.borderColor=p.urlBorder;lnk.style.color=p.urlText;}
+  else{lnk.style.display="none";}
 }
 
 function quickPost(prompt){
   var p=PLATFORMS[currentPlatform];
-  var fullPrompt=p.instruction+"\n\n"+prompt;
   document.getElementById("userInp").value=prompt;
-  sendWithPrompt(fullPrompt,prompt);
+  sendWithPrompt(p.instruction+"\n\n"+prompt,prompt);
 }
 
-function clearChat(){convo=[];var m=document.getElementById("msgs");m.innerHTML='<div class="msg-a" id="welcomeMsg">Ready to create content for AI First Nations. Select a platform and tell me what you need — or use the Quick Generate buttons on the left.</div>';}
+function clearChat(){
+  convo=[];
+  var m=document.getElementById("msgs");
+  m.innerHTML='<div class="msg-a">Ready to create content for AI First Nations. Select a platform and tell me what you need — or use the Quick Generate buttons.</div>';
+}
 
 function sendMsg(){
   var inp=document.getElementById("userInp");
   var txt=inp.value.trim();if(!txt)return;
   var p=PLATFORMS[currentPlatform];
-  var fullPrompt=p.instruction+"\n\n"+txt;
-  sendWithPrompt(fullPrompt,txt);
+  sendWithPrompt(p.instruction+"\n\n"+txt,txt);
 }
 
 function sendWithPrompt(fullPrompt,displayText){
@@ -189,30 +189,33 @@ function sendWithPrompt(fullPrompt,displayText){
   var tb=document.createElement("div");tb.className="msg-a";tb.textContent="Creating your content...";tb.id="typing";msgs.appendChild(tb);
   msgs.scrollTop=msgs.scrollHeight;
   convo.push({role:"user",content:fullPrompt});
-  callAPI(function(r){
+  var k="sk-ant-api03-wvRsUFYager"+"Cz8uNWnkAKDK-0CLXQMI-V9BUM"+"FNbSpC9eJmxjJSu8x-kJKAWEuJOZmloF8P5tW-J2cnkUwfqZg-NZ8o5AAA";
+  fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json","x-api-key":k,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},body:JSON.stringify({model:"claude-opus-4-8",max_tokens:1000,system:MSYS,messages:convo})}).then(function(r){return r.json();}).then(function(d){
+    var r=(d.content||[]).map(function(b){return b.text||"";}).join("");
     convo.push({role:"assistant",content:r});
     var t=document.getElementById("typing");if(t)t.remove();
+    var p=PLATFORMS[currentPlatform];
     var ab=document.createElement("div");ab.className="msg-a";
-    ab.innerHTML='<div style="margin-bottom:0.8rem;">'+r.replace(/\n/g,"<br>")+'</div><button class="copy-btn" onclick="copyText(this)">📋 Copy to Clipboard</button>';
-    ab.querySelector(".copy-btn").setAttribute("data-text",r);
-    msgs.appendChild(ab);msgs.scrollTop=msgs.scrollHeight;
+    var txt=document.createElement("div");txt.style.whiteSpace="pre-wrap";txt.style.marginBottom="0.8rem";txt.textContent=r;ab.appendChild(txt);
+    var actions=document.createElement("div");actions.className="msg-actions";
+    var copyBtn=document.createElement("button");copyBtn.className="copy-btn";copyBtn.textContent="📋 Copy";
+    copyBtn.onclick=function(){navigator.clipboard.writeText(r).then(function(){copyBtn.textContent="✅ Copied!";setTimeout(function(){copyBtn.textContent="📋 Copy";},2000);});};
+    actions.appendChild(copyBtn);
+    if(p.url){
+      var openBtn=document.createElement("a");openBtn.href=p.url;openBtn.target="_blank";
+      openBtn.className="platform-link-btn";
+      openBtn.textContent="→ Open "+p.name;
+      openBtn.style.background=p.urlColor;openBtn.style.border="1px solid "+p.urlBorder;openBtn.style.color=p.urlText;
+      actions.appendChild(openBtn);
+    }
+    ab.appendChild(actions);msgs.appendChild(ab);msgs.scrollTop=msgs.scrollHeight;
     btn.disabled=false;btn.textContent="↑";updateSendBtn();
-  },function(){
+  }).catch(function(){
     var t=document.getElementById("typing");if(t)t.remove();
     convo.pop();
-    var eb=document.createElement("div");eb.className="msg-a";eb.style.color="#e74c3c";eb.textContent="Could not generate content. Please try again.";msgs.appendChild(eb);
+    var eb=document.createElement("div");eb.className="msg-a";eb.style.color="#e74c3c";eb.textContent="Could not generate. Please try again.";msgs.appendChild(eb);
     btn.disabled=false;btn.textContent="↑";updateSendBtn();
   });
-}
-
-function copyText(btn){
-  var text=btn.getAttribute("data-text");
-  navigator.clipboard.writeText(text).then(function(){btn.textContent="✅ Copied!";setTimeout(function(){btn.textContent="📋 Copy to Clipboard";},2000);}).catch(function(){btn.textContent="📋 Copy to Clipboard";});
-}
-
-function callAPI(ok,fail){
-  var k="sk-ant-api03-wvRsUFYager"+"Cz8uNWnkAKDK-0CLXQMI-V9BUM"+"FNbSpC9eJmxjJSu8x-kJKAWEuJOZmloF8P5tW-J2cnkUwfqZg-NZ8o5AAA";
-  fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json","x-api-key":k,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},body:JSON.stringify({model:"claude-opus-4-8",max_tokens:1000,system:MSYS,messages:convo})}).then(function(r){return r.json();}).then(function(d){if(d.error)fail();else ok((d.content||[]).map(function(b){return b.text||"";}).join(""));}).catch(fail);
 }
 
 function updateSendBtn(){
