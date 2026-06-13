@@ -4,123 +4,98 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="AI First Nations — Building Indigenous-Led Environmental Resilience through drone technology, artificial intelligence, and Traditional Knowledge.">
-<title>AI First Nations | Protecting Country</title> 
+<title>AI First Nations | Protecting Country</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{background:#111009;color:#ede5d4;font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;}
-
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 3rem;background:rgba(17,16,9,0.95);border-bottom:1px solid rgba(255,255,255,0.07);backdrop-filter:blur(8px);}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 3rem;background:rgba(17,16,9,0.96);border-bottom:1px solid rgba(255,255,255,0.06);backdrop-filter:blur(8px);}
 .brand{display:flex;align-items:center;gap:0.8rem;font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#c9a24a;}
 .brand img{height:44px;width:auto;}
-.nav-right{display:flex;gap:1rem;align-items:center;}
-.nav-contact{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:#ede5d4;opacity:0.65;text-decoration:none;transition:all 0.3s;}
+.nav-right{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;}
+.nav-contact{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:#ede5d4;opacity:0.65;text-decoration:none;}
 .nav-contact:hover{opacity:1;color:#c9a24a;}
-.nav-portal{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;background:#bf5417;color:#f8f3ea;padding:0.5rem 1.2rem;text-decoration:none;transition:background 0.3s;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;}
-.nav-portal:hover{background:#d9732e;}
-
-/* HERO */
-.hero{position:relative;height:100vh;min-height:600px;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(42,66,40,0.4) 0%,transparent 65%),radial-gradient(ellipse 60% 40% at 80% 20%,rgba(191,84,23,0.15) 0%,transparent 60%),linear-gradient(165deg,#0a1209 0%,#111009 40%,#1e1508 70%,#0e0c05 100%);}
+.nav-portal{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;background:#bf5417;color:#f8f3ea;padding:0.5rem 1.2rem;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;}
+.hero{position:relative;height:100vh;min-height:600px;display:flex;align-items:center;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 20% 60%,rgba(42,66,40,0.4) 0%,transparent 65%),radial-gradient(ellipse 60% 40% at 80% 20%,rgba(191,84,23,0.15) 0%,transparent 60%),linear-gradient(165deg,#0a1209 0%,#111009 40%,#1e1508 70%,#0e0c05 100%);}
 .hero-watermark{position:absolute;right:-2%;top:50%;transform:translateY(-50%);pointer-events:none;}
-.hero-watermark img{width:480px;max-width:50vw;opacity:0.18;}
+.hero-watermark img{width:480px;max-width:50vw;opacity:0.22;}
 .hero-content{position:relative;z-index:2;max-width:600px;padding:0 2rem;text-align:left;margin-left:5%;}
-
 .hero-kicker{font-size:0.7rem;letter-spacing:0.26em;text-transform:uppercase;color:#7aab82;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:flex-start;gap:1rem;}
-.hero-kicker::before,.hero-kicker::after{content:'';width:30px;height:1px;background:#7aab82;display:block;}
+.hero-kicker::before{content:'';width:30px;height:1px;background:#7aab82;display:block;}
 h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,6vw,6rem);font-weight:300;line-height:1.0;color:#f8f3ea;margin-bottom:1.5rem;}
 h1 em{font-style:italic;color:#c9a24a;}
-.hero-p{font-size:0.95rem;opacity:0.75;max-width:520px;margin:0 auto 2.5rem;line-height:1.9;}
+.hero-p{font-size:0.95rem;opacity:0.75;max-width:480px;margin:0 0 2.5rem;line-height:1.9;}
 .hero-btns{display:flex;gap:1rem;justify-content:flex-start;flex-wrap:wrap;}
-.btn-ember{background:#bf5417;color:#f8f3ea;padding:0.9rem 2.2rem;font-size:0.75rem;letter-spacing:0.13em;text-transform:uppercase;text-decoration:none;transition:background 0.3s;display:inline-block;}
-.btn-ember:hover{background:#d9732e;}
-.btn-outline{background:transparent;color:#ede5d4;border:1px solid rgba(237,229,212,0.3);padding:0.9rem 2.2rem;font-size:0.75rem;letter-spacing:0.13em;text-transform:uppercase;text-decoration:none;transition:all 0.3s;display:inline-block;cursor:pointer;font-family:'DM Sans',sans-serif;}
-.btn-outline:hover{border-color:#c9a24a;color:#c9a24a;}
-
-/* STATS */
+.btn-ember{background:#bf5417;color:#f8f3ea;padding:0.9rem 2.2rem;font-size:0.75rem;letter-spacing:0.13em;text-transform:uppercase;text-decoration:none;display:inline-block;}
+.btn-outline{background:transparent;color:#ede5d4;border:1px solid rgba(237,229,212,0.3);padding:0.9rem 2.2rem;font-size:0.75rem;letter-spacing:0.13em;text-transform:uppercase;text-decoration:none;display:inline-block;cursor:pointer;font-family:'DM Sans',sans-serif;border:none;}
 .stats{display:flex;background:#1e1b10;border-top:1px solid rgba(255,255,255,0.07);border-bottom:1px solid rgba(255,255,255,0.07);}
 .stat{flex:1;padding:2rem;text-align:center;border-right:1px solid rgba(255,255,255,0.07);}
 .stat:last-child{border-right:none;}
 .stat-num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;color:#c9a24a;display:block;line-height:1;margin-bottom:0.3rem;}
 .stat-label{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;opacity:0.6;}
-
-/* WHAT WE DO */
 .section{padding:6rem 3rem;}
 .section-smoke{background:#1e1b10;}
 .label{font-size:0.68rem;letter-spacing:0.28em;text-transform:uppercase;color:#bf5417;margin-bottom:0.9rem;display:flex;align-items:center;gap:0.8rem;}
 .label::after{content:'';flex:0 0 28px;height:1px;background:#bf5417;}
 h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3vw,3rem);font-weight:300;color:#f8f3ea;margin-bottom:1rem;line-height:1.15;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:2rem;}
 .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:rgba(255,255,255,0.06);margin-top:3rem;}
-.pillar{background:#111009;padding:2.5rem 2rem;transition:background 0.3s;}
+.pillar{background:#111009;padding:2.5rem 2rem;}
 .pillar:hover{background:#1e1b10;}
 .pillar-icon{font-size:2rem;margin-bottom:1.2rem;display:block;}
 .pillar h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:#c9a24a;margin-bottom:0.6rem;}
 .pillar p{font-size:0.87rem;opacity:0.7;line-height:1.8;}
-
-/* MISSION */
-.mission{padding:6rem 3rem;background:#111009;text-align:center;}
-.mission-inner{max-width:800px;margin:0 auto;}
-.quote-box{padding:2rem 3rem;background:rgba(42,66,40,0.2);border:1px solid rgba(62,107,64,0.3);border-left:3px solid #7aab82;text-align:left;margin:2.5rem 0;}
-.quote-box p:first-child{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-style:italic;color:#7aab82;line-height:1.7;margin-bottom:0.8rem;}
-.quote-box p:last-child{font-size:0.9rem;opacity:0.75;line-height:1.85;}
-
-/* PARTNERS */
-.partners{padding:5rem 3rem;background:#1e1b10;text-align:center;}
+.pillar-btn{display:inline-block;margin-top:1rem;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:#c9a24a;background:none;border:1px solid rgba(201,162,74,0.3);padding:0.4rem 1rem;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none;}
+.quote-box{padding:2rem 3rem;background:rgba(42,66,40,0.2);border:1px solid rgba(62,107,64,0.3);border-left:3px solid #7aab82;margin:2.5rem 0;}
 .partner-logos{display:flex;justify-content:center;align-items:center;gap:3rem;flex-wrap:wrap;margin-top:2.5rem;opacity:0.6;}
 .partner-tag{font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;color:#ede5d4;padding:0.6rem 1.5rem;border:1px solid rgba(255,255,255,0.15);}
-
-/* CTA */
-.cta{padding:7rem 3rem;background:linear-gradient(160deg,#2a4228 0%,#1e1b10 60%,#111009 100%);text-align:center;position:relative;overflow:hidden;}
+.cta{padding:7rem 3rem;background:linear-gradient(160deg,#2a4228 0%,#1e1b10 60%,#111009 100%);text-align:center;position:relative;}
 .cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 50% 50%,rgba(191,84,23,0.1) 0%,transparent 70%);}
 .cta-inner{position:relative;z-index:1;}
-
-/* FOOTER */
 footer{background:#1e1b10;border-top:1px solid rgba(255,255,255,0.07);padding:2.5rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
 .footer-brand{font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#c9a24a;display:flex;align-items:center;gap:0.6rem;}
-.footer-brand img{height:36px;width:auto;}
-.footer-links{display:flex;gap:1.5rem;}
-.footer-links a{font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;opacity:0.45;color:#ede5d4;text-decoration:none;transition:opacity 0.3s;}
+.footer-brand img{height:36px;}
+.footer-links{display:flex;gap:1.5rem;flex-wrap:wrap;}
+.footer-links a{font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;opacity:0.45;color:#ede5d4;text-decoration:none;}
 .footer-links a:hover{opacity:1;color:#c9a24a;}
 .footer-copy{font-size:0.7rem;opacity:0.35;}
-
-/* PORTAL MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:200;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
 .modal-overlay.active{display:flex;}
 .modal{background:#1e1b10;border:1px solid rgba(201,162,74,0.3);padding:3rem;max-width:400px;width:90%;text-align:center;}
 .modal h3{font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:#c9a24a;margin-bottom:0.5rem;}
 .modal p{font-size:0.88rem;opacity:0.65;margin-bottom:2rem;line-height:1.7;}
-.modal input{width:100%;background:#111009;border:1px solid rgba(255,255,255,0.15);color:#ede5d4;padding:0.9rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.95rem;margin-bottom:1rem;outline:none;transition:border-color 0.3s;}
+.modal input{width:100%;background:#111009;border:1px solid rgba(255,255,255,0.15);color:#ede5d4;padding:0.9rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.95rem;margin-bottom:1rem;outline:none;}
 .modal input:focus{border-color:#c9a24a;}
-.modal-btn{width:100%;background:#bf5417;color:#f8f3ea;border:none;padding:0.9rem;font-family:'DM Sans',sans-serif;font-size:0.78rem;letter-spacing:0.13em;text-transform:uppercase;cursor:pointer;transition:background 0.3s;margin-bottom:0.8rem;}
-.modal-btn:hover{background:#d9732e;}
-.modal-cancel{font-size:0.72rem;opacity:0.45;cursor:pointer;letter-spacing:0.1em;text-transform:uppercase;background:none;border:none;color:#ede5d4;transition:opacity 0.3s;}
-.modal-cancel:hover{opacity:0.8;}
+.modal-btn{width:100%;background:#bf5417;color:#f8f3ea;border:none;padding:0.9rem;font-family:'DM Sans',sans-serif;font-size:0.78rem;letter-spacing:0.13em;text-transform:uppercase;cursor:pointer;margin-bottom:0.8rem;}
+.modal-cancel{font-size:0.72rem;opacity:0.45;cursor:pointer;letter-spacing:0.1em;text-transform:uppercase;background:none;border:none;color:#ede5d4;}
 .modal-error{color:#e74c3c;font-size:0.82rem;margin-bottom:1rem;display:none;}
-
-/* RESPONSIVE */
-@media(max-width:768px){
-  nav{padding:0 1.5rem;}
-  .section{padding:4rem 1.5rem;}
-  .grid-3{grid-template-columns:1fr;}
-  .stats{flex-wrap:wrap;}
-  .stat{flex:1 1 45%;}
-  footer{flex-direction:column;align-items:flex-start;padding:2rem 1.5rem;}
-  .hero-logo{width:130px;}
-  .partner-logos{gap:1.5rem;}
-  .quote-box{padding:1.5rem;}
-}
+.drone-wrap{position:absolute;top:25%;left:-120px;z-index:3;animation:flyAcross 18s linear infinite;pointer-events:none;}
+@keyframes flyAcross{0%{left:-120px;top:25%;}50%{top:20%;}100%{left:calc(100vw + 120px);top:25%;}}
+.drone{position:relative;width:90px;height:50px;}
+.drone-body{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:42px;height:16px;background:linear-gradient(135deg,#2a2a2a,#1a1a1a);border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,0.5);}
+.drone-body::after{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:10px;height:10px;border-radius:50%;background:#bf5417;box-shadow:0 0 8px rgba(191,84,23,0.6);}
+.drone-arm{position:absolute;width:36px;height:3px;background:#1a1a1a;border-radius:2px;}
+.drone-arm.tl{left:0;top:28%;transform:rotate(-35deg);transform-origin:right center;}
+.drone-arm.tr{right:0;top:28%;transform:rotate(35deg);transform-origin:left center;}
+.drone-arm.bl{left:0;top:68%;transform:rotate(35deg);transform-origin:right center;}
+.drone-arm.br{right:0;top:68%;transform:rotate(-35deg);transform-origin:left center;}
+.prop{position:absolute;width:28px;height:5px;border-radius:4px;background:rgba(122,171,130,0.7);animation:spin 0.12s linear infinite;}
+.prop.tl{top:10px;left:0;}
+.prop.tr{top:10px;right:0;}
+.prop.bl{bottom:10px;left:0;}
+.prop.br{bottom:10px;right:0;}
+@keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+.drone-shadow{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);width:40px;height:6px;background:rgba(0,0,0,0.2);border-radius:50%;filter:blur(3px);}
+.drone-light{position:absolute;bottom:2px;right:10px;width:4px;height:4px;border-radius:50%;background:#c9a24a;animation:blink 1.2s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.2;}}
+@media(max-width:768px){nav{padding:0 1.5rem;}.nav-right .nav-contact{display:none;}.section{padding:4rem 1.5rem;}.grid-2,.grid-3{grid-template-columns:1fr;}.stats{flex-wrap:wrap;}.stat{flex:1 1 45%;}.hero-content{margin-left:3%;}.hero-watermark img{width:280px;}.drone-wrap{top:15%;}}
 </style>
 </head>
 <body>
-
-<!-- NAV -->
 <nav>
-  <div class="brand">
-    <img src="images/logo.jpg" alt="AI First Nations">
-    AI First Nations
-  </div>
+  <div class="brand"><img src="images/logo.jpg" alt="AI First Nations">AI First Nations</div>
   <div class="nav-right">
     <a href="#what-we-do" class="nav-contact">Home</a>
     <a href="about.html" class="nav-contact">About</a>
@@ -132,10 +107,23 @@ footer{background:#1e1b10;border-top:1px solid rgba(255,255,255,0.07);padding:2.
     <button class="nav-portal" onclick="openPortal()">🔒 Portal Login</button>
   </div>
 </nav>
-
-<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
+  <div class="drone-wrap">
+    <div class="drone">
+      <div class="drone-arm tl"></div>
+      <div class="drone-arm tr"></div>
+      <div class="drone-arm bl"></div>
+      <div class="drone-arm br"></div>
+      <div class="prop tl"></div>
+      <div class="prop tr"></div>
+      <div class="prop bl"></div>
+      <div class="prop br"></div>
+      <div class="drone-body"></div>
+      <div class="drone-light"></div>
+    </div>
+    <div class="drone-shadow"></div>
+  </div>
   <div class="hero-watermark"><img src="images/logo.jpg" alt=""></div>
   <div class="hero-content">
     <div class="hero-kicker">Indigenous-Led · Drone Intelligence · AI for Country</div>
@@ -143,65 +131,39 @@ footer{background:#1e1b10;border-top:1px solid rgba(255,255,255,0.07);padding:2.
     <p class="hero-p">Drone technology, artificial intelligence, and 65,000 years of Traditional Knowledge — working together to monitor, restore, and care for Country across Australia and beyond.</p>
     <div class="hero-btns">
       <a href="#what-we-do" class="btn-ember">What We Do</a>
-      <a href="#contact" class="btn-outline">Get in Touch</a>
+      <a href="#contact" class="btn-outline" style="border:1px solid rgba(237,229,212,0.3);color:#ede5d4;padding:0.9rem 2.2rem;font-size:0.75rem;letter-spacing:0.13em;text-transform:uppercase;text-decoration:none;display:inline-block;">Get in Touch</a>
     </div>
   </div>
-</section>
-
-<!-- STATS -->
-<div class="stats">
+</section><div class="stats">
   <div class="stat"><span class="stat-num">97%</span><span class="stat-label">AI Accuracy</span></div>
   <div class="stat"><span class="stat-num">1,000+</span><span class="stat-label">Students · AATT Trial</span></div>
   <div class="stat"><span class="stat-num">10+</span><span class="stat-label">Years on Country</span></div>
-  <div class="stat"><span class="stat-num">6</span><span class="stat-label">AI Advisors</span></div>
+  <div class="stat"><span class="stat-num">9</span><span class="stat-label">AI Advisors</span></div>
 </div>
 
-<!-- WHAT WE DO -->
 <section class="section section-smoke" id="what-we-do">
   <div class="label">What We Do</div>
   <h2>Four Pillars of<br><em style="color:#7aab82;font-style:italic;">Country Care</em></h2>
   <p style="font-size:0.95rem;opacity:0.7;max-width:580px;line-height:1.85;">From mangrove canopies to rock art sites — we combine drone technology, AI, and Traditional Knowledge to protect Country.</p>
   <div class="grid-3" style="grid-template-columns:repeat(2,1fr);">
-    <div class="pillar">
-      <span class="pillar-icon">🌿</span>
-      <h3>Environmental Resilience</h3>
-      <p>Mangrove monitoring, biosecurity surveillance, marine debris mapping, cultural burn planning, and invasive species control across Traditional Owner Country.</p>
-    </div>
-    <div class="pillar">
-      <span class="pillar-icon">🪶</span>
-      <h3>Cultural Heritage</h3>
-      <p>Rock art documentation, heritage drone mapping, sacred site preservation, and Traditional Owner engagement — keeping culture strong.</p>
-    </div>
-    <div class="pillar">
-      <span class="pillar-icon">🤖</span>
-      <h3>Technology & Innovation</h3>
-      <p>AI mangrove classification (97% accuracy), government technology trials, Indigenous data sovereignty, and drone certification training.</p>
-    </div>
-    <div class="pillar">
-      <span class="pillar-icon">🎓</span>
-      <h3>Education & Empowerment</h3>
-      <p>Junior Ranger programs, school drone training, cultural mentoring, men's wellbeing programs, and digital skills pathways for the next generation.</p>
-    </div>
+    <div class="pillar"><span class="pillar-icon">🌿</span><h3>Environmental Resilience</h3><p>Mangrove monitoring, biosecurity surveillance, marine debris mapping, cultural burn planning, and invasive species control.</p><a href="services.html" class="pillar-btn">View Services →</a></div>
+    <div class="pillar"><span class="pillar-icon">🪶</span><h3>Cultural Heritage</h3><p>Rock art documentation, heritage drone mapping, sacred site preservation, and Traditional Owner engagement.</p><a href="projects.html" class="pillar-btn">View Projects →</a></div>
+    <div class="pillar"><span class="pillar-icon">🤖</span><h3>Technology & Innovation</h3><p>AI mangrove classification (97% accuracy), government technology trials, Indigenous data sovereignty, and drone training.</p><a href="research.html" class="pillar-btn">View Research →</a></div>
+    <div class="pillar"><span class="pillar-icon">🎓</span><h3>Education & Empowerment</h3><p>Junior Ranger programs, school drone training, cultural mentoring, and digital skills pathways for the next generation.</p><a href="education.html" class="pillar-btn">View Education →</a></div>
   </div>
 </section>
 
-<!-- MISSION -->
-<section class="mission">
-  <div class="mission-inner">
-    <div class="label" style="justify-content:center;">Our Mission</div>
-    <h2>Protecting Country Through<br><em style="color:#c9a24a;font-style:italic;">Traditional Knowledge & AI</em></h2>
-    <div class="quote-box">
-      <p>"Artificial intelligence doesn't replace Traditional Knowledge — it amplifies it."</p>
-      <p>Our AI systems are trained on Country, guided by Traditional Owners, and built to translate thousands of years of ecological knowledge into data the modern world can act on — while ensuring that data always serves Country, community, and culture first.</p>
-    </div>
-    <p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-style:italic;color:#7aab82;">
-      Protecting Country. Empowering Communities. Creating the Future.
-    </p>
+<section class="section" style="background:#111009;text-align:center;">
+  <div class="label" style="justify-content:center;">Our Mission</div>
+  <h2>Protecting Country Through<br><em style="color:#c9a24a;font-style:italic;">Traditional Knowledge & AI</em></h2>
+  <div class="quote-box" style="text-align:left;max-width:800px;margin:2.5rem auto;">
+    <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-style:italic;color:#7aab82;line-height:1.7;margin-bottom:0.8rem;">"Artificial intelligence doesn't replace Traditional Knowledge — it amplifies it."</p>
+    <p style="font-size:0.9rem;opacity:0.75;line-height:1.85;">Our AI systems are trained on Country, guided by Traditional Owners, and built to translate thousands of years of ecological knowledge into data the modern world can act on — while ensuring that data always serves Country, community, and culture first.</p>
   </div>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-style:italic;color:#7aab82;">Protecting Country. Empowering Communities. Creating the Future.</p>
 </section>
 
-<!-- PARTNERS -->
-<section class="partners">
+<section class="section section-smoke" style="text-align:center;">
   <div class="label" style="justify-content:center;">Our Partners</div>
   <h2>Trusted By</h2>
   <div class="partner-logos">
@@ -214,7 +176,6 @@ footer{background:#1e1b10;border-top:1px solid rgba(255,255,255,0.07);padding:2.
   </div>
 </section>
 
-<!-- CONTACT -->
 <section class="section section-smoke" id="contact">
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;">
     <div>
@@ -224,81 +185,53 @@ footer{background:#1e1b10;border-top:1px solid rgba(255,255,255,0.07);padding:2.
       <div style="display:flex;flex-direction:column;gap:1rem;">
         <div style="display:flex;align-items:center;gap:1rem;padding:1rem;background:#111009;border:1px solid rgba(255,255,255,0.07);">
           <span style="font-size:1.2rem;">✉️</span>
-          <div>
-            <div style="font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:#7aab82;margin-bottom:0.2rem;">Email</div>
-            <a href="mailto:john@aifirstnations.org.au" style="font-size:0.9rem;opacity:0.8;color:#ede5d4;text-decoration:none;">john@aifirstnations.org.au</a>
-          </div>
+          <div><div style="font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:#7aab82;margin-bottom:0.2rem;">Email</div><a href="mailto:john@aifirstnations.org.au" style="font-size:0.9rem;opacity:0.8;color:#ede5d4;text-decoration:none;">john@aifirstnations.org.au</a></div>
         </div>
         <div style="display:flex;align-items:center;gap:1rem;padding:1rem;background:#111009;border:1px solid rgba(255,255,255,0.07);">
           <span style="font-size:1.2rem;">📍</span>
-          <div>
-            <div style="font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:#7aab82;margin-bottom:0.2rem;">Location</div>
-            <p style="font-size:0.9rem;opacity:0.8;">Innisfail, Far North Queensland</p>
-          </div>
+          <div><div style="font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:#7aab82;margin-bottom:0.2rem;">Location</div><p style="font-size:0.9rem;opacity:0.8;">Innisfail, Far North Queensland</p></div>
         </div>
         <div style="display:flex;align-items:center;gap:1rem;padding:1rem;background:#111009;border:1px solid rgba(255,255,255,0.07);">
           <span style="font-size:1.2rem;">🏢</span>
-          <div>
-            <div style="font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:#7aab82;margin-bottom:0.2rem;">ABN</div>
-            <p style="font-size:0.9rem;opacity:0.8;">80 732 478 065</p>
-          </div>
+          <div><div style="font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:#7aab82;margin-bottom:0.2rem;">ABN</div><p style="font-size:0.9rem;opacity:0.8;">80 732 478 065</p></div>
         </div>
       </div>
     </div>
-
-    <!-- Contact Form -->
-    <div>
-      <form action="https://formspree.io/f/john@aifirstnations.org.au" method="POST" style="display:flex;flex-direction:column;gap:1rem;">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
-          <div style="display:flex;flex-direction:column;gap:0.4rem;">
-            <label style="font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:#7aab82;">First Name</label>
-            <input type="text" name="first_name" placeholder="Your first name" style="background:#111009;border:1px solid rgba(255,255,255,0.1);color:#ede5d4;padding:0.85rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.9rem;outline:none;">
-          </div>
-          <div style="display:flex;flex-direction:column;gap:0.4rem;">
-            <label style="font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:#7aab82;">Last Name</label>
-            <input type="text" name="last_name" placeholder="Your last name" style="background:#111009;border:1px solid rgba(255,255,255,0.1);color:#ede5d4;padding:0.85rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.9rem;outline:none;">
-          </div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:0.4rem;">
-          <label style="font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:#7aab82;">Email</label>
-          <input type="email" name="email" placeholder="your@email.com" style="background:#111009;border:1px solid rgba(255,255,255,0.1);color:#ede5d4;padding:0.85rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.9rem;outline:none;">
-        </div>
-        <div style="display:flex;flex-direction:column;gap:0.4rem;">
-          <label style="font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:#7aab82;">Organisation</label>
-          <input type="text" name="organisation" placeholder="Organisation name" style="background:#111009;border:1px solid rgba(255,255,255,0.1);color:#ede5d4;padding:0.85rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.9rem;outline:none;">
-        </div>
-        <div style="display:flex;flex-direction:column;gap:0.4rem;">
-          <label style="font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:#7aab82;">Message</label>
-          <textarea name="message" rows="4" placeholder="Tell us about your Country and what you're looking to achieve..." style="background:#111009;border:1px solid rgba(255,255,255,0.1);color:#ede5d4;padding:0.85rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.9rem;resize:vertical;outline:none;"></textarea>
-        </div>
-        <button type="submit" class="btn-ember" style="align-self:flex-start;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;">Send Message →</button>
-      </form>
-    </div>
+    <form action="https://formspree.io/f/john@aifirstnations.org.au" method="POST" style="display:flex;flex-direction:column;gap:1rem;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div style="display:flex;flex-direction:column;gap:0.4rem;"><label style="font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:#7aab82;">First Name</label><input type="text" name="first_name" style="background:#111009;border:1px solid rgba(255,255,255,0.1);color:#ede5d4;padding:0.85rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.9rem;outline:none;"></div>
+        <div style="display:flex;flex-direction:column;gap:0.4rem;"><label style="font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:#7aab82;">Last Name</label><input type="text" name="last_name" style="background:#111009;border:1px solid rgba(255,255,255,0.1);color:#ede5d4;padding:0.85rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.9rem;outline:none;"></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.4rem;"><label style="font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:#7aab82;">Email</label><input type="email" name="email" style="background:#111009;border:1px solid rgba(255,255,255,0.1);color:#ede5d4;padding:0.85rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.9rem;outline:none;"></div>
+      <div style="display:flex;flex-direction:column;gap:0.4rem;"><label style="font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:#7aab82;">Organisation</label><input type="text" name="organisation" style="background:#111009;border:1px solid rgba(255,255,255,0.1);color:#ede5d4;padding:0.85rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.9rem;outline:none;"></div>
+      <div style="display:flex;flex-direction:column;gap:0.4rem;"><label style="font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:#7aab82;">Message</label><textarea name="message" rows="4" style="background:#111009;border:1px solid rgba(255,255,255,0.1);color:#ede5d4;padding:0.85rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.9rem;resize:vertical;outline:none;"></textarea></div>
+      <button type="submit" style="background:#bf5417;color:#f8f3ea;border:none;padding:0.85rem 2rem;font-family:'DM Sans',sans-serif;font-size:0.75rem;letter-spacing:0.13em;text-transform:uppercase;cursor:pointer;align-self:flex-start;">Send Message →</button>
+    </form>
   </div>
 </section>
 
-<!-- CTA PORTAL -->
 <section class="cta">
   <div class="cta-inner">
     <div class="label" style="justify-content:center;">Secure Access</div>
-    <h2 style="font-size:clamp(2rem,3.5vw,3.5rem);margin-bottom:1rem;">Partner &amp; Team Portal</h2>
+    <h2 style="font-size:clamp(2rem,3.5vw,3.5rem);margin-bottom:1rem;">Partner & Team Portal</h2>
     <p style="font-size:0.95rem;opacity:0.7;max-width:480px;margin:0 auto 2.5rem;line-height:1.85;">Access detailed project information, research publications, the AI Advisory Board, and programme resources through our secure portal.</p>
     <button class="btn-ember" onclick="openPortal()" style="border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:0.78rem;letter-spacing:0.13em;">🔒 Enter Portal</button>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <div class="footer-brand"><img src="images/logo.jpg" alt="AI First Nations"> AI First Nations</div>
+  <div class="footer-brand"><img src="images/logo.jpg" alt="AI First Nations">AI First Nations</div>
   <div class="footer-links">
     <a href="#what-we-do">What We Do</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="projects.html">Projects</a>
     <a href="#contact">Contact</a>
     <a href="privacy.html">Privacy Policy</a>
   </div>
   <div class="footer-copy">© 2025 AI First Nations Aboriginal Corporation · ABN 80 732 478 065 · Always Was, Always Will Be</div>
 </footer>
 
-<!-- PORTAL MODAL -->
 <div class="modal-overlay" id="portalModal">
   <div class="modal">
     <div style="font-size:2.5rem;margin-bottom:1rem;">🦅</div>
@@ -312,39 +245,20 @@ footer{background:#1e1b10;border-top:1px solid rgba(255,255,255,0.07);padding:2.
 </div>
 
 <script>
-function openPortal(){
-  document.getElementById('portalModal').classList.add('active');
-  document.getElementById('portalPassword').focus();
-  document.getElementById('modalError').style.display='none';
-  document.getElementById('portalPassword').value='';
-}
-
-function closePortal(){
-  document.getElementById('portalModal').classList.remove('active');
-}
-
+function openPortal(){document.getElementById('portalModal').classList.add('active');document.getElementById('portalPassword').focus();document.getElementById('modalError').style.display='none';document.getElementById('portalPassword').value='';}
+function closePortal(){document.getElementById('portalModal').classList.remove('active');}
 async function checkPassword(){
-  const pwd = document.getElementById('portalPassword').value;
-  const encoder = new TextEncoder();
-  const data = encoder.encode(pwd);
-  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-  const correct = '7ab786a780c4e916446bbd92356c868d4ca2e3b86c5a492f5a67e283c2b9841b';
-  if(hashHex === correct){
-    sessionStorage.setItem('aifn_portal','granted');
-    window.location.href = 'portal.html';
-  } else {
-    document.getElementById('modalError').style.display='block';
-    document.getElementById('portalPassword').value='';
-    document.getElementById('portalPassword').focus();
-  }
+  var pwd=document.getElementById('portalPassword').value;
+  var encoder=new TextEncoder();
+  var data=encoder.encode(pwd);
+  var hashBuffer=await crypto.subtle.digest('SHA-256',data);
+  var hashArray=Array.from(new Uint8Array(hashBuffer));
+  var hashHex=hashArray.map(function(b){return b.toString(16).padStart(2,'0');}).join('');
+  var correct='7ab786a780c4e916446bbd92356c868d4ca2e3b86c5a492f5a67e283c2b9841b';
+  if(hashHex===correct){sessionStorage.setItem('aifn_portal','granted');window.location.href='portal.html';}
+  else{document.getElementById('modalError').style.display='block';document.getElementById('portalPassword').value='';document.getElementById('portalPassword').focus();}
 }
-
-// Close modal on overlay click
-document.getElementById('portalModal').addEventListener('click', function(e){
-  if(e.target === this) closePortal();
-});
+document.getElementById('portalModal').addEventListener('click',function(e){if(e.target===this)closePortal();});
 </script>
 </body>
 </html>
