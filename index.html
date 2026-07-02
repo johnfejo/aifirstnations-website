@@ -236,7 +236,7 @@ async function checkPassword(){
   var hashBuffer=await crypto.subtle.digest('SHA-256',data);
   var hashArray=Array.from(new Uint8Array(hashBuffer));
   var hashHex=hashArray.map(function(b){return b.toString(16).padStart(2,'0');}).join('');
-  var correct='7ab786a780c4e916446bbd92356c868d4ca2e3b86c5a492f5a67e283c2b9841b';
+  var correct='39659a73708374bedf5ab63b12fbe5ff8beac74a660206da014eea28d487dabb';
   if(hashHex===correct){sessionStorage.setItem('aifn_portal','granted');window.location.href='portal.html';}
   else{document.getElementById('modalError').style.display='block';document.getElementById('portalPassword').value='';document.getElementById('portalPassword').focus();}
 }
