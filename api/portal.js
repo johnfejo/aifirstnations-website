@@ -105,12 +105,25 @@ module.exports = async function handler(req, res) {
     const bucketId   = auth.allowed.bucketId;
     const bucketName = process.env.B2_BUCKET_NAME || 'aifn-flight-data';
 
+    // ── B2 folder helper ─────────────────────────────────────────
+    // B2 returns virtual folders in data.folders (from delimiter grouping)
+    // AND as folder-marker files in data.files (names ending with '/').
+    // We merge both to handle all folder styles.
+    function getFolders(data) {
+      const fromFolders = data.folders || [];
+      const fromMarkers = (data.files || [])
+        .filter(f => f.fileName.endsWith('/'))
+        .map(f => f.fileName);
+      return [...new Set([...fromFolders, ...fromMarkers])].sort();
+    }
+
     // ── action: projects ────────────────────────────────────────
     // Returns all project folders under the client's top-level prefix.
     // New project types appear automatically as B2 folders are created.
     if (action === 'projects') {
-      const data = await b2List(apiUrl, token, bucketId, client.prefix, '/');
-      const projects = (data.folders || []).map(folder => ({
+      const data     = await b2List(apiUrl, token, bucketId, client.prefix, '/');
+      const folders  = getFolders(data);
+      const projects = folders.map(folder => ({
         name:   folder.replace(client.prefix, '').replace(/\/$/, '').replace(/-/g, ' '),
         slug:   folder.replace(client.prefix, '').replace(/\/$/, ''),
         prefix: folder,
@@ -118,7 +131,6 @@ module.exports = async function handler(req, res) {
       return res.json({
         client: { name: client.name, org: client.org },
         projects,
-        _debug: { bucketId, prefix: client.prefix, rawFolders: data.folders, rawFileCount: (data.files || []).length, rawFiles: (data.files || []).slice(0,3).map(f => f.fileName) },
       });
     }
 
@@ -126,13 +138,13 @@ module.exports = async function handler(req, res) {
     // Returns date → sites list within a project prefix.
     if (action === 'flights') {
       const dateData = await b2List(apiUrl, token, bucketId, prefix, '/');
-      const dates    = dateData.folders || [];
+      const dates    = getFolders(dateData);
 
       const flights = [];
       for (const dateFolder of dates) {
         const dateStr  = dateFolder.replace(prefix, '').replace(/\/$/, '');
         const siteData = await b2List(apiUrl, token, bucketId, dateFolder, '/');
-        const sites    = (siteData.folders || []).map(sf => ({
+        const sites    = getFolders(siteData).map(sf => ({
           name:   sf.replace(dateFolder, '').replace(/\/$/, '').replace(/-/g, ' '),
           prefix: sf,
         }));
