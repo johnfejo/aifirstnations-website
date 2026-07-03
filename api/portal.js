@@ -41,7 +41,9 @@ async function b2List(apiUrl, token, bucketId, prefix, delimiter) {
     headers: { Authorization: token, 'Content-Type': 'application/json' },
     body:    JSON.stringify(body),
   });
-  return r.json();
+  const data = await r.json();
+  if (!r.ok) throw new Error('B2 list failed: ' + JSON.stringify(data));
+  return data;
 }
 
 async function b2DownloadAuth(apiUrl, token, bucketId, prefix, seconds = 86400) {
