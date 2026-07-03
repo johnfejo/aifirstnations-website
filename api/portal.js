@@ -76,7 +76,23 @@ module.exports = async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST')   return res.status(405).json({ error: 'Method not allowed' });
 
-  const { action, code, prefix } = req.body || {};
+  // Parse body — handle both pre-parsed objects and raw strings
+  let parsed = {};
+  try {
+    if (req.body && typeof req.body === 'object') {
+      parsed = req.body;
+    } else if (req.body && typeof req.body === 'string') {
+      parsed = JSON.parse(req.body);
+    } else {
+      // Manually read stream
+      const chunks = [];
+      for await (const chunk of req) chunks.push(chunk);
+      const raw = Buffer.concat(chunks).toString();
+      if (raw) parsed = JSON.parse(raw);
+    }
+  } catch { parsed = {}; }
+
+  const { action, code, prefix } = parsed;
   const client = CLIENTS[(code || '').toUpperCase()];
 
   if (!client) return res.status(401).json({ error: 'Invalid access code' });
