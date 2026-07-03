@@ -118,6 +118,7 @@ module.exports = async function handler(req, res) {
       return res.json({
         client: { name: client.name, org: client.org },
         projects,
+        _debug: { bucketId, prefix: client.prefix, rawFolders: data.folders, rawFileCount: (data.files || []).length, rawFiles: (data.files || []).slice(0,3).map(f => f.fileName) },
       });
     }
 
