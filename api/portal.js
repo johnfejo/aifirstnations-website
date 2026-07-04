@@ -15,6 +15,7 @@ const CLIENTS = {
     name:   'Goondoi Rangers',
     org:    'Goondoi Land & Sea Rangers',
     prefix: 'Goondoi/',
+    logo:   '/images/goondoi.jpg',
   },
 };
 
@@ -129,7 +130,7 @@ module.exports = async function handler(req, res) {
         prefix: folder,
       }));
       return res.json({
-        client: { name: client.name, org: client.org },
+        client: { name: client.name, org: client.org, logo: client.logo || null },
         projects,
       });
     }
