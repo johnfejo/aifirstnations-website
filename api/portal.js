@@ -159,7 +159,11 @@ module.exports = async function handler(req, res) {
     // File count, total size, type breakdown for a site folder.
     if (action === 'summary') {
       const data  = await b2List(apiUrl, token, bucketId, prefix, null);
-      const files = data.files || [];
+      // Exclude hidden/system files (Mac .Trashes, .fseventsd, etc.)
+      const files = (data.files || []).filter(f => {
+        const rel = f.fileName.replace(prefix, '');
+        return !rel.startsWith('.') && !rel.startsWith('._') && !rel.endsWith('/');
+      });
 
       const types = {};
       let totalSize = 0;
@@ -188,12 +192,18 @@ module.exports = async function handler(req, res) {
         b2DownloadAuth(apiUrl, token, bucketId, prefix, 86400),
       ]);
 
-      const files = (fileData.files || []).map(f => ({
-        name:    f.fileName.replace(prefix, ''),
-        size:    f.contentLength,
-        sizeFmt: fmtSize(f.contentLength),
-        url:     `${downloadUrl}/file/${bucketName}/${f.fileName}?Authorization=${dlAuth.authorizationToken}`,
-      }));
+      // Exclude hidden/system files (Mac .Trashes, .fseventsd, etc.)
+      const files = (fileData.files || [])
+        .filter(f => {
+          const rel = f.fileName.replace(prefix, '');
+          return !rel.startsWith('.') && !rel.startsWith('._') && !rel.endsWith('/');
+        })
+        .map(f => ({
+          name:    f.fileName.replace(prefix, ''),
+          size:    f.contentLength,
+          sizeFmt: fmtSize(f.contentLength),
+          url:     `${downloadUrl}/file/${bucketName}/${f.fileName}?Authorization=${dlAuth.authorizationToken}`,
+        }));
 
       return res.json({ files, expiresIn: '24 hours' });
     }
