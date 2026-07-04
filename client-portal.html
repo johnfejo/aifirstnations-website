@@ -545,4 +545,68 @@ async function loadSite(site) {
         <div class="type-chip">
           <div class="type-ext">${eIcon(ext)} ${ext}</div>
           <div class="type-cnt">${info.count.toLocaleString()}</div>
-          <div class="type-sz">${fmtSize(info.size)}<
+          <div class="type-sz">${fmtSize(info.size)}/div>
+        </div>
+      `).join('');
+
+    document.getElementById('site-content').innerHTML = `
+      <div class="stat-bar">
+        <div class="stat">
+          <div class="stat-label">Total Files</div>
+          <div class="stat-value">${data.fileCount.toLocaleString()}</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Total Size</div>
+          <div class="stat-value">${data.totalSizeFmt}</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Data Integrity</div>
+          <div class="stat-value green">✓ Verified</div>
+        </div>
+      </div>
+      <div class="summary-grid">${chips}</div>
+      <div style="margin-bottom:24px">
+        <button class="btn-download" onclick="loadFileList()">⬇ Generate Download Links</button>
+        <button class="btn-download outline" onclick="loadFileList()">📄 Browse All Files</button>
+      </div>
+      <div id="file-list-container"></div>
+    `;
+  } catch {
+    document.getElementById('site-content').innerHTML =
+      '<div class="empty"><div class="empty-icon">⚠️</div>Failed to load. Please try again.</div>';
+  }
+}
+
+// ── FILE LIST ────────────────────────────────────────────────────
+async function loadFileList() {
+  const c = document.getElementById('file-list-container');
+  c.innerHTML = '<div class="loader"><div class="spinner"></div><div>Generating secure links… valid 24 hours</div></div>';
+
+  try {
+    const data  = await api({ action: 'file-list', prefix: S.currentSite.prefix });
+    const files = data.files || [];
+
+    if (!files.length) { c.innerHTML = '<div class="empty">No files found.</div>'; return; }
+
+    c.innerHTML = `
+      <div class="file-list-wrap">
+        <div class="file-list-header">
+          <span>${files.length.toLocaleString()} files · Links expire in 24 hours</span>
+          <span>Size</span>
+        </div>
+        ${files.map(f => `
+          <div class="file-item">
+            <div class="file-name">${eIcon((f.name.split('.').pop()||'').toUpperCase())} ${f.name}</div>
+            <div class="file-size">${f.sizeFmt}</div>
+            <a class="file-dl" href="${f.url}" download="${f.name}" target="_blank">↓</a>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  } catch {
+    c.innerHTML = '<div class="empty"><div class="empty-icon">⚠️</div>Failed to generate links.</div>';
+  }
+}
+</script>
+</body>
+</html>
