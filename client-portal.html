@@ -1,555 +1,218 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI First Nations — Client Data Portal</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+// ================================================================
+// AI FIRST NATIONS — CLIENT DATA PORTAL API
+// Vercel Serverless Function  →  save this as:  api/portal.js
+//
+// Required Vercel Environment Variables:
+//   B2_KEY_ID       — Backblaze application key ID
+//   B2_APP_KEY      — Backblaze application key
+//   B2_BUCKET_NAME  — aifn-flight-data
+// ================================================================
 
-    :root {
-      --bg:      #0d0f14;
-      --surface: #161921;
-      --card:    #1e2230;
-      --border:  #2a2f42;
-      --accent:  #e8620a;
-      --accent2: #f0892e;
-      --text:    #f0f0f0;
-      --muted:   #7a8099;
-      --green:   #3db96a;
-      --radius:  10px;
-    }
+// ── CLIENT REGISTRY ─────────────────────────────────────────────
+// Add new clients here. prefix = their top-level B2 folder.
+const CLIENTS = {
+  'GOON-WET-2026': {
+    name:   'Goondoi Rangers',
+    org:    'Goondoi Land & Sea Rangers',
+    prefix: 'Goondoi/',
+    logo:   '/images/goondoi.jpg',
+  },
+};
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+// ── B2 HELPERS ──────────────────────────────────────────────────
+async function b2Auth() {
+  const creds = Buffer.from(
+    `${process.env.B2_KEY_ID}:${process.env.B2_APP_KEY}`
+  ).toString('base64');
 
-    /* ── HEADER ── */
-    header {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 16px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-    .logo { display: flex; align-items: center; gap: 12px; }
-    .logo-badge {
-      width: 38px; height: 38px;
-      background: var(--accent);
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 800; font-size: 14px; color: #fff;
-    }
-    .logo-text strong { font-size: 15px; font-weight: 700; display: block; }
-    .logo-text span   { font-size: 11px; color: var(--muted); }
+  const r = await fetch(
+    'https://api.backblazeb2.com/b2api/v2/b2_authorize_account',
+    { headers: { Authorization: `Basic ${creds}` } }
+  );
+  if (!r.ok) throw new Error('B2 auth failed: ' + (await r.text()));
+  return r.json();
+}
 
-    #header-client { font-size: 13px; color: var(--muted); display: none; }
-    #header-client strong { color: var(--accent); }
+async function b2List(apiUrl, token, bucketId, prefix, delimiter) {
+  const body = { bucketId, prefix, maxFileCount: 1000 };
+  if (delimiter) body.delimiter = delimiter;
 
-    #btn-logout {
-      background: none; border: 1px solid var(--border);
-      color: var(--muted); padding: 6px 14px;
-      border-radius: 6px; cursor: pointer; font-size: 13px;
-      display: none; transition: border-color .2s, color .2s;
-    }
-    #btn-logout:hover { border-color: var(--accent); color: var(--accent); }
-
-    /* ── MAIN ── */
-    main {
-      flex: 1; max-width: 860px; width: 100%;
-      margin: 0 auto; padding: 32px 20px 60px;
-    }
-
-    .screen { display: none; }
-    .screen.active { display: block; }
-
-    /* ── LOGIN ── */
-    #screen-login.active {
-      display: flex; align-items: center; justify-content: center;
-      min-height: calc(100vh - 71px); padding: 40px 20px;
-    }
-
-    .login-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 14px; padding: 44px 40px;
-      width: 100%; max-width: 420px; text-align: center;
-    }
-    .login-card h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
-    .login-card p  { color: var(--muted); font-size: 14px; margin-bottom: 32px; line-height: 1.5; }
-    .login-card label {
-      display: block; text-align: left;
-      font-size: 12px; font-weight: 600;
-      text-transform: uppercase; letter-spacing: .06em;
-      color: var(--muted); margin-bottom: 8px;
-    }
-    .login-card input {
-      width: 100%; background: var(--card); border: 1px solid var(--border);
-      border-radius: 8px; padding: 13px 16px; color: var(--text);
-      font-size: 16px; letter-spacing: .08em; text-transform: uppercase;
-      outline: none; transition: border-color .2s; margin-bottom: 16px;
-    }
-    .login-card input::placeholder { color: var(--muted); text-transform: none; letter-spacing: 0; }
-    .login-card input:focus { border-color: var(--accent); }
-
-    .btn-primary {
-      width: 100%; background: var(--accent); color: #fff;
-      border: none; border-radius: 8px; padding: 13px;
-      font-size: 15px; font-weight: 600; cursor: pointer;
-      transition: background .2s, transform .1s;
-    }
-    .btn-primary:hover   { background: var(--accent2); }
-    .btn-primary:active  { transform: scale(.98); }
-    .btn-primary:disabled { opacity: .5; cursor: not-allowed; }
-
-    .error-msg {
-      background: #3d1515; border: 1px solid #7a2222;
-      color: #ff8080; border-radius: 8px;
-      padding: 11px 14px; font-size: 13px;
-      margin-top: 12px; display: none;
-    }
-    .error-msg.show { display: block; }
-
-    /* ── PAGE HEADER ── */
-    .page-header { margin-bottom: 28px; }
-    .breadcrumb {
-      display: flex; align-items: center; gap: 6px;
-      font-size: 13px; color: var(--muted);
-      margin-bottom: 10px; flex-wrap: wrap;
-    }
-    .breadcrumb a { color: var(--accent); text-decoration: none; cursor: pointer; }
-    .breadcrumb a:hover { text-decoration: underline; }
-    .breadcrumb span { color: var(--border); }
-    .page-header h2 { font-size: 22px; font-weight: 700; }
-    .page-header p  { color: var(--muted); font-size: 14px; margin-top: 4px; }
-
-    /* ── PROJECT GRID ── */
-    .grid-2 { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
-
-    .card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 20px;
-      cursor: pointer; transition: border-color .2s, transform .15s;
-      position: relative; overflow: hidden;
-    }
-    .card:hover { border-color: var(--accent); transform: translateY(-2px); }
-    .card::before {
-      content: ''; position: absolute; top: 0; left: 0;
-      width: 3px; height: 100%; background: var(--accent);
-      opacity: 0; transition: opacity .2s;
-    }
-    .card:hover::before { opacity: 1; }
-    .card-icon  { font-size: 26px; margin-bottom: 10px; }
-    .card-title { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
-    .card-sub   { font-size: 13px; color: var(--muted); }
-    .card-badge {
-      display: inline-block; background: rgba(232,98,10,.15);
-      color: var(--accent); border-radius: 20px;
-      padding: 2px 10px; font-size: 11px; font-weight: 600; margin-top: 10px;
-    }
-
-    /* ── FLIGHT LIST ── */
-    .flight-group { margin-bottom: 28px; }
-    .flight-date {
-      font-size: 13px; font-weight: 600;
-      text-transform: uppercase; letter-spacing: .07em; color: var(--muted);
-      margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--border);
-    }
-    .site-row {
-      display: flex; align-items: center; justify-content: space-between;
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 8px; padding: 14px 18px; margin-bottom: 8px;
-      cursor: pointer; gap: 12px; transition: border-color .2s;
-    }
-    .site-row:hover { border-color: var(--accent); }
-    .site-row-left { display: flex; align-items: center; gap: 12px; flex: 1; }
-    .site-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
-    .site-name { font-size: 15px; font-weight: 600; }
-    .site-meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
-    .site-arrow { color: var(--muted); font-size: 16px; }
-
-    /* ── SUMMARY ── */
-    .stat-bar {
-      display: flex; gap: 20px; flex-wrap: wrap;
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 10px; padding: 16px 20px; margin-bottom: 20px;
-    }
-    .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
-    .stat-value { font-size: 20px; font-weight: 700; margin-top: 2px; }
-    .stat-value.green { color: var(--green); }
-
-    .summary-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-      gap: 10px; margin: 20px 0;
-    }
-    .type-chip {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 8px; padding: 12px 14px; text-align: center;
-    }
-    .type-ext { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: .05em; }
-    .type-cnt { font-size: 22px; font-weight: 700; margin: 4px 0; }
-    .type-sz  { font-size: 11px; color: var(--muted); }
-
-    .btn-download {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--accent); color: #fff; border: none;
-      border-radius: 8px; padding: 12px 22px;
-      font-size: 14px; font-weight: 600; cursor: pointer;
-      transition: background .2s; margin-right: 10px; margin-bottom: 10px;
-    }
-    .btn-download:hover { background: var(--accent2); }
-    .btn-download.outline {
-      background: transparent; border: 1px solid var(--border); color: var(--text);
-    }
-    .btn-download.outline:hover { border-color: var(--accent); color: var(--accent); }
-
-    /* ── FILE LIST ── */
-    .file-list-wrap {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 10px; overflow: hidden; margin-top: 20px;
-    }
-    .file-list-header {
-      padding: 12px 16px; border-bottom: 1px solid var(--border);
-      font-size: 12px; font-weight: 600; text-transform: uppercase;
-      letter-spacing: .06em; color: var(--muted);
-      display: flex; justify-content: space-between;
-    }
-    .file-item {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 10px 16px; border-bottom: 1px solid var(--border);
-      gap: 12px; font-size: 13px;
-    }
-    .file-item:last-child { border-bottom: none; }
-    .file-item:hover { background: var(--card); }
-    .file-name { flex: 1; word-break: break-all; }
-    .file-size { color: var(--muted); white-space: nowrap; width: 70px; text-align: right; }
-    .file-dl   { color: var(--accent); text-decoration: none; white-space: nowrap; }
-    .file-dl:hover { text-decoration: underline; }
-
-    /* ── LOADING / EMPTY ── */
-    .loader { text-align: center; padding: 60px 20px; color: var(--muted); }
-    .spinner {
-      width: 36px; height: 36px; border: 3px solid var(--border);
-      border-top-color: var(--accent); border-radius: 50%;
-      animation: spin .8s linear infinite; margin: 0 auto 16px;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .empty { text-align: center; padding: 60px 20px; color: var(--muted); }
-    .empty-icon { font-size: 40px; margin-bottom: 12px; }
-
-    @media (max-width: 520px) {
-      .login-card { padding: 32px 24px; }
-      main { padding: 24px 16px 50px; }
-    }
-  </style>
-</head>
-<body>
-
-<header>
-  <div class="logo">
-    <div class="logo-badge">AI</div>
-    <div class="logo-text">
-      <strong>AI First Nations</strong>
-      <span>Client Data Portal</span>
-    </div>
-  </div>
-  <div id="header-client"></div>
-  <button id="btn-logout" onclick="logout()">Sign out</button>
-</header>
-
-<main>
-
-  <!-- LOGIN -->
-  <div id="screen-login" class="screen active">
-    <div class="login-card">
-      <h1>Flight Data Portal</h1>
-      <p>Enter your unique access code to view your flight data and deliverables.</p>
-      <label for="code-input">Access Code</label>
-      <input id="code-input" type="text" placeholder="e.g. GOON-WET-2026"
-             autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false">
-      <button class="btn-primary" id="btn-login" onclick="doLogin()">Access My Data</button>
-      <div class="error-msg" id="login-error">Invalid access code. Please check and try again.</div>
-    </div>
-  </div>
-
-  <!-- PROJECTS -->
-  <div id="screen-projects" class="screen">
-    <div class="page-header">
-      <h2 id="proj-heading">Your Projects</h2>
-      <p id="proj-sub"></p>
-    </div>
-    <div class="grid-2" id="projects-grid"></div>
-  </div>
-
-  <!-- FLIGHTS -->
-  <div id="screen-flights" class="screen">
-    <div class="page-header">
-      <div class="breadcrumb">
-        <a onclick="showScreen('projects')">Projects</a>
-        <span>›</span>
-        <span id="flights-project-name"></span>
-      </div>
-      <h2 id="flights-heading">Flight History</h2>
-      <p id="flights-sub"></p>
-    </div>
-    <div id="flights-list"></div>
-  </div>
-
-  <!-- SITE FILES -->
-  <div id="screen-site" class="screen">
-    <div class="page-header">
-      <div class="breadcrumb">
-        <a onclick="showScreen('projects')">Projects</a>
-        <span>›</span>
-        <a onclick="showScreen('flights')" id="site-project-crumb"></a>
-        <span>›</span>
-        <span id="site-date-crumb"></span>
-      </div>
-      <h2 id="site-heading"></h2>
-      <p>Flight data archived securely · Chain of custody verified · CASA 7-year retention</p>
-    </div>
-    <div id="site-content"></div>
-  </div>
-
-</main>
-
-<script>
-// ── STATE ────────────────────────────────────────────────────────
-let S = { code: null, currentProject: null, currentSite: null };
-
-// ── API ──────────────────────────────────────────────────────────
-async function api(body) {
-  const r = await fetch('/api/portal', {
+  const r = await fetch(`${apiUrl}/b2api/v2/b2_list_file_names`, {
     method:  'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body:    JSON.stringify({ code: S.code, ...body }),
+    headers: { Authorization: token, 'Content-Type': 'application/json' },
+    body:    JSON.stringify(body),
   });
   const data = await r.json();
-  if (!r.ok) throw new Error(data.error || 'API error');
+  if (!r.ok) throw new Error('B2 list failed: ' + JSON.stringify(data));
   return data;
 }
 
-// ── HELPERS ──────────────────────────────────────────────────────
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById('screen-' + id).classList.add('active');
+async function b2DownloadAuth(apiUrl, token, bucketId, prefix, seconds = 86400) {
+  const r = await fetch(`${apiUrl}/b2api/v2/b2_get_download_authorization`, {
+    method:  'POST',
+    headers: { Authorization: token, 'Content-Type': 'application/json' },
+    body:    JSON.stringify({
+      bucketId,
+      fileNamePrefix:         prefix,
+      validDurationInSeconds: seconds,
+    }),
+  });
+  return r.json();
 }
 
-function loading(id, msg) {
-  document.getElementById(id).innerHTML =
-    `<div class="loader"><div class="spinner"></div><div>${msg}</div></div>`;
-}
-
-function fmtDate(str) {
-  try {
-    return new Date(str + 'T00:00:00')
-      .toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' });
-  } catch { return str; }
-}
-
-function fmtSize(b) {
-  const u = ['B','KB','MB','GB','TB']; let n = b;
-  for (const x of u) { if (n < 1024) return `${n.toFixed(1)} ${x}`; n /= 1024; }
+function fmtSize(bytes) {
+  const units = ['B', 'KB', 'MB', 'GB', 'TB'];
+  let n = bytes;
+  for (const u of units) {
+    if (n < 1024) return `${n.toFixed(1)} ${u}`;
+    n /= 1024;
+  }
   return `${n.toFixed(1)} TB`;
 }
 
-const EXT_ICONS = {
-  JPG:'📷',JPEG:'📷',DNG:'📷',RAW:'📷',
-  MP4:'🎬',MOV:'🎬',AVI:'🎬',
-  LAS:'🗂️',LAZ:'🗂️',TIFF:'🗺️',TIF:'🗺️',
-  LOG:'📋',CSV:'📋',TXT:'📋',PDF:'📄',
-};
-const PROJECT_ICONS = {
-  'Goondoi Wetlands':'🌿','School Camps':'🏕️',
-  'Cultural Heritage':'🪃','Feral Animal Control':'🦊',
-  'Weed Eradication':'🌾','Fire Management':'🔥','Water Monitoring':'💧',
-};
-const eIcon = ext => EXT_ICONS[ext] || '📄';
-const pIcon = name => PROJECT_ICONS[name] || '📁';
+// ── HANDLER ─────────────────────────────────────────────────────
+module.exports = async function handler(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-// ── LOGIN ────────────────────────────────────────────────────────
-document.getElementById('code-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter') doLogin();
-});
+  if (req.method === 'OPTIONS') return res.status(200).end();
+  if (req.method !== 'POST')   return res.status(405).json({ error: 'Method not allowed' });
 
-async function doLogin() {
-  const code = document.getElementById('code-input').value.trim().toUpperCase();
-  if (!code) return;
-  const btn = document.getElementById('btn-login');
-  const err = document.getElementById('login-error');
-  btn.disabled = true; btn.textContent = 'Verifying…';
-  err.classList.remove('show');
-
+  // Parse body — handle both pre-parsed objects and raw strings
+  let parsed = {};
   try {
-    S.code = code;
-    const data = await api({ action: 'projects' });
-    document.getElementById('header-client').innerHTML =
-      `Logged in as <strong>${data.client.name}</strong>`;
-    document.getElementById('header-client').style.display = 'block';
-    document.getElementById('btn-logout').style.display   = 'block';
-    renderProjects(data);
-    showScreen('projects');
-  } catch {
-    S.code = null;
-    err.classList.add('show');
-    btn.disabled = false; btn.textContent = 'Access My Data';
-  }
-}
-
-function logout() {
-  S = { code: null, currentProject: null, currentSite: null };
-  document.getElementById('code-input').value = '';
-  document.getElementById('header-client').style.display = 'none';
-  document.getElementById('btn-logout').style.display    = 'none';
-  showScreen('login');
-}
-
-// ── PROJECTS ─────────────────────────────────────────────────────
-function renderProjects(data) {
-  document.getElementById('proj-heading').textContent = data.client.name;
-  document.getElementById('proj-sub').textContent     = data.client.org;
-  const grid = document.getElementById('projects-grid');
-
-  if (!data.projects.length) {
-    grid.innerHTML = '<div class="empty"><div class="empty-icon">📂</div>No projects yet.</div>';
-    return;
-  }
-  grid.innerHTML = data.projects.map(p => `
-    <div class="card" onclick='loadFlights(${JSON.stringify(p)})'>
-      <div class="card-icon">${pIcon(p.name)}</div>
-      <div class="card-title">${p.name}</div>
-      <div class="card-sub">${p.slug}</div>
-      <div class="card-badge">View Flights →</div>
-    </div>
-  `).join('');
-}
-
-// ── FLIGHTS ──────────────────────────────────────────────────────
-async function loadFlights(project) {
-  S.currentProject = project;
-  document.getElementById('flights-project-name').textContent = project.name;
-  document.getElementById('flights-heading').textContent      = project.name;
-  document.getElementById('flights-sub').textContent          = 'Select a flight to view data';
-  showScreen('flights');
-  loading('flights-list', 'Loading flight history…');
-
-  try {
-    const data = await api({ action: 'flights', prefix: project.prefix });
-    const el   = document.getElementById('flights-list');
-
-    if (!data.flights.length) {
-      el.innerHTML = '<div class="empty"><div class="empty-icon">📭</div>No flights recorded yet.</div>';
-      return;
+    if (req.body && typeof req.body === 'object') {
+      parsed = req.body;
+    } else if (req.body && typeof req.body === 'string') {
+      parsed = JSON.parse(req.body);
+    } else {
+      // Manually read stream
+      const chunks = [];
+      for await (const chunk of req) chunks.push(chunk);
+      const raw = Buffer.concat(chunks).toString();
+      if (raw) parsed = JSON.parse(raw);
     }
-    el.innerHTML = data.flights.map(f => `
-      <div class="flight-group">
-        <div class="flight-date">📅 ${fmtDate(f.date)}</div>
-        ${f.sites.map(s => `
-          <div class="site-row" onclick='loadSite(${JSON.stringify({...s, date: f.date})})'>
-            <div class="site-row-left">
-              <div class="site-dot"></div>
-              <div>
-                <div class="site-name">${s.name}</div>
-                <div class="site-meta">Click to view files</div>
-              </div>
-            </div>
-            <div class="site-arrow">›</div>
-          </div>
-        `).join('')}
-      </div>
-    `).join('');
-  } catch {
-    document.getElementById('flights-list').innerHTML =
-      '<div class="empty"><div class="empty-icon">⚠️</div>Failed to load. Please try again.</div>';
-  }
-}
+  } catch { parsed = {}; }
 
-// ── SITE ─────────────────────────────────────────────────────────
-async function loadSite(site) {
-  S.currentSite = site;
-  document.getElementById('site-project-crumb').textContent = S.currentProject.name;
-  document.getElementById('site-date-crumb').textContent    = fmtDate(site.date);
-  document.getElementById('site-heading').textContent       = site.name;
-  showScreen('site');
-  loading('site-content', 'Loading file summary…');
+  const { action, code, prefix } = parsed;
+  const client = CLIENTS[(code || '').toUpperCase()];
+
+  if (!client) return res.status(401).json({ error: 'Invalid access code' });
 
   try {
-    const data = await api({ action: 'summary', prefix: site.prefix });
-    const types = data.types || {};
-    const chips = Object.entries(types)
-      .sort((a,b) => b[1].count - a[1].count)
-      .map(([ext, info]) => `
-        <div class="type-chip">
-          <div class="type-ext">${eIcon(ext)} ${ext}</div>
-          <div class="type-cnt">${info.count.toLocaleString()}</div>
-          <div class="type-sz">${fmtSize(info.size)}</div>
-        </div>
-      `).join('');
+    const auth = await b2Auth();
+    const { apiUrl, authorizationToken: token, downloadUrl } = auth;
+    const bucketId   = auth.allowed.bucketId;
+    const bucketName = process.env.B2_BUCKET_NAME || 'aifn-flight-data';
 
-    document.getElementById('site-content').innerHTML = `
-      <div class="stat-bar">
-        <div class="stat">
-          <div class="stat-label">Total Files</div>
-          <div class="stat-value">${data.fileCount.toLocaleString()}</div>
-        </div>
-        <div class="stat">
-          <div class="stat-label">Total Size</div>
-          <div class="stat-value">${data.totalSizeFmt}</div>
-        </div>
-        <div class="stat">
-          <div class="stat-label">Data Integrity</div>
-          <div class="stat-value green">✓ Verified</div>
-        </div>
-      </div>
-      <div class="summary-grid">${chips}</div>
-      <div style="margin-bottom:24px">
-        <button class="btn-download" onclick="loadFileList()">⬇ Generate Download Links</button>
-        <button class="btn-download outline" onclick="loadFileList()">📄 Browse All Files</button>
-      </div>
-      <div id="file-list-container"></div>
-    `;
-  } catch {
-    document.getElementById('site-content').innerHTML =
-      '<div class="empty"><div class="empty-icon">⚠️</div>Failed to load. Please try again.</div>';
+    // ── B2 folder helper ─────────────────────────────────────────
+    // B2 returns virtual folders in data.folders (from delimiter grouping)
+    // AND as folder-marker files in data.files (names ending with '/').
+    // We merge both to handle all folder styles.
+    function getFolders(data) {
+      const fromFolders = data.folders || [];
+      const fromMarkers = (data.files || [])
+        .filter(f => f.fileName.endsWith('/'))
+        .map(f => f.fileName);
+      return [...new Set([...fromFolders, ...fromMarkers])].sort();
+    }
+
+    // ── action: projects ────────────────────────────────────────
+    // Returns all project folders under the client's top-level prefix.
+    // New project types appear automatically as B2 folders are created.
+    if (action === 'projects') {
+      const data     = await b2List(apiUrl, token, bucketId, client.prefix, '/');
+      const folders  = getFolders(data);
+      const projects = folders.map(folder => ({
+        name:   folder.replace(client.prefix, '').replace(/\/$/, '').replace(/-/g, ' '),
+        slug:   folder.replace(client.prefix, '').replace(/\/$/, ''),
+        prefix: folder,
+      }));
+      return res.json({
+        client: { name: client.name, org: client.org, logo: client.logo || null },
+        projects,
+      });
+    }
+
+    // ── action: flights ─────────────────────────────────────────
+    // Returns date → sites list within a project prefix.
+    if (action === 'flights') {
+      const dateData = await b2List(apiUrl, token, bucketId, prefix, '/');
+      const dates    = getFolders(dateData);
+
+      const flights = [];
+      for (const dateFolder of dates) {
+        const dateStr  = dateFolder.replace(prefix, '').replace(/\/$/, '');
+        const siteData = await b2List(apiUrl, token, bucketId, dateFolder, '/');
+        const sites    = getFolders(siteData).map(sf => ({
+          name:   sf.replace(dateFolder, '').replace(/\/$/, '').replace(/-/g, ' '),
+          prefix: sf,
+        }));
+        flights.push({ date: dateStr, prefix: dateFolder, sites });
+      }
+
+      flights.sort((a, b) => b.date.localeCompare(a.date)); // newest first
+      return res.json({ flights });
+    }
+
+    // ── action: summary ─────────────────────────────────────────
+    // File count, total size, type breakdown for a site folder.
+    if (action === 'summary') {
+      const data  = await b2List(apiUrl, token, bucketId, prefix, null);
+      // Exclude hidden/system files (Mac .Trashes, .fseventsd, etc.)
+      const files = (data.files || []).filter(f => {
+        const rel = f.fileName.replace(prefix, '');
+        return !rel.startsWith('.') && !rel.startsWith('._') && !rel.endsWith('/');
+      });
+
+      const types = {};
+      let totalSize = 0;
+
+      for (const f of files) {
+        const ext = (f.fileName.split('.').pop() || 'other').toUpperCase();
+        if (!types[ext]) types[ext] = { count: 0, size: 0 };
+        types[ext].count++;
+        types[ext].size += f.contentLength;
+        totalSize += f.contentLength;
+      }
+
+      return res.json({
+        fileCount:    files.length,
+        totalSize,
+        totalSizeFmt: fmtSize(totalSize),
+        types,
+      });
+    }
+
+    // ── action: file-list ────────────────────────────────────────
+    // All files with 24-hour signed download URLs.
+    if (action === 'file-list') {
+      const [fileData, dlAuth] = await Promise.all([
+        b2List(apiUrl, token, bucketId, prefix, null),
+        b2DownloadAuth(apiUrl, token, bucketId, prefix, 86400),
+      ]);
+
+      // Exclude hidden/system files (Mac .Trashes, .fseventsd, etc.)
+      const files = (fileData.files || [])
+        .filter(f => {
+          const rel = f.fileName.replace(prefix, '');
+          return !rel.startsWith('.') && !rel.startsWith('._') && !rel.endsWith('/');
+        })
+        .map(f => ({
+          name:    f.fileName.replace(prefix, ''),
+          size:    f.contentLength,
+          sizeFmt: fmtSize(f.contentLength),
+          url:     `${downloadUrl}/file/${bucketName}/${f.fileName}?Authorization=${dlAuth.authorizationToken}`,
+        }));
+
+      return res.json({ files, expiresIn: '24 hours' });
+    }
+
+    return res.status(400).json({ error: 'Unknown action' });
+
+  } catch (err) {
+    console.error('[portal-api]', err);
+    return res.status(500).json({ error: 'Server error', detail: err.message });
   }
-}
-
-// ── FILE LIST ────────────────────────────────────────────────────
-async function loadFileList() {
-  const c = document.getElementById('file-list-container');
-  c.innerHTML = '<div class="loader"><div class="spinner"></div><div>Generating secure links… valid 24 hours</div></div>';
-
-  try {
-    const data  = await api({ action: 'file-list', prefix: S.currentSite.prefix });
-    const files = data.files || [];
-
-    if (!files.length) { c.innerHTML = '<div class="empty">No files found.</div>'; return; }
-
-    c.innerHTML = `
-      <div class="file-list-wrap">
-        <div class="file-list-header">
-          <span>${files.length.toLocaleString()} files · Links expire in 24 hours</span>
-          <span>Size</span>
-        </div>
-        ${files.map(f => `
-          <div class="file-item">
-            <div class="file-name">${eIcon((f.name.split('.').pop()||'').toUpperCase())} ${f.name}</div>
-            <div class="file-size">${f.sizeFmt}</div>
-            <a class="file-dl" href="${f.url}" download="${f.name}" target="_blank">↓</a>
-          </div>
-        `).join('')}
-      </div>
-    `;
-  } catch {
-    c.innerHTML = '<div class="empty"><div class="empty-icon">⚠️</div>Failed to generate links.</div>';
-  }
-}
-</script>
-</body>
-</html>
+};
