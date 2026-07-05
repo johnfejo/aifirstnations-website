@@ -63,7 +63,7 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
   <a href="portal.html" class="back">← Portal</a>
 </nav>
 <div class="page-hdr">
-  <div style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ember);margin-bottom:0.5rem;">🔒 Marketing Suite</div>
+  <div style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ember);margin-bottom:0.5rem;">📢 Marketing Suite</div>
   <h1>Virtual Marketing Assistant</h1>
   <p>Generate professional content for every platform — one click, ready to post.</p>
 </div>
@@ -189,8 +189,7 @@ function sendWithPrompt(fullPrompt,displayText){
   var tb=document.createElement("div");tb.className="msg-a";tb.textContent="Creating your content...";tb.id="typing";msgs.appendChild(tb);
   msgs.scrollTop=msgs.scrollHeight;
   convo.push({role:"user",content:fullPrompt});
-  var k="sk-ant-api03-wvRsUFYager"+"Cz8uNWnkAKDK-0CLXQMI-V9BUM"+"FNbSpC9eJmxjJSu8x-kJKAWEuJOZmloF8P5tW-J2cnkUwfqZg-NZ8o5AAA";
-  fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json","x-api-key":k,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},body:JSON.stringify({model:"claude-opus-4-8",max_tokens:1000,system:MSYS,messages:convo})}).then(function(r){return r.json();}).then(function(d){
+  fetch("/api/ai",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({max_tokens:1000,system:MSYS,messages:convo})}).then(function(r){return r.json();}).then(function(d){
     var r=(d.content||[]).map(function(b){return b.text||"";}).join("");
     convo.push({role:"assistant",content:r});
     var t=document.getElementById("typing");if(t)t.remove();
