@@ -64,6 +64,7 @@ module.exports = async function handler(req, res) {
     const data = await r.json();
 
     if (!r.ok) {
+      console.error('[api/ai] Anthropic error', r.status, JSON.stringify(data));
       return res.status(r.status).json({ error: (data.error && data.error.message) || 'Anthropic API error' });
     }
 
