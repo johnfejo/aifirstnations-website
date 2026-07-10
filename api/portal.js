@@ -47,7 +47,7 @@ async function b2Auth() {
 }
 
 async function b2List(apiUrl, token, bucketId, prefix, delimiter) {
-  const body = { bucketId, prefix, maxFileCount: 1000 };
+  const body = { bucketId, prefix, maxFileCount: 10000 };
   if (delimiter) body.delimiter = delimiter;
 
   const r = await fetch(`${apiUrl}/b2api/v2/b2_list_file_names`, {
