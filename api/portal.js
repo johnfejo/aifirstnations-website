@@ -17,6 +17,11 @@ const CLIENTS = {
     prefix: 'Goondoi/',
     logo:   '/images/goondoi.jpg',
   },
+  'TSC-HORN-2026': {
+    name:   'Torres Shire Council',
+    org:    'Horn Island Aerial Survey — Torres Strait',
+    prefix: 'Horn-Island/',
+  },
 };
 
 // ── DISPLAY NAME OVERRIDES ───────────────────────────────────────
