@@ -19,6 +19,19 @@ const CLIENTS = {
   },
 };
 
+// ── DISPLAY NAME OVERRIDES ───────────────────────────────────────
+// Maps a normalised B2 folder slug to a friendly display name.
+// Normalisation strips spaces, hyphens and underscores then lowercases,
+// so "1 RILEY STREET", "1-Riley-Street" and "1_riley_street" all match.
+const DISPLAY_NAMES = {
+  '1rileystreet': '1 Riley Street / Warrina Lakes',
+};
+
+function friendlyName(raw) {
+  const key = raw.toLowerCase().replace(/[\s\-_]+/g, '');
+  return DISPLAY_NAMES[key] || raw.replace(/-/g, ' ');
+}
+
 // ── B2 HELPERS ──────────────────────────────────────────────────
 async function b2Auth() {
   const creds = Buffer.from(
@@ -107,9 +120,6 @@ module.exports = async function handler(req, res) {
     const bucketName = process.env.B2_BUCKET_NAME || 'aifn-flight-data';
 
     // ── B2 folder helper ─────────────────────────────────────────
-    // B2 returns virtual folders in data.folders (from delimiter grouping)
-    // AND as folder-marker files in data.files (names ending with '/').
-    // We merge both to handle all folder styles.
     function getFolders(data) {
       const fromFolders = data.folders || [];
       const fromMarkers = (data.files || [])
@@ -119,16 +129,17 @@ module.exports = async function handler(req, res) {
     }
 
     // ── action: projects ────────────────────────────────────────
-    // Returns all project folders under the client's top-level prefix.
-    // New project types appear automatically as B2 folders are created.
     if (action === 'projects') {
       const data     = await b2List(apiUrl, token, bucketId, client.prefix, '/');
       const folders  = getFolders(data);
-      const projects = folders.map(folder => ({
-        name:   folder.replace(client.prefix, '').replace(/\/$/, '').replace(/-/g, ' '),
-        slug:   folder.replace(client.prefix, '').replace(/\/$/, ''),
-        prefix: folder,
-      }));
+      const projects = folders.map(folder => {
+        const slug = folder.replace(client.prefix, '').replace(/\/$/, '');
+        return {
+          name:   friendlyName(slug),
+          slug,
+          prefix: folder,
+        };
+      });
       return res.json({
         client: { name: client.name, org: client.org, logo: client.logo || null },
         projects,
@@ -136,7 +147,6 @@ module.exports = async function handler(req, res) {
     }
 
     // ── action: flights ─────────────────────────────────────────
-    // Returns date → sites list within a project prefix.
     if (action === 'flights') {
       const dateData = await b2List(apiUrl, token, bucketId, prefix, '/');
       const dates    = getFolders(dateData);
@@ -145,22 +155,23 @@ module.exports = async function handler(req, res) {
       for (const dateFolder of dates) {
         const dateStr  = dateFolder.replace(prefix, '').replace(/\/$/, '');
         const siteData = await b2List(apiUrl, token, bucketId, dateFolder, '/');
-        const sites    = getFolders(siteData).map(sf => ({
-          name:   sf.replace(dateFolder, '').replace(/\/$/, '').replace(/-/g, ' '),
-          prefix: sf,
-        }));
+        const sites    = getFolders(siteData).map(sf => {
+          const slug = sf.replace(dateFolder, '').replace(/\/$/, '');
+          return {
+            name:   friendlyName(slug),
+            prefix: sf,
+          };
+        });
         flights.push({ date: dateStr, prefix: dateFolder, sites });
       }
 
-      flights.sort((a, b) => b.date.localeCompare(a.date)); // newest first
+      flights.sort((a, b) => b.date.localeCompare(a.date));
       return res.json({ flights });
     }
 
     // ── action: summary ─────────────────────────────────────────
-    // File count, total size, type breakdown for a site folder.
     if (action === 'summary') {
       const data  = await b2List(apiUrl, token, bucketId, prefix, null);
-      // Exclude hidden/system files (Mac .Trashes, .fseventsd, etc.)
       const files = (data.files || []).filter(f => {
         const rel = f.fileName.replace(prefix, '');
         return !rel.startsWith('.') && !rel.startsWith('._') && !rel.endsWith('/');
@@ -186,14 +197,12 @@ module.exports = async function handler(req, res) {
     }
 
     // ── action: file-list ────────────────────────────────────────
-    // All files with 24-hour signed download URLs.
     if (action === 'file-list') {
       const [fileData, dlAuth] = await Promise.all([
         b2List(apiUrl, token, bucketId, prefix, null),
         b2DownloadAuth(apiUrl, token, bucketId, prefix, 86400),
       ]);
 
-      // Exclude hidden/system files (Mac .Trashes, .fseventsd, etc.)
       const files = (fileData.files || [])
         .filter(f => {
           const rel = f.fileName.replace(prefix, '');
