@@ -21,6 +21,7 @@ const CLIENTS = {
     name:   'Torres Shire Council',
     org:    'Horn Island Aerial Survey — Torres Strait',
     prefix: 'Horn-Island/',
+    logo:   'https://saltymonkeys.com.au/wp-content/uploads/2023/10/logo.svg',
   },
 };
 
