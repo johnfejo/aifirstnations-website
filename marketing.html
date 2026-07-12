@@ -3,230 +3,392 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Marketing Assistant | AI First Nations</title>
+<title>Marketing Suite | AI First Nations</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-:root{--earth:#111009;--smoke:#1e1b10;--gold:#c9a24a;--mist:#7aab82;--cream:#ede5d4;--ember:#bf5417;--flame:#d9732e;}
-body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif;font-weight:300;min-height:100vh;}
+:root{--earth:#111009;--smoke:#1e1b10;--gold:#c9a24a;--mist:#7aab82;--cream:#ede5d4;--ember:#bf5417;--flame:#d9732e;--li:#0a66c2;}
+body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif;font-weight:300;min-height:100vh;display:flex;flex-direction:column;}
 #gate{position:fixed;inset:0;background:var(--earth);display:flex;align-items:center;justify-content:center;z-index:999;}
-#content{display:none;}
-.topnav{height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;background:rgba(17,16,9,0.98);border-bottom:1px solid rgba(255,255,255,0.07);position:sticky;top:0;z-index:50;}
-.brand{font-family:"Cormorant Garamond",serif;font-size:0.95rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:0.6rem;}
-.brand img{height:38px;width:auto;}
-.back{font-size:0.68rem;color:rgba(237,229,212,0.5);text-decoration:none;border:1px solid rgba(255,255,255,0.1);padding:0.35rem 0.9rem;}
-.page-hdr{padding:2rem;background:linear-gradient(160deg,#1a0d1a,var(--smoke));border-bottom:1px solid rgba(255,255,255,0.07);}
-.page-hdr h1{font-family:"Cormorant Garamond",serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:300;color:#f8f3ea;margin-bottom:0.3rem;}
-.page-hdr p{font-size:0.85rem;opacity:0.6;}
-.layout{display:grid;grid-template-columns:280px 1fr;min-height:calc(100vh - 120px);}
-.sidebar{background:rgba(17,16,9,0.5);border-right:1px solid rgba(255,255,255,0.07);padding:1.5rem 1rem;display:flex;flex-direction:column;gap:0.5rem;}
-.sidebar-label{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;opacity:0.35;padding:0 0.3rem 0.5rem;margin-top:1rem;}
-.sidebar-label:first-child{margin-top:0;}
-.platform-btn{display:flex;align-items:center;gap:0.8rem;padding:0.8rem 1rem;border-radius:8px;cursor:pointer;border:1px solid transparent;background:none;color:var(--cream);opacity:0.65;text-align:left;width:100%;font-family:"DM Sans",sans-serif;font-size:0.85rem;transition:all 0.2s;}
-.platform-btn:hover{background:rgba(255,255,255,0.05);opacity:1;}
-.platform-btn.active{opacity:1;border-color:rgba(255,255,255,0.15);background:rgba(255,255,255,0.04);}
-.platform-icon{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
-.quick-btn{display:flex;align-items:center;gap:0.7rem;padding:0.65rem 1rem;border-radius:8px;cursor:pointer;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.02);color:rgba(237,229,212,0.7);text-align:left;width:100%;font-family:"DM Sans",sans-serif;font-size:0.78rem;transition:all 0.2s;line-height:1.4;}
-.quick-btn:hover{background:rgba(255,255,255,0.06);color:var(--cream);border-color:rgba(255,255,255,0.15);}
-.main{display:flex;flex-direction:column;}
-.platform-hdr{padding:1rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;gap:1rem;flex-shrink:0;}
-.platform-hdr-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
-.platform-hdr-name{font-family:"Cormorant Garamond",serif;font-size:1.2rem;font-weight:600;}
-.platform-hdr-desc{font-size:0.72rem;opacity:0.55;margin-top:2px;}
-.clr-btn{background:none;border:1px solid rgba(255,255,255,0.1);color:rgba(237,229,212,0.4);padding:0.3rem 0.8rem;font-size:0.65rem;cursor:pointer;font-family:"DM Sans",sans-serif;text-transform:uppercase;}
-.open-platform-btn{background:rgba(10,102,194,0.15);border:1px solid rgba(10,102,194,0.3);color:#4da6ff;padding:0.3rem 0.9rem;font-size:0.65rem;cursor:pointer;font-family:"DM Sans",sans-serif;text-transform:uppercase;text-decoration:none;display:inline-block;}
-.msgs{flex:1;overflow-y:auto;padding:1.5rem;display:flex;flex-direction:column;gap:1rem;min-height:400px;max-height:calc(100vh - 320px);}
-.msg-u{align-self:flex-end;background:rgba(201,162,74,0.12);border:1px solid rgba(201,162,74,0.25);padding:0.8rem 1rem;border-radius:12px 2px 12px 12px;max-width:70%;font-size:0.87rem;line-height:1.7;}
-.msg-a{align-self:flex-start;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);padding:1rem 1.2rem;border-radius:2px 12px 12px 12px;max-width:85%;font-size:0.87rem;line-height:1.85;}
-.msg-actions{display:flex;gap:0.5rem;margin-top:0.8rem;flex-wrap:wrap;}
-.copy-btn{font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;background:rgba(201,162,74,0.1);border:1px solid rgba(201,162,74,0.25);color:var(--gold);padding:0.3rem 0.8rem;cursor:pointer;font-family:"DM Sans",sans-serif;}
-.copy-btn:hover{background:rgba(201,162,74,0.2);}
-.platform-link-btn{font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.9rem;cursor:pointer;font-family:"DM Sans",sans-serif;text-decoration:none;display:inline-block;}
-.inp-area{padding:1rem 1.5rem;border-top:1px solid rgba(255,255,255,0.07);}
-.inp-box{display:flex;gap:0.8rem;align-items:flex-end;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.8rem 1rem;}
-.inp-box:focus-within{border-color:var(--gold);}
-.inp-ta{flex:1;background:none;border:none;outline:none;color:var(--cream);font-size:0.87rem;line-height:1.6;resize:none;font-family:"DM Sans",sans-serif;max-height:100px;overflow-y:auto;}
-.inp-ta::placeholder{color:rgba(237,229,212,0.3);}
-.send-btn{width:36px;height:36px;border-radius:8px;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px;flex-shrink:0;}
-.send-btn:disabled{cursor:not-allowed;}
-.inp-hint{font-size:0.68rem;opacity:0.25;text-align:center;margin-top:0.6rem;}
+#app{display:none;flex:1;flex-direction:column;}
+.topnav{height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;background:rgba(17,16,9,0.98);border-bottom:1px solid rgba(255,255,255,0.07);flex-shrink:0;position:sticky;top:0;z-index:50;}
+.brand{display:flex;align-items:center;gap:0.7rem;font-family:"Cormorant Garamond",serif;font-size:0.95rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);}
+.brand img{height:40px;width:auto;}
+.nbadge{font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;background:rgba(42,66,40,0.5);border:1px solid rgba(62,107,64,0.4);color:var(--mist);padding:0.2rem 0.6rem;}
+.back-btn{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;background:none;border:1px solid rgba(255,255,255,0.12);color:rgba(237,229,212,0.6);padding:0.4rem 0.9rem;cursor:pointer;font-family:"DM Sans",sans-serif;text-decoration:none;display:inline-flex;align-items:center;gap:0.4rem;}
+.back-btn:hover{border-color:var(--gold);color:var(--gold);}
+.main{flex:1;padding:2rem;max-width:1100px;margin:0 auto;width:100%;}
+.sec-hdr{margin-bottom:2rem;}
+.sec-hdr h2{font-family:"Cormorant Garamond",serif;font-size:1.6rem;color:var(--cream);margin-bottom:0.3rem;}
+.sec-hdr p{font-size:0.85rem;opacity:0.6;}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2rem;}
+.card{background:var(--smoke);border:1px solid rgba(255,255,255,0.07);padding:1.5rem;}
+.card-hdr{display:flex;align-items:center;gap:0.8rem;margin-bottom:1.2rem;padding-bottom:0.9rem;border-bottom:1px solid rgba(255,255,255,0.07);}
+.card-hdr h3{font-family:"Cormorant Garamond",serif;font-size:1.1rem;color:var(--gold);}
+.card-hdr .ico{font-size:1.3rem;}
+
+/* LinkedIn section */
+.li-status{display:flex;align-items:center;gap:0.6rem;padding:0.7rem 1rem;margin-bottom:1.2rem;font-size:0.82rem;}
+.li-status.connected{background:rgba(10,102,194,0.1);border:1px solid rgba(10,102,194,0.3);}
+.li-status.disconnected{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);}
+.li-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.li-dot.on{background:#0a66c2;}
+.li-dot.off{background:rgba(255,255,255,0.25);}
+.li-connect-btn{display:inline-flex;align-items:center;gap:0.5rem;background:var(--li);color:#fff;border:none;padding:0.65rem 1.2rem;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;width:100%;justify-content:center;margin-bottom:1rem;}
+.li-connect-btn:hover{background:#004182;}
+.li-connect-btn svg{width:18px;height:18px;fill:#fff;flex-shrink:0;}
+.li-post-area{display:flex;flex-direction:column;gap:0.8rem;}
+.li-textarea{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);color:var(--cream);padding:0.9rem 1rem;font-family:"DM Sans",sans-serif;font-size:0.87rem;line-height:1.7;outline:none;resize:vertical;min-height:130px;border-radius:4px;}
+.li-textarea:focus{border-color:rgba(10,102,194,0.5);}
+.li-textarea::placeholder{opacity:0.4;}
+.li-char{font-size:0.7rem;opacity:0.4;text-align:right;}
+.li-post-btn{background:var(--li);color:#fff;border:none;padding:0.7rem 1.5rem;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;display:flex;align-items:center;gap:0.5rem;justify-content:center;}
+.li-post-btn:hover{background:#004182;}
+.li-post-btn:disabled{background:rgba(255,255,255,0.08);cursor:not-allowed;color:rgba(255,255,255,0.35);}
+.li-result{padding:0.75rem 1rem;font-size:0.82rem;margin-top:0.5rem;display:none;}
+.li-result.success{background:rgba(62,107,64,0.15);border:1px solid rgba(62,107,64,0.35);color:var(--mist);}
+.li-result.error{background:rgba(191,84,23,0.12);border:1px solid rgba(191,84,23,0.3);color:var(--flame);}
+
+/* AI assistant */
+.chat-wrap{background:var(--smoke);border:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;height:420px;margin-bottom:1.5rem;}
+.chat-hdr{padding:0.9rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;gap:0.9rem;flex-shrink:0;}
+.chat-ico{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.chat-msgs{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:0.8rem;}
+.msg-u{align-self:flex-end;background:rgba(201,162,74,0.12);border:1px solid rgba(201,162,74,0.25);padding:0.75rem 0.95rem;border-radius:12px 2px 12px 12px;max-width:78%;font-size:0.86rem;line-height:1.7;}
+.msg-a{align-self:flex-start;background:rgba(191,84,23,0.08);border:1px solid rgba(191,84,23,0.2);padding:0.75rem 0.95rem;border-radius:2px 12px 12px 12px;max-width:82%;font-size:0.86rem;line-height:1.7;white-space:pre-wrap;}
+.chat-inp{padding:0.8rem;border-top:1px solid rgba(255,255,255,0.07);display:flex;gap:0.5rem;flex-shrink:0;}
+.ci-inp{flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--cream);padding:0.65rem 1rem;font-family:"DM Sans",sans-serif;font-size:0.85rem;outline:none;resize:none;border-radius:6px;}
+.ci-inp:focus{border-color:var(--gold);}
+.cs-btn{background:var(--ember);color:#fff;border:none;padding:0.65rem 1.1rem;cursor:pointer;font-size:1rem;border-radius:6px;}
+.cs-btn:disabled{background:rgba(255,255,255,0.08);cursor:not-allowed;}
+
+/* Quick prompts */
+.qprompts{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.2rem;}
+.qp{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);color:rgba(237,229,212,0.7);padding:0.4rem 0.9rem;font-size:0.75rem;cursor:pointer;font-family:"DM Sans",sans-serif;border-radius:20px;transition:all 0.2s;}
+.qp:hover{border-color:var(--flame);color:var(--flame);}
+
+/* Full-width assistant */
+.full-card{background:var(--smoke);border:1px solid rgba(255,255,255,0.07);padding:1.5rem;margin-bottom:2rem;}
+
+/* Transfer to post button */
+.transfer-btn{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;background:rgba(10,102,194,0.12);border:1px solid rgba(10,102,194,0.3);color:rgba(10,102,194,0.9);padding:0.35rem 0.8rem;cursor:pointer;font-family:"DM Sans",sans-serif;margin-top:0.5rem;border-radius:3px;}
+.transfer-btn:hover{background:rgba(10,102,194,0.2);}
+
 ::-webkit-scrollbar{width:4px;}
 ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:2px;}
-@media(max-width:900px){.layout{grid-template-columns:1fr;}.sidebar{flex-direction:row;flex-wrap:wrap;border-right:none;border-bottom:1px solid rgba(255,255,255,0.07);}.platform-btn{width:auto;}}
+@media(max-width:768px){.grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
-<div id="gate"><p style="font-family:Cormorant Garamond,serif;font-size:1.1rem;color:#c9a24a;opacity:0.7;">🦅 Verifying access...</p></div>
-<div id="content">
+<div id="gate"><p style="font-family:Cormorant Garamond,serif;font-size:1.1rem;color:#c9a24a;opacity:0.7;">ð¦ Verifying access...</p></div>
+<div id="app">
 <nav class="topnav">
-  <div class="brand"><img src="images/logo.jpg" alt="">AI First Nations</div>
-  <a href="portal.html" class="back">← Portal</a>
+  <div class="brand"><img src="images/logo.jpg" alt="">AI First Nations<span class="nbadge">ð£ Marketing</span></div>
+  <a href="portal.html" class="back-btn">â Back to Portal</a>
 </nav>
-<div class="page-hdr">
-  <div style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ember);margin-bottom:0.5rem;">📢 Marketing Suite</div>
-  <h1>Virtual Marketing Assistant</h1>
-  <p>Generate professional content for every platform — one click, ready to post.</p>
-</div>
-<div class="layout">
-<div class="sidebar">
-  <div class="sidebar-label">Platforms</div>
-  <button class="platform-btn active" id="btn-linkedin" onclick="setPlatform('linkedin')">
-    <div class="platform-icon" style="background:#0A66C2;">in</div>
-    <div><div style="font-size:0.87rem;font-weight:500;">LinkedIn</div><div style="font-size:0.7rem;opacity:0.5;">Professional · B2B · Grants</div></div>
-  </button>
-  <button class="platform-btn" id="btn-facebook" onclick="setPlatform('facebook')">
-    <div class="platform-icon" style="background:#1877F2;">f</div>
-    <div><div style="font-size:0.87rem;font-weight:500;">Facebook</div><div style="font-size:0.7rem;opacity:0.5;">Community · Families · Local</div></div>
-  </button>
-  <button class="platform-btn" id="btn-instagram" onclick="setPlatform('instagram')">
-    <div class="platform-icon" style="background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);">📷</div>
-    <div><div style="font-size:0.87rem;font-weight:500;">Instagram</div><div style="font-size:0.7rem;opacity:0.5;">Visual · Drone · Youth</div></div>
-  </button>
-  <button class="platform-btn" id="btn-youtube" onclick="setPlatform('youtube')">
-    <div class="platform-icon" style="background:#FF0000;">▶</div>
-    <div><div style="font-size:0.87rem;font-weight:500;">YouTube</div><div style="font-size:0.7rem;opacity:0.5;">Video · Education · Showcase</div></div>
-  </button>
-  <button class="platform-btn" id="btn-press" onclick="setPlatform('press')">
-    <div class="platform-icon" style="background:rgba(201,162,74,0.2);border:1px solid rgba(201,162,74,0.3);">📰</div>
-    <div><div style="font-size:0.87rem;font-weight:500;">Press Release</div><div style="font-size:0.7rem;opacity:0.5;">Media · News · Announcements</div></div>
-  </button>
-  <button class="platform-btn" id="btn-email" onclick="setPlatform('email')">
-    <div class="platform-icon" style="background:rgba(122,171,130,0.2);border:1px solid rgba(122,171,130,0.3);">✉️</div>
-    <div><div style="font-size:0.87rem;font-weight:500;">Newsletter</div><div style="font-size:0.7rem;opacity:0.5;">Email · Stakeholders · Partners</div></div>
-  </button>
-  <div class="sidebar-label">Quick Generate</div>
-  <button class="quick-btn" onclick="quickPost('Write a LinkedIn post announcing AI First Nations RMIT mangrove AI system achieving 97% species classification accuracy. Professional tone, include CASA credentials and research partnership.')">🌿 Mangrove AI Achievement</button>
-  <button class="quick-btn" onclick="quickPost('Write a post about AI First Nations environmental drone services protecting Country across Far North Queensland and the Torres Strait.')">✈️ Drone Services Post</button>
-  <button class="quick-btn" onclick="quickPost('Write a post celebrating AI First Nations being selected as Aboriginal Ambassador for the Australian Government Age Assurance Technology Trial.')">🏛️ Government Ambassador</button>
-  <button class="quick-btn" onclick="quickPost('Write a post about AI First Nations Junior Ranger and youth drone training programs. Inspiring, community-focused, celebrating Indigenous youth in technology.')">🎓 Youth Programs Post</button>
-  <button class="quick-btn" onclick="quickPost('Write a post about the Jarramali Rock Art Documentation Project — how AI First Nations used drones to preserve significant Aboriginal cultural heritage sites.')">🪨 Rock Art Heritage Post</button>
-  <button class="quick-btn" onclick="quickPost('Write a weekly content calendar for AI First Nations with 5 post ideas across LinkedIn Facebook and Instagram covering our projects programs and cultural work.')">📅 Weekly Content Calendar</button>
-</div>
 <div class="main">
-  <div class="platform-hdr" id="platHdr" style="background:rgba(10,102,194,0.1);border-bottom:1px solid rgba(10,102,194,0.2);">
-    <div class="platform-hdr-icon" id="platIcon" style="background:#0A66C2;">in</div>
-    <div>
-      <div class="platform-hdr-name" id="platName" style="color:#4da6ff;">LinkedIn</div>
-      <div class="platform-hdr-desc" id="platDesc">Professional · 150-300 words · Industry insights · Hashtags</div>
+  <div class="sec-hdr">
+    <h2>ð£ Marketing Suite</h2>
+    <p>Generate content with your AI assistant, then post directly to LinkedIn.</p>
+  </div>
+
+  <div class="grid">
+    <!-- LinkedIn Post Panel -->
+    <div class="card">
+      <div class="card-hdr">
+        <span class="ico">ð¼</span>
+        <h3>Post to LinkedIn</h3>
+        <span id="li-badge" style="margin-left:auto;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.6rem;"></span>
+      </div>
+
+      <div id="li-status-bar" class="li-status disconnected">
+        <span class="li-dot off" id="li-dot"></span>
+        <span id="li-status-text">Not connected</span>
+      </div>
+
+      <div id="li-connect-section">
+        <button class="li-connect-btn" onclick="connectLinkedIn()">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Connect LinkedIn Account
+        </button>
+        <p style="font-size:0.72rem;opacity:0.45;text-align:center;line-height:1.6;">One-time setup. Your account stays connected until you disconnect it.</p>
+      </div>
+
+      <div id="li-post-section" class="li-post-area" style="display:none;">
+        <textarea class="li-textarea" id="li-post-text" placeholder="Write your LinkedIn post here...&#10;&#10;Tip: Use the Marketing Assistant on the right to generate content, then click â Send to LinkedIn to transfer it here." maxlength="3000" oninput="updateCharCount()"></textarea>
+        <div class="li-char"><span id="li-char-count">0</span> / 3000</div>
+        <button class="li-post-btn" id="li-post-btn" onclick="postToLinkedIn()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Post to LinkedIn
+        </button>
+        <div class="li-result" id="li-result"></div>
+        <button onclick="disconnectLinkedIn()" style="background:none;border:none;color:rgba(255,255,255,0.25);font-size:0.68rem;cursor:pointer;font-family:DM Sans,ssans-serif;text-align:center;margin-top:0.3rem;">Disconnect LinkedIn</button>
+      </div>
     </div>
-    <a href="https://www.linkedin.com/in/john-fejo-690434255" target="_blank" class="open-platform-btn" id="platLink">Open LinkedIn →</a>
-    <button class="clr-btn" onclick="clearChat()">Clear</button>
-  </div>
-  <div class="msgs" id="msgs">
-    <div class="msg-a" id="welcomeMsg">G'day John 🦅 I'm your Virtual Marketing Assistant — trained on everything about AI First Nations.<br><br>Select a platform, use the Quick Generate buttons, or tell me what content you need. Every post is written in AI First Nations voice — culturally grounded and ready to post.<br><br>For LinkedIn posts, click <strong>Open LinkedIn →</strong> at the top to go straight to your profile and post.</div>
-  </div>
-  <div class="inp-area">
-    <div class="inp-box">
-      <textarea class="inp-ta" id="userInp" rows="1" placeholder="Tell me what content you need..."></textarea>
-      <button class="send-btn" id="sendBtn" onclick="sendMsg()" style="background:var(--ember);color:#fff;" disabled>↑</button>
+    <!-- Other platforms placeholder -->
+    <div class="card">
+      <div class="card-hdr">
+        <span class="ico">ð²</span>
+        <h3>Other Channels</h3>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.8rem;">
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);padding:1rem;display:flex;align-items:center;justify-content:space-between;">
+          <div style="display:flex;align-items:center;gap:0.8rem;">
+            <span style="font-size:1.3rem;">ð</span>
+            <div><div style="font-size:0.87rem;">Facebook</div><div style="font-size:0.7rem;opacity:0.45;margin-top:0.1rem;">Coming soon</div></div>
+          </div>
+          <span style="font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:rgba(237,229,212,0.35);padding:0.2rem 0.5rem;">Soon</span>
+        </div>
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);padding:1rem;display:flex;align-items:center;justify-content:space-between;">
+          <div style="display:flex;align-items:center;gap:0.8rem;">
+            <span style="font-size:1.3rem;">ð¸</span>
+            <div><div style="font-size:0.87rem;">Instagram</div><div style="font-size:0.7rem;opacity:0.45;margin-top:0.1rem;">Coming soon</div></div>
+          </div>
+          <span style="font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:rgba(237,229,212,0.35);padding:0.2rem 0.5rem;">Soon</span>
+        </div>
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);padding:1rem;display:flex;align-items:center;justify-content:space-between;">
+          <div style="display:flex;align-items:center;gap:0.8rem;">
+            <span style="font-size:1.3rem;">ð°</span>
+            <div><div style="font-size:0.87rem;">Press Release</div><div style="font-size:0.7rem;opacity:0.45;margin-top:0.1rem;">Generate via AI assistant</div></div>
+          </div>
+          <button onclick="ap('Write a professional press release for AI First Nations announcing our latest drone and AI environmental monitoring work with RMIT University achieving 97% accuracy in mangrove species classification across Queensland and the Northern Territory.')" style="font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;background:rgba(191,84,23,0.12);border:1px solid rgba(191,84,23,0.25);color:var(--flame);padding:0.3rem 0.7rem;cursor:pointer;font-family:DM Sans,sans-serif;">Generate</button>
+        </div>
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);padding:1rem;display:flex;align-items:center;justify-content:space-between;">
+          <div style="display:flex;align-items:center;gap:0.8rem;">
+            <span style="font-size:1.3rem;">âï¸</span>
+            <div><div style="font-size:0.87rem;">Email Newsletter</div><div style="font-size:0.7rem;opacity:0.45;margin-top:0.1rem;">Generate via AI assistant</div></div>
+          </div>
+          <button onclick="ap('Write a professional email newsletter for AI First Nations stakeholders and partners. Include updates on our mangrove classification AI project, drone survey work, and upcoming environmental programs in Far North Queensland.')" style="font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;background:rgba(191,84,23,0.12);border:1px solid rgba(191,84,23,0.25);color:var(--flame);padding:0.3rem 0.7rem;cursor:pointer;font-family:DM Sans,sans-serif;">Generate</button>
+        </div>
+      </div>
     </div>
-    <div class="inp-hint">Enter to send · Shift+Enter for new line</div>
   </div>
+
+  <!-- Marketing AI Assistant -->
+  <div class="full-card">
+    <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:1rem;padding-bottom:0.9rem;border-bottom:1px solid rgba(255,255,255,0.07);">
+      <span style="font-size:1.3rem;">ð¤</span>
+      <div>
+        <div style="font-family:Cormorant Garamond,serif;font-size:1.1rem;color:var(--gold);">Virtual Marketing Assistant</div>
+        <div style="font-size:0.7rem;opacity:0.5;margin-top:0.1rem;">Generate LinkedIn posts, press releases, grant profiles, and more</div>
+      </div>
+      <button onclick="clrChat()" style="margin-left:auto;background:none;border:1px solid rgba(255,255,255,0.1);color:rgba(237,229,212,0.45);padding:0.3rem 0.7rem;font-size:0.65rem;cursor:pointer;font-family:DM Sans,sans-serif;text-transform:uppercase;letter-spacing:0.08em;">Clear</button>
+    </div>
+
+    <div class="qprompts">
+      <button class="qp" onclick="ap('Write a LinkedIn post about AI First Nations\' mangrove species classification AI project with RMIT University. Highlight the 97% accuracy rate and the significance for Indigenous land management and environmental monitoring.')">ð¿ Mangrove AI Post</button>
+      <button class="qp" onclick="ap('Write a compelling LinkedIn post about AI First Nations flying drone surveys in the Torres Strait and Cape York Peninsula for environmental monitoring. Include our CASA credentials and RMIT partnership.')">ð Drone Survey Post</button>
+      <button class="qp" onclick="ap('Write a LinkedIn post for AI First Nations about our mission to bridge Indigenous knowledge with cutting-edge AI and drone technology. Include the 3 pillars: Creation, Connection, Contribution.')">ð¦ Mission Post</button>
+      <button class="qp" onclick="ap('Write a LinkedIn post about AI First Nations supporting ranger programs across Far North Queensland and the Torres Strait, combining traditional ecological knowledge with modern AI tools.')">ð Ranger Programs Post</button>
+      <button class="qp" onclick="ap('Write a short, powerful LinkedIn post (under 200 words) for AI First Nations announcing new environmental drone survey work in mangrove ecosystems for species identification and conservation mapping.')">ð¡ Short Announcement</button>
+      <button class="qp" onclick="ap('Write a LinkedIn post about AI First Nations working towards autonomous sub-canopy drone systems for world-first SLAM navigation in dense mangrove environments â RMIT Semester 2 2026 proposal.')">ð¤ Sub-Canopy Drone Post</button>
+    </div>
+
+    <div class="chat-wrap">
+      <div class="chat-hdr" style="background:rgba(191,84,23,0.07);">
+        <div class="chat-ico" style="background:#bf5417;">ð£</div>
+        <div><div style="font-family:Cormorant Garamond,serif;font-size:0.95rem;color:#d9732e;">Marketing Assistant</div><div style="font-size:0.68rem;opacity:0.55;">AI First Nations Â· Social Media & Content</div></div>
+      </div>
+      <div class="chat-msgs" id="CM">
+        <div class="msg-a">G'day John ð¦ I'm your Marketing Assistant. Click a quick prompt above, or ask me to write a LinkedIn post, press release, grant profile, or any marketing content for AI First Nations.</div>
+      </div>
+      <div class="chat-inp">
+        <textarea class="ci-inp" id="CI" rows="1" placeholder="Ask me to write a LinkedIn post, press release, or any content..."></textarea>
+        <button class="cs-btn" id="CS" onclick="sndChat()">â</button>
+      </div>
+    </div>
+  </div>
+
 </div>
 </div>
-</div><script>
-(function(){if(sessionStorage.getItem("aifn_portal")==="granted"){document.getElementById("gate").style.display="none";document.getElementById("content").style.display="block";}else{setTimeout(function(){window.location.href="index.html";},1200);}})();
 
-var PLATFORMS={
-  linkedin:{name:"LinkedIn",icon:"in",iconBg:"#0A66C2",hdrBg:"rgba(10,102,194,0.1)",hdrBorder:"rgba(10,102,194,0.2)",nameColor:"#4da6ff",desc:"Professional · 150-300 words · Industry insights · Hashtags",url:"https://www.linkedin.com/in/john-fejo-690434255",urlLabel:"Open LinkedIn →",urlColor:"rgba(10,102,194,0.15)",urlBorder:"rgba(10,102,194,0.3)",urlText:"#4da6ff",instruction:"Write this as a LinkedIn post for AI First Nations. Professional, authoritative, 150-300 words. Include relevant hashtags like #IndigenousInnovation #AIFirstNations #EnvironmentalTechnology #DroneOperations #MangroveConservation #IndigenousLeadership. End with website aifirstnations.org.au"},
-  facebook:{name:"Facebook",icon:"f",iconBg:"#1877F2",hdrBg:"rgba(24,119,242,0.1)",hdrBorder:"rgba(24,119,242,0.2)",nameColor:"#4d8ffc",desc:"Community · 100-200 words · Warm storytelling",url:"https://www.facebook.com",urlLabel:"Open Facebook →",urlColor:"rgba(24,119,242,0.15)",urlBorder:"rgba(24,119,242,0.3)",urlText:"#4d8ffc",instruction:"Write this as a Facebook post for AI First Nations. Warm, community-focused, 100-200 words. Accessible language, celebrate achievements, connect with community pride. End with website aifirstnations.org.au"},
-  instagram:{name:"Instagram",icon:"📷",iconBg:"linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)",hdrBg:"rgba(220,39,67,0.08)",hdrBorder:"rgba(220,39,67,0.2)",nameColor:"#f06292",desc:"Visual-first · 50-100 words · 5-8 hashtags",url:"https://www.instagram.com",urlLabel:"Open Instagram →",urlColor:"rgba(220,39,67,0.12)",urlBorder:"rgba(220,39,67,0.3)",urlText:"#f06292",instruction:"Write this as an Instagram caption for AI First Nations. Visual-first, punchy, 50-100 words. Strong opening line. 5-8 relevant hashtags at the end. End with website link aifirstnations.org.au"},
-  youtube:{name:"YouTube",icon:"▶",iconBg:"#FF0000",hdrBg:"rgba(255,0,0,0.08)",hdrBorder:"rgba(255,0,0,0.2)",nameColor:"#ff6b6b",desc:"Video description · 100-150 words · Keywords",url:"https://www.youtube.com",urlLabel:"Open YouTube →",urlColor:"rgba(255,0,0,0.12)",urlBorder:"rgba(255,0,0,0.3)",urlText:"#ff6b6b",instruction:"Write this as a YouTube video description for AI First Nations. 100-150 words, keyword-rich for SEO. Include a suggested title, description, and timestamps structure. Include subscribe CTA and website aifirstnations.org.au"},
-  press:{name:"Press Release",icon:"📰",iconBg:"rgba(201,162,74,0.2)",hdrBg:"rgba(201,162,74,0.08)",hdrBorder:"rgba(201,162,74,0.2)",nameColor:"#c9a24a",desc:"Formal · Third person · Newsworthy · Quote from John Fejo",url:"",urlLabel:"",urlColor:"",urlBorder:"",urlText:"",instruction:"Write this as a formal press release for AI First Nations. Third person, professional journalism style. Include a compelling headline, dateline (Innisfail QLD), opening paragraph with the news, supporting paragraphs, a quote from John Fejo (Founder and Cultural Ambassador), and a boilerplate About AI First Nations section. End with contact: john@aifirstnations.org.au"},
-  email:{name:"Newsletter",icon:"✉️",iconBg:"rgba(122,171,130,0.2)",hdrBg:"rgba(122,171,130,0.08)",hdrBorder:"rgba(122,171,130,0.2)",nameColor:"#7aab82",desc:"Email newsletter · Stakeholders · Partners",url:"",urlLabel:"",urlColor:"",urlBorder:"",urlText:"",instruction:"Write this as an email newsletter for AI First Nations stakeholders, partners, and supporters. Professional but warm, 200-350 words. Include a compelling subject line, greeting, body sections, and sign-off from John Fejo, Founder and Cultural Ambassador, AI First Nations Aboriginal Corporation."}
-};
+<script>
+// Auth gate
+(function(){
+  if(sessionStorage.getItem("aifn_portal")==="granted"){
+    document.getElementById("gate").style.display="none";
+    var a=document.getElementById("app");
+    a.style.display="flex";
+    a.style.flexDirection="column";
+    checkLinkedInStatus();
+  } else {
+    setTimeout(function(){window.location.href="index.html";},1200);
+  }
+})();
 
-var currentPlatform="linkedin";
-var convo=[];
-var MSYS="You are the Virtual Marketing Assistant for AI First Nations Aboriginal Corporation ABN 80732478065, founded by John Fejo, a Larrakia man, in Innisfail QLD. Create compelling, authentic, professional social media and marketing content. Know: RMIT mangrove AI 97% accuracy EfficientNet-B0 team Kirtan Shah Thomas Blanks Jake Dyl Dr Damiano Spina, AATT Aboriginal Ambassador 1000+ students 5 states KJR, Cape York Cooktown to Mapoon, Torres Strait marine debris Salty Monkeys, Jarramali rock art, John Fejo Larrakia man drone pilot RePL/ReOC No.1252905 Head Ranger NT QLD cultural ambassador minister, 3 pillars Creation Connection Contribution, 5 Cultural Governance pillars, Numuluk Shield 6 Seasons, named programs Ngarrakan Ngardiji, partners RMIT KJR Australian Government Salty Monkeys Indigenous Datathon, website aifirstnations.org.au, LinkedIn https://www.linkedin.com/in/john-fejo-690434255. Brand voice: Authoritative yet warm. Culturally grounded. Forward-thinking. Walks in both worlds.";
-
-function setPlatform(id){
-  currentPlatform=id;
-  var p=PLATFORMS[id];
-  document.querySelectorAll(".platform-btn").forEach(function(b){b.classList.remove("active");b.style.borderColor="transparent";b.style.background="none";});
-  var btn=document.getElementById("btn-"+id);
-  if(btn){btn.classList.add("active");}
-  document.getElementById("platHdr").style.background=p.hdrBg;
-  document.getElementById("platHdr").style.borderBottomColor=p.hdrBorder;
-  document.getElementById("platIcon").textContent=p.icon;
-  document.getElementById("platIcon").style.background=p.iconBg;
-  document.getElementById("platName").textContent=p.name;
-  document.getElementById("platName").style.color=p.nameColor;
-  document.getElementById("platDesc").textContent=p.desc;
-  document.getElementById("userInp").placeholder="Tell me what "+p.name+" content you need...";
-  var lnk=document.getElementById("platLink");
-  if(p.url){lnk.href=p.url;lnk.textContent=p.urlLabel;lnk.style.display="inline-block";lnk.style.background=p.urlColor;lnk.style.borderColor=p.urlBorder;lnk.style.color=p.urlText;}
-  else{lnk.style.display="none";}
+// Check LinkedIn status from URL params (after OAuth callback) or localStorage
+function checkLinkedInStatus(){
+  var params=new URLSearchParams(window.location.search);
+  var liStatus=params.get("linkedin");
+  if(liStatus==="connected"){
+    localStorage.setItem("aifn_li_connected","1");
+    // Clean URL
+    history.replaceState({},"",window.location.pathname);
+  } else if(liStatus==="error"){
+    showLiError("LinkedIn connection failed. Please try again.");
+    history.replaceState({},"",window.location.pathname);
+  }
+  if(localStorage.getItem("aifn_li_connected")==="1"){
+    setConnected();
+  } else {
+    setDisconnected();
+  }
 }
 
-function quickPost(prompt){
-  var p=PLATFORMS[currentPlatform];
-  document.getElementById("userInp").value=prompt;
-  sendWithPrompt(p.instruction+"\n\n"+prompt,prompt);
+function setConnected(){
+  document.getElementById("li-dot").className="li-dot on";
+  document.getElementById("li-status-text").textContent="Connected â ready to post";
+  document.getElementById("li-status-bar").className="li-status connected";
+  document.getElementById("li-badge").textContent="â Connected";
+  document.getElementById("li-badge").style.cssText="margin-left:auto;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.6rem;background:rgba(10,102,194,0.15);border:1px solid rgba(10,102,194,0.3);color:rgba(10,102,194,0.9);";
+  document.getElementById("li-connect-section").style.display="none";
+  document.getElementById("li-post-section").style.display="flex";
+  document.getElementById("li-post-section").style.flexDirection="column";
 }
 
-function clearChat(){
-  convo=[];
-  var m=document.getElementById("msgs");
-  m.innerHTML='<div class="msg-a">Ready to create content for AI First Nations. Select a platform and tell me what you need — or use the Quick Generate buttons.</div>';
+function setDisconnected(){
+  document.getElementById("li-dot").className="li-dot off";
+  document.getElementById("li-status-text").textContent="Not connected";
+  document.getElementById("li-status-bar").className="li-status disconnected";
+  document.getElementById("li-badge").textContent="";
+  document.getElementById("li-connect-section").style.display="block";
+  document.getElementById("li-post-section").style.display="none";
 }
 
-function sendMsg(){
-  var inp=document.getElementById("userInp");
-  var txt=inp.value.trim();if(!txt)return;
-  var p=PLATFORMS[currentPlatform];
-  sendWithPrompt(p.instruction+"\n\n"+txt,txt);
+function connectLinkedIn(){
+  window.location.href="/api/linkedin-auth";
 }
 
-function sendWithPrompt(fullPrompt,displayText){
-  var inp=document.getElementById("userInp");
-  var btn=document.getElementById("sendBtn");
-  inp.value="";inp.style.height="auto";
-  btn.disabled=true;btn.textContent="...";
-  var msgs=document.getElementById("msgs");
-  var welcome=document.getElementById("welcomeMsg");if(welcome)welcome.remove();
-  var ub=document.createElement("div");ub.className="msg-u";ub.textContent=displayText;msgs.appendChild(ub);
-  var tb=document.createElement("div");tb.className="msg-a";tb.textContent="Creating your content...";tb.id="typing";msgs.appendChild(tb);
-  msgs.scrollTop=msgs.scrollHeight;
-  convo.push({role:"user",content:fullPrompt});
-  fetch("/api/ai",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({max_tokens:1000,system:MSYS,messages:convo})}).then(function(r){return r.json();}).then(function(d){
-    var r=(d.content||[]).map(function(b){return b.text||"";}).join("");
-    convo.push({role:"assistant",content:r});
-    var t=document.getElementById("typing");if(t)t.remove();
-    var p=PLATFORMS[currentPlatform];
-    var ab=document.createElement("div");ab.className="msg-a";
-    var txt=document.createElement("div");txt.style.whiteSpace="pre-wrap";txt.style.marginBottom="0.8rem";txt.textContent=r;ab.appendChild(txt);
-    var actions=document.createElement("div");actions.className="msg-actions";
-    var copyBtn=document.createElement("button");copyBtn.className="copy-btn";copyBtn.textContent="📋 Copy";
-    copyBtn.onclick=function(){navigator.clipboard.writeText(r).then(function(){copyBtn.textContent="✅ Copied!";setTimeout(function(){copyBtn.textContent="📋 Copy";},2000);});};
-    actions.appendChild(copyBtn);
-    if(p.url){
-      var openBtn=document.createElement("a");openBtn.href=p.url;openBtn.target="_blank";
-      openBtn.className="platform-link-btn";
-      openBtn.textContent="→ Open "+p.name;
-      openBtn.style.background=p.urlColor;openBtn.style.border="1px solid "+p.urlBorder;openBtn.style.color=p.urlText;
-      actions.appendChild(openBtn);
+function disconnectLinkedIn(){
+  localStorage.removeItem("aifn_li_connected");
+  setDisconnected();
+}
+
+function updateCharCount(){
+  var txt=document.getElementById("li-post-text").value;
+  document.getElementById("li-char-count").textContent=txt.length;
+}
+
+async function postToLinkedIn(){
+  var text=document.getElementById("li-post-text").value.trim();
+  if(!text){
+    showLiError("Please write something to post first.");
+    return;
+  }
+  var btn=document.getElementById("li-post-btn");
+  btn.disabled=true;
+  btn.textContent="Posting...";
+  var res=document.getElementById("li-result");
+  res.style.display="none";
+  try {
+    var r=await fetch("/api/linkedin-post",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({text:text})
+    });
+    var data=await r.json();
+    if(data.success){
+      res.className="li-result success";
+      res.textContent="â Posted to LinkedIn successfully!";
+      res.style.display="block";
+      document.getElementById("li-post-text").value="";
+      updateCharCount();
+    } else if(data.needsAuth){
+      localStorage.removeItem("aifn_li_connected");
+      setDisconnected();
+      showLiError("LinkedIn session expired. Please reconnect.");
+    } else {
+      showLiError("Failed to post. Please try again.");
     }
-    ab.appendChild(actions);msgs.appendChild(ab);msgs.scrollTop=msgs.scrollHeight;
-    btn.disabled=false;btn.textContent="↑";updateSendBtn();
-  }).catch(function(){
-    var t=document.getElementById("typing");if(t)t.remove();
-    convo.pop();
-    var eb=document.createElement("div");eb.className="msg-a";eb.style.color="#e74c3c";eb.textContent="Could not generate. Please try again.";msgs.appendChild(eb);
-    btn.disabled=false;btn.textContent="↑";updateSendBtn();
+  } catch(e){
+    showLiError("Connection error. Please try again.");
+  }
+  btn.disabled=false;
+  btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> Post to LinkedIn';
+}
+
+function showLiError(msg){
+  var res=document.getElementById("li-result");
+  res.className="li-result error";
+  res.textContent="â  "+msg;
+  res.style.display="block";
+}
+
+// Transfer AI-generated content to LinkedIn post box
+function transferToLinkedIn(text){
+  if(localStorage.getItem("aifn_li_connected")==="1"){
+    document.getElementById("li-post-text").value=text;
+    updateCharCount();
+    document.getElementById("li-post-text").focus();
+    document.getElementById("li-post-text").scrollIntoView({behavior:"smooth",block:"center"});
+  } else {
+    alert("Connect LinkedIn first, then you can post this content.");
+  }
+}
+
+// Marketing AI Assistant
+var MSYS="You are the Marketing Assistant for AI First Nations. Write compelling, authentic social media content and marketing materials. Always write in a way that reflects the organisation's identity: an Indigenous-led technology company combining traditional knowledge with AI and drone innovation. Key facts to weave in as appropriate: RMIT University partnership, EfficientNet-B0 mangrove classification AI at 97% accuracy, DJI Matrice 4T drone operations, CASA ReOC credentials No.1252905, ABN 80732478065, founder John Fejo (Larrakia man, drone pilot, cultural ambassador), three pillars Creation Connection Contribution, work across Cape York, Torres Strait, Far North Queensland and NT. For LinkedIn posts: professional yet authentic, 150-300 words unless asked otherwise, include 3-5 relevant hashtags at the end like #Indigenous #AI #Drones #EnvironmentalScience #FirstNations. For press releases: formal structure. For email newsletters: warm and informative. Always ask if content should be refined.";
+var MC=[];
+
+function ap(t){
+  document.getElementById("CI").value=t;
+  sndChat();
+}
+
+function clrChat(){
+  MC=[];
+  document.getElementById("CM").innerHTML='<div class="msg-a">G\'day John ð¦ I\'m your Marketing Assistant. Click a quick prompt above, or ask me to write a LinkedIn post, press release, grant profile, or any marketing content for AI First Nations.</div>';
+}
+
+function sndChat(){
+  var inp=document.getElementById("CI");
+  var txt=inp.value.trim();
+  if(!txt)return;
+  var btn=document.getElementById("CS");
+  inp.value="";
+  btn.disabled=true;btn.textContent="...";
+  MC.push({role:"user",content:txt});
+  var m=document.getElementById("CM");
+  var ub=document.createElement("div");ub.className="msg-u";ub.textContent=txt;m.appendChild(ub);
+  var tb=document.createElement("div");tb.className="msg-a";tb.textContent="Writing...";tb.id="MT";m.appendChild(tb);
+  m.scrollTop=m.scrollHeight;
+  cAPI(MSYS,MC,function(r){
+    MC.push({role:"assistant",content:r});
+    var t=document.getElementById("MT");if(t)t.remove();
+    var ab=document.createElement("div");ab.className="msg-a";
+    ab.textContent=r;
+    // Add "Send to LinkedIn" button
+    var xfer=document.createElement("button");
+    xfer.className="transfer-btn";
+    xfer.innerHTML="ð¼ Send to LinkedIn â";
+    var rCopy=r;
+    xfer.onclick=function(){transferToLinkedIn(rCopy);};
+    ab.appendChild(document.createElement("br"));
+    ab.appendChild(xfer);
+    m.appendChild(ab);
+    m.scrollTop=m.scrollHeight;
+    btn.disabled=false;btn.textContent="â";
+  },function(){
+    var t=document.getElementById("MT");if(t)t.remove();
+    var eb=document.createElement("div");eb.className="msg-a";eb.style.color="#e74c3c";eb.textContent="Error â please try again.";m.appendChild(eb);
+    MC.pop();btn.disabled=false;btn.textContent="â";
   });
 }
 
-function updateSendBtn(){
-  var btn=document.getElementById("sendBtn");
-  var has=document.getElementById("userInp").value.trim().length>0;
-  btn.disabled=!has;
-  btn.style.background=has?"var(--ember)":"rgba(255,255,255,0.07)";
-  btn.style.color=has?"#fff":"rgba(237,229,212,0.3)";
+function cAPI(sys,msgs,ok,fail){
+  fetch("/api/ai",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({max_tokens:1500,system:sys,messages:msgs})
+  }).then(function(r){return r.json();}).then(function(d){
+    if(d.error)fail();
+    else ok((d.content||[]).map(function(b){return b.text||"";}).join(""));
+  }).catch(fail);
 }
 
-document.getElementById("userInp").addEventListener("input",function(){this.style.height="auto";this.style.height=Math.min(this.scrollHeight,100)+"px";updateSendBtn();});
-document.getElementById("userInp").addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();if(!document.getElementById("sendBtn").disabled)sendMsg();}});
+document.getElementById("CI").addEventListener("keydown",function(e){
+  if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sndChat();}
+});
 </script>
 </body>
 </html>
