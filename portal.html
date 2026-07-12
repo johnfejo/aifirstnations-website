@@ -452,7 +452,9 @@ function cAPI(sys,msgs,ok,fail){
   fetch("/api/ai",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({max_tokens:1500,system:sys,messages:msgs})}).then(function(r){return r.json();}).then(function(d){if(d.error)fail();else ok((d.content||[]).map(function(b){return b.text||"";}).join(""));}).catch(fail);
 }
 document.getElementById("AI").addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sndAdmin();}});
-var DS={reports:[],drone:[],heritage:[],training:[],student:[],ranger:[],grants:[],media:[],"contracts-active":[],"contracts-quotes":[]};
+var DS_KEYS=["reports","drone","heritage","training","student","ranger","grants","media","contracts-active","contracts-quotes"];
+var DS=(function(){var d={};DS_KEYS.forEach(function(k){try{d[k]=JSON.parse(localStorage.getItem("aifn_ds_"+k)||"[]");}catch(e){d[k]=[];}});return d;})();
+function saveDS(id){try{localStorage.setItem("aifn_ds_"+id,JSON.stringify(DS[id]));}catch(e){}}
 function rDocs(id){
   var c=document.getElementById("dr-"+id);if(!c)return;c.innerHTML="";
   var s=document.createElement("div");s.className="doc-sec";
@@ -468,8 +470,8 @@ function rDocs(id){
   s.appendChild(f);c.appendChild(s);
 }
 function tForm(id){var f=document.getElementById("form-"+id);if(f)f.classList.toggle("open");}
-function addDoc(id){var n=document.getElementById("dn-"+id).value.trim();var u=document.getElementById("du-"+id).value.trim();var t=document.getElementById("dt-"+id).value.trim()||"Document";if(!n)return;if(DS[id])DS[id].push({name:n,url:u,type:t,date:new Date().toLocaleDateString("en-AU")});rDocs(id);}
-function rmDoc(id,i){if(DS[id])DS[id].splice(i,1);rDocs(id);}
+function addDoc(id){var n=document.getElementById("dn-"+id).value.trim();var u=document.getElementById("du-"+id).value.trim();var t=document.getElementById("dt-"+id).value.trim()||"Document";if(!n)return;if(DS[id])DS[id].push({name:n,url:u,type:t,date:new Date().toLocaleDateString("en-AU")});saveDS(id);rDocs(id);}
+function rmDoc(id,i){if(DS[id])DS[id].splice(i,1);saveDS(id);rDocs(id);}
 function embCal(){var url=document.getElementById("CU").value.trim();if(!url)return;document.getElementById("CS").style.display="none";document.getElementById("CF").innerHTML='<iframe src="'+url+'" style="width:100%;height:500px;border:none;"></iframe>';}
 function addEv(){
   var n=document.getElementById("EN").value.trim();var d=document.getElementById("ED").value;var t=document.getElementById("ET").value;
