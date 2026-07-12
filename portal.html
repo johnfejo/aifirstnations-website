@@ -512,4 +512,47 @@ function cAPI(sys,msgs,ok,fail){
   fetch("/api/ai",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({max_tokens:1500,system:sys,messages:msgs})}).then(function(r){return r.json();}).then(function(d){if(d.error)fail();else ok((d.content||[]).map(function(b){return b.text||"";}).join(""));}).catch(fail);
 }
 document.getElementById("AI").addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sndAdmin();}});
-var DS_KEYS=["reports","drone","heritage","training","student","r
+var DS_KEYS=["reports","drone","heritage","training","student","ranger","grants","media"];
+function rDocs(id){
+  var el=document.getElementById("dr-"+id);
+  if(!el)return;
+  var docs=JSON.parse(localStorage.getItem("aifn_ds_"+id)||"[]");
+  if(!docs.length){
+    el.innerHTML='<p style="opacity:0.45;font-size:0.85rem;padding:1rem 0;">No documents stored yet.</p>';
+    return;
+  }
+  var html="";
+  for(var i=0;i<docs.length;i++){
+    var d=docs[i];
+    html+='<div style="display:flex;align-items:center;justify-content:space-between;padding:0.9rem 1.2rem;background:var(--smoke);border:1px solid rgba(255,255,255,0.07);margin-bottom:0.5rem;">';
+    html+='<div><div style="font-size:0.87rem;">'+d.name+'</div>';
+    html+='<div style="font-size:0.72rem;opacity:0.5;margin-top:0.2rem;">'+(d.type||"Document")+'</div></div>';
+    html+='<div style="display:flex;gap:0.8rem;align-items:center;">';
+    if(d.url)html+='<a href="'+d.url+'" target="_blank" style="font-size:0.72rem;color:var(--flame);text-decoration:none;">Open →</a>';
+    html+='<button data-sec="'+id+'" data-i="'+i+'" class="del-doc-btn" style="background:none;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:0.8rem;">✕</button>';
+    html+='</div></div>';
+  }
+  el.innerHTML=html;
+  el.querySelectorAll(".del-doc-btn").forEach(function(btn){
+    btn.addEventListener("click",function(){delDoc(this.dataset.sec,parseInt(this.dataset.i));});
+  });
+}
+function delDoc(id,i){
+  var docs=JSON.parse(localStorage.getItem("aifn_ds_"+id)||"[]");
+  docs.splice(i,1);
+  localStorage.setItem("aifn_ds_"+id,JSON.stringify(docs));
+  rDocs(id);
+}
+function addDoc(id){
+  var name=prompt("Document name:");
+  if(!name)return;
+  var url=prompt("URL (or leave blank):");
+  var docs=JSON.parse(localStorage.getItem("aifn_ds_"+id)||"[]");
+  docs.push({name:name,url:url||"",type:"Document"});
+  localStorage.setItem("aifn_ds_"+id,JSON.stringify(docs));
+  rDocs(id);
+}
+function foInit(){}
+</script>
+</body>
+</html>
