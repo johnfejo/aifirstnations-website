@@ -101,15 +101,6 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
 .ev-tag{display:inline-block;font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.15rem 0.5rem;margin-top:0.3rem;}
 .add-ev{margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,0.07);display:flex;gap:0.8rem;flex-wrap:wrap;align-items:flex-end;}
 .add-ev input,.add-ev select{background:var(--earth);border:1px solid rgba(255,255,255,0.1);color:var(--cream);padding:0.5rem 0.8rem;font-family:"DM Sans",sans-serif;font-size:0.82rem;outline:none;}
-/* ── Flight Ops ─────────────────────────────────────────── */
-.fo-check{display:flex;align-items:flex-start;gap:0.75rem;padding:0.6rem 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;font-size:0.83rem;line-height:1.5;}
-.fo-check:last-child{border-bottom:none;}
-.fo-check input[type=checkbox]{margin-top:0.18rem;accent-color:var(--mist);width:14px;height:14px;flex-shrink:0;cursor:pointer;}
-.fo-check.done>div{opacity:0.38;text-decoration:line-through;}
-.fo-num{font-family:"Cormorant Garamond",serif;color:var(--gold);margin-right:0.25rem;}
-.fo-link{color:var(--flame);font-size:0.7rem;text-decoration:none;margin-left:0.5rem;letter-spacing:0.04em;border-bottom:1px solid rgba(217,115,46,0.3);}
-.fo-link:hover{color:var(--gold);border-bottom-color:var(--gold);}
-.fo-script{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:0.88rem;color:#f0e8d8;line-height:1.85;opacity:0.85;}
 ::-webkit-scrollbar{width:4px;}
 ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:2px;}
 @media(max-width:900px){.sidebar{width:60px;}.ni span:not(.ic){display:none;}.ss{display:none;}.sr{grid-template-columns:1fr 1fr;}.qa{grid-template-columns:1fr 1fr;}.task-grid{grid-template-columns:1fr 1fr;}}
@@ -130,12 +121,10 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
   <button class="ni" onclick="location.href='advisory.html'"><span class="ic">🦅</span><span>Advisory Board</span></button>
   <button class="ni" onclick="location.href='marketing.html'"><span class="ic">📣</span><span>Marketing</span></button>
   <button class="ni" onclick="show('cal')"><span class="ic">📅</span><span>Calendar</span></button>
-  <div class="ss">Drone Operations</div>
-  <button class="ni" onclick="show('flightops')"><span class="ic">🚁</span><span>Flight Ops</span></button>
-  <button class="ni" onclick="show('drone')"><span class="ic">✈️</span><span>Survey Data</span></button>
   <div class="ss">Documents</div>
   <button class="ni" onclick="show('contracts')"><span class="ic">📝</span><span>Contracts</span></button>
   <button class="ni" onclick="show('reports')"><span class="ic">📋</span><span>Client Reports</span></button>
+  <button class="ni" onclick="show('drone')"><span class="ic">✈️</span><span>Drone Survey Data</span></button>
   <button class="ni" onclick="show('heritage')"><span class="ic">🪨</span><span>Cultural Heritage</span></button>
   <button class="ni" onclick="show('training')"><span class="ic">🎓</span><span>Training Resources</span></button>
   <button class="ni" onclick="show('student')"><span class="ic">📚</span><span>Student Materials</span></button>
@@ -146,12 +135,7 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
   <button class="ni" onclick="window.open('https://www.linkedin.com/in/john-fejo-690434255','_blank')"><span class="ic">💼</span><span>LinkedIn</span></button>
   <button class="ni" onclick="window.open('index.html','_blank')"><span class="ic">🌐</span><span>Public Site</span></button>
 </div>
-<div class="main" id="MC">
-
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- DASHBOARD                                               -->
-<!-- ═══════════════════════════════════════════════════════ -->
-<div class="panel active" id="panel-dash">
+<div class="main" id="MC"><div class="panel active" id="panel-dash">
   <div class="wb"><h1>Good day, John 🦅</h1><p>AI First Nations Aboriginal Corporation · ABN 80 732 478 065 · Innisfail, Far North Queensland</p></div>
   <div class="sr">
     <div class="sc"><span class="sn">97%</span><span class="sl">AI Accuracy</span></div>
@@ -164,8 +148,8 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
     <div class="qac" onclick="show('admin')"><span class="qi">🤖</span><div class="qt">Digital Admin</div><div class="qd">Draft emails, reports, invoices, and documents.</div></div>
     <div class="qac" onclick="location.href='advisory.html'"><span class="qi">🦅</span><div class="qt">Advisory Board</div><div class="qd">Ask your Board of Nine — all 9 advisors respond simultaneously.</div></div>
     <div class="qac" onclick="location.href='marketing.html'"><span class="qi">📣</span><div class="qt">Marketing Assistant</div><div class="qd">Generate LinkedIn, Facebook, Instagram, press releases and more.</div></div>
-    <div class="qac" onclick="show('flightops')"><span class="qi">🚁</span><div class="qt">Flight Ops</div><div class="qd">Pre-flight checklist, JSA form, VHF radio reference, NAIPS & BoM links.</div></div>
     <div class="qac" onclick="show('contracts')"><span class="qi">📝</span><div class="qt">Contracts</div><div class="qd">Goondoi Arts agreement, Torres Shire Council quote, and all active contracts.</div></div>
+    <div class="qac" onclick="show('admin')"><span class="qi">🛡️</span><div class="qt">JSA Generator</div><div class="qd">Generate Job Safety Analysis for drone operations instantly.</div></div>
     <div class="qac" onclick="show('cal')"><span class="qi">📅</span><div class="qt">Calendar</div><div class="qd">Track project deadlines, drone surveys, and events.</div></div>
   </div>
   <div class="sh">Project Tracker</div>
@@ -179,15 +163,15 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
       <div class="tr-right"><div class="progress-bar"><div class="progress-fill" style="width:100%;background:var(--gold);"></div></div><span class="badge b-complete">SIGNED</span></div>
     </div>
     <div class="tr-item">
-      <div class="tr-left"><span style="font-size:1.2rem;">📡</span><div><div class="tr-name">Torres Shire Council Drone Survey</div><div class="tr-sub">Horn Island · 3 sites · Landfill, Rock Stockpile, Airport · DJI Matrice 4T RTK</div></div></div>
-      <div class="tr-right"><div class="tr-date">23 Jun 2026</div><div class="progress-bar"><div class="progress-fill" style="width:60%;background:var(--flame);"></div></div><span class="badge b-upcoming">UPCOMING</span></div>
+      <div class="tr-left"><span style="font-size:1.2rem;">📡</span><div><div class="tr-name">Torres Shire Council Drone Survey</div><div class="tr-sub">Horn Island · 4 sites · Stockpile, Rock Stockpile, Sand &amp; Sports, Landfill · DJI Matrice 4T RTK</div></div></div>
+      <div class="tr-right"><div class="tr-date">23 Jun 2026</div><div class="progress-bar"><div class="progress-fill" style="width:100%;background:var(--gold);"></div></div><span class="badge b-complete">COMPLETED</span></div>
     </div>
     <div class="tr-item">
       <div class="tr-left"><span style="font-size:1.2rem;">🎓</span><div><div class="tr-name">Year 10 School Presentation</div><div class="tr-sub">Microsoft Teams · AI First Nations mission · Closing the Gap</div></div></div>
-      <div class="tr-right"><div class="tr-date">19 Jun 2026</div><div class="progress-bar"><div class="progress-fill" style="width:80%;background:var(--mist);"></div></div><span class="badge b-upcoming">UPCOMING</span></div>
+      <div class="tr-right"><div class="tr-date">19 Jun 2026</div><div class="progress-bar"><div class="progress-fill" style="width:100%;background:var(--gold);"></div></div><span class="badge b-complete">COMPLETED</span></div>
     </div>
     <div class="tr-item">
-      <div class="tr-left"><span style="font-size:1.2rem;">🌊</span><div><div class="tr-name">Cape York & Torres Strait Environmental Resilience</div><div class="tr-sub">Cooktown to Mapoon · Biosecurity · Marine Debris · Salty Monkeys</div></div></div>
+      <div class="tr-left"><span style="font-size:1.2rem;">🌊</span><div><div class="tr-name">Cape York &amp; Torres Strait Environmental Resilience</div><div class="tr-sub">Cooktown to Mapoon · Biosecurity · Marine Debris · Salty Monkeys</div></div></div>
       <div class="tr-right"><div class="progress-bar"><div class="progress-fill" style="width:75%;background:var(--mist);"></div></div><span class="badge b-active">ACTIVE</span></div>
     </div>
     <div class="tr-item">
@@ -197,9 +181,6 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- DIGITAL ADMIN                                           -->
-<!-- ═══════════════════════════════════════════════════════ -->
 <div class="panel" id="panel-admin">
   <div class="sec-hdr"><h2>🤖 Digital Admin</h2><p>Your AI business assistant — draft emails, reports, quotes, grants, JSAs, and more.</p></div>
   <div class="task-grid">
@@ -224,186 +205,13 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- 🚁 FLIGHT OPS                                          -->
-<!-- ═══════════════════════════════════════════════════════ -->
-<div class="panel" id="panel-flightops">
-  <div class="sec-hdr"><h2>🚁 Flight Ops</h2><p>Pre-flight compliance hub — checklist, JSA form, radio reference, and weather links.</p></div>
-
-  <!-- Compliance header bar -->
-  <div style="background:rgba(42,66,40,0.2);border:1px solid rgba(62,107,64,0.3);padding:0.9rem 1.5rem;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
-    <div style="font-size:0.8rem;opacity:0.8;">
-      <strong style="color:var(--mist);">CRP:</strong> John Fejo &nbsp;·&nbsp;
-      <strong style="color:var(--mist);">ARN:</strong> 1252905 &nbsp;·&nbsp;
-      <strong style="color:var(--mist);">ReOC:</strong> CASA.ReOC.8979 &nbsp;·&nbsp;
-      <strong style="color:var(--mist);">ABN:</strong> 80 732 478 065
-    </div>
-    <div id="fo-date" style="font-size:0.75rem;opacity:0.5;font-family:Cormorant Garamond,serif;font-style:italic;"></div>
-  </div>
-
-  <!-- Two-column: checklist + radio -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;">
-
-    <!-- Pre-flight checklist -->
-    <div style="background:var(--smoke);border:1px solid rgba(255,255,255,0.07);">
-      <div style="padding:0.9rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:space-between;">
-        <div style="font-family:Cormorant Garamond,serif;font-size:1.1rem;color:var(--gold);">☑ Pre-Flight Checklist</div>
-        <button onclick="clearChecklist()" style="font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;background:none;border:1px solid rgba(255,255,255,0.1);color:rgba(237,229,212,0.38);padding:0.22rem 0.6rem;cursor:pointer;font-family:DM Sans,sans-serif;">Reset</button>
-      </div>
-      <div style="padding:0.8rem 1.5rem;" id="fo-checklist">
-        <label class="fo-check"><input type="checkbox" onchange="foCk(this)"><div><span class="fo-num">1.</span> NOTAM Check (NAIPS) <a href="https://www.airservicesaustralia.com/naips/Briefing/Location" target="_blank" class="fo-link">Open NAIPS ↗</a><div style="font-size:0.7rem;opacity:0.5;margin-top:0.1rem;">Location Briefing · 24hr · YHID YBCS YIFL YBTL YBBN</div></div></label>
-        <label class="fo-check"><input type="checkbox" onchange="foCk(this)"><div><span class="fo-num">2.</span> Weather Check (BoM Aviation) <a href="http://www.bom.gov.au/aviation/" target="_blank" class="fo-link">Open BoM ↗</a><div style="font-size:0.7rem;opacity:0.5;margin-top:0.1rem;">Check TAF · METAR · wind, visibility, cloud, QNH</div></div></label>
-        <label class="fo-check"><input type="checkbox" onchange="foCk(this)"><div><span class="fo-num">3.</span> OzRunways Cross-Check <a href="https://www.ozrunways.com/" target="_blank" class="fo-link">Open ↗</a><div style="font-size:0.7rem;opacity:0.5;margin-top:0.1rem;">Confirm airspace · NOTAMs · frequencies</div></div></label>
-        <label class="fo-check"><input type="checkbox" onchange="foCk(this)"><div><span class="fo-num">4.</span> JSA Submitted & CRP-Authorised <a href="https://docs.google.com/forms/d/e/1FAIpQLSdIQfnMihzfWK4CqrFyedM3W0UQOOFI3LXmCgIwhDp8XqrYQA/viewform" target="_blank" class="fo-link">Submit JSA ↗</a></div></label>
-        <label class="fo-check"><input type="checkbox" onchange="foCk(this)"><div><span class="fo-num">5.</span> Aircraft Pre-Flight Inspection Complete</div></label>
-        <label class="fo-check"><input type="checkbox" onchange="foCk(this)"><div><span class="fo-num">6.</span> Crew Briefed & Radio-Checked</div></label>
-        <label class="fo-check"><input type="checkbox" onchange="foCk(this)"><div><span class="fo-num">7.</span> Exclusion Zone Set — 30m (red witches hats)</div></label>
-        <label class="fo-check"><input type="checkbox" onchange="foCk(this)"><div><span class="fo-num">8.</span> Emergency Contacts On Hand<div style="font-size:0.7rem;opacity:0.5;margin-top:0.1rem;">000 &nbsp;·&nbsp; CASA 131 757 &nbsp;·&nbsp; ATSB 1800 011 034</div></div></label>
-      </div>
-      <div id="fo-status" style="padding:0.75rem 1.5rem;border-top:1px solid rgba(255,255,255,0.06);font-size:0.78rem;opacity:0.5;text-align:center;transition:all 0.3s;">0 of 8 complete</div>
-    </div>
-
-    <!-- VHF Radio Reference -->
-    <div style="background:var(--smoke);border:1px solid rgba(255,255,255,0.07);">
-      <div style="padding:0.9rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.07);">
-        <div style="font-family:Cormorant Garamond,serif;font-size:1.1rem;color:var(--gold);">📻 VHF Radio Reference</div>
-      </div>
-      <div style="padding:1.2rem 1.5rem;display:flex;flex-direction:column;gap:1rem;">
-
-        <!-- Callsign -->
-        <div style="background:rgba(201,162,74,0.07);border:1px solid rgba(201,162,74,0.2);padding:0.85rem 1rem;">
-          <div style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.35rem;">Your Callsign</div>
-          <div style="font-family:Cormorant Garamond,serif;font-size:1.2rem;color:#f8f3ea;letter-spacing:0.02em;">"AI FIRST NATIONS DRONE"</div>
-          <div style="font-size:0.72rem;opacity:0.5;margin-top:0.2rem;">Multiple aircraft: "Drone One" / "Drone Two"</div>
-        </div>
-
-        <!-- Frequencies -->
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;">
-          <div style="background:rgba(62,107,64,0.12);border:1px solid rgba(62,107,64,0.3);padding:0.75rem;text-align:center;">
-            <div style="font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--mist);margin-bottom:0.25rem;">MULTICOM / CTAF</div>
-            <div style="font-family:Cormorant Garamond,serif;font-size:1.4rem;color:#f8f3ea;">126.7 MHz</div>
-          </div>
-          <div style="background:rgba(191,84,23,0.12);border:1px solid rgba(191,84,23,0.3);padding:0.75rem;text-align:center;">
-            <div style="font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--flame);margin-bottom:0.25rem;">Emergency</div>
-            <div style="font-family:Cormorant Garamond,serif;font-size:1.4rem;color:#f8f3ea;">121.5 MHz</div>
-          </div>
-        </div>
-
-        <!-- Call structure -->
-        <div>
-          <div style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;">Standard Call — 5 Parts</div>
-          <div style="display:flex;flex-direction:column;gap:0;">
-            <div style="font-size:0.78rem;padding:0.28rem 0;border-bottom:1px solid rgba(255,255,255,0.04);"><span style="color:var(--mist);font-family:Cormorant Garamond,serif;">1.</span> <span style="opacity:0.5;">WHO calling:</span> [Location] Traffic</div>
-            <div style="font-size:0.78rem;padding:0.28rem 0;border-bottom:1px solid rgba(255,255,255,0.04);"><span style="color:var(--mist);font-family:Cormorant Garamond,serif;">2.</span> <span style="opacity:0.5;">WHO you are:</span> AI First Nations Drone</div>
-            <div style="font-size:0.78rem;padding:0.28rem 0;border-bottom:1px solid rgba(255,255,255,0.04);"><span style="color:var(--mist);font-family:Cormorant Garamond,serif;">3.</span> <span style="opacity:0.5;">WHERE:</span> [Position/location]</div>
-            <div style="font-size:0.78rem;padding:0.28rem 0;border-bottom:1px solid rgba(255,255,255,0.04);"><span style="color:var(--mist);font-family:Cormorant Garamond,serif;">4.</span> <span style="opacity:0.5;">WHAT:</span> RPA survey operations</div>
-            <div style="font-size:0.78rem;padding:0.28rem 0;"><span style="color:var(--mist);font-family:Cormorant Garamond,serif;">5.</span> <span style="opacity:0.5;">INTENTIONS:</span> [Area], will call clear</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- JSA banner -->
-  <div style="background:linear-gradient(135deg,rgba(191,84,23,0.14),rgba(17,16,9,0.8));border:1px solid rgba(191,84,23,0.3);padding:1.4rem 2rem;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
-    <div>
-      <div style="font-family:Cormorant Garamond,serif;font-size:1.2rem;color:var(--flame);margin-bottom:0.2rem;">🛡️ Job Safety Analysis — Digital Form</div>
-      <div style="font-size:0.8rem;opacity:0.6;max-width:500px;">Submit a JSA before every flight. Logged to your 7-year compliance record and CRP-authorisation email sent automatically. No flight without authorisation.</div>
-    </div>
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdIQfnMihzfWK4CqrFyedM3W0UQOOFI3LXmCgIwhDp8XqrYQA/viewform" target="_blank" style="background:var(--ember);color:#fff;padding:0.72rem 2rem;text-decoration:none;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;font-family:DM Sans,sans-serif;white-space:nowrap;flex-shrink:0;">Submit JSA Form ↗</a>
-  </div>
-
-  <!-- Saved JSA Pre-Fill Links -->
-  <div style="background:var(--smoke);border:1px solid rgba(255,255,255,0.07);margin-bottom:1.5rem;">
-    <div style="padding:0.8rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.07);font-family:Cormorant Garamond,serif;font-size:1rem;color:var(--gold);">🗂️ Saved JSA Links — Pre-Filled by Job</div>
-    <div style="padding:0.8rem 1.2rem;display:flex;flex-direction:column;gap:0.5rem;">
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:0.7rem 1rem;background:rgba(42,66,40,0.15);border:1px solid rgba(62,107,64,0.2);">
-        <div>
-          <div style="font-size:0.85rem;color:var(--cream);">Goondoi Wetlands — Day 1</div>
-          <div style="font-size:0.7rem;opacity:0.5;margin-top:0.1rem;">AFN-JSA-GDW-2026-003 · 3 Jul 2026 · 12:00–17:00 AEST · Innisfail · LOW risk</div><a href="https://docs.google.com/forms/d/e/1FAIpQLSfsm8hi13Ofcog2lDz8DdmtA6voGSFZML-B4dzagPe1-sCfGw/viewform?usp=pp_url&entry.1766246104=AFN-JSA-GDW-2026-003&entry.707709836_year=2026&entry.707709836_month=7&entry.707709836_day=3&entry.1246909994=Goondoi+Rangers&entry.1299778661=Yes+%E2%80%94+all+sites+completed+as+planned&entry.626572663=No+%E2%80%94+operation+proceeded+as+planned&entry.371962227=john.aifirstnations%40gmail.com&entry.392960306=John+Fejo+%7C+ARN%3A+1252905" target="_blank" style="background:rgba(80,50,160,0.12);border:1px solid rgba(100,70,200,0.35);color:#c4b0ff;padding:0.4rem 1rem;text-decoration:none;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;font-family:DM Sans,sans-serif;white-space:nowrap;flex-shrink:0;">Post-Flight ↗</a>
-        </div>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdIQfnMihzfWK4CqrFyedM3W0UQOOFI3LXmCgIwhDp8XqrYQA/viewform?usp=pp_url&entry.1500731192=AFN-JSA-GDW-2026-003&entry.605105876=2026-07-03&entry.346412146=+12:00+%E2%80%93+17:00+AEST&entry.843707022=Goondoi+Rangers&entry.392703634=+Anthony+Manni+Edwards+-+0400+897+518&entry.936906701=Aerial+mapping+of+Goondoi+Wetlands.+Full+wetland+photographic+survey,+creek+line+mapping,+GIS+data+collection,+and+vegetation+shots.+Noon+start+%E2%80%94+12:00+AEST.&entry.1730009=Goondoi+Wetlands&entry.1217716264=1+Riley+Street+Innisfail&entry.259293657=Sub-5+cm&entry.1371361676=DJI+Matrice+4T+(RTK)&entry.466066137=John+Fejo+%7C+ARN:+1252905&entry.1592495593=Anthony+Manni+Edwards/+Goondoi+Ranger&entry.49565296=VLOS&entry.1080935217=120m&entry.424545281=1x+radio,+spotter+listen-only&entry.1857257275=30m+%E2%80%94+marked+with+red+witches+hats&entry.1696001483=Normal&entry.1533837284=No&entry.1611570066=YIFL+(Mundoo)+126.7+MHz+&entry.1037195180=To+be+confirmed+morning+of+operation&entry.2069016980=fill+in+on+the+day+%E2%80%94+e.g.+BoM+Cairns&entry.212997986=LOW+(proceed)&entry.1565657352=none+identified+(no+cultural+sites,+no+crocs+reported,+clear+fly+area+per+Goondoi+Rangers)&entry.553180852=Anthony+Manni+Edwards+%E2%80%93+0400+897+518&entry.838492036=No+%E2%80%94+CRP+is+also+RPIC+on+this+operation&entry.2064132293=John+Fejo+%7C+ARN+1252905&entry.596749804=Day+2+of+this+job+(Warrina+Lakes+%2B+Black+Fella+Creek)+scheduled+Monday+6+July+2026+%E2%80%94+separate+JSA+submitted+for+that+operation." target="_blank" style="background:rgba(62,107,64,0.2);border:1px solid rgba(62,107,64,0.4);color:var(--mist);padding:0.4rem 1rem;text-decoration:none;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;font-family:DM Sans,sans-serif;white-space:nowrap;flex-shrink:0;">Open JSA ↗</a>
-      </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:0.7rem 1rem;background:rgba(191,84,23,0.08);border:1px solid rgba(191,84,23,0.25);">
-        <div>
-          <div style="font-size:0.85rem;color:var(--cream);">Warrina Lakes + Black Fella Creek — Day 2</div>
-          <div style="font-size:0.7rem;opacity:0.5;margin-top:0.1rem;">AFN-JSA-WBF-2026-001 · 6 Jul 2026 · 09:00–17:00 AEST · 2 sites · MEDIUM risk · ⚠️ Fill Site 2 manually</div>
-        </div>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdIQfnMihzfWK4CqrFyedM3W0UQOOFI3LXmCgIwhDp8XqrYQA/viewform?usp=pp_url&entry.1500731192=AFN-JSA-WBF-2026-001&entry.605105876=2026-07-06&entry.346412146=+09:00+%E2%80%93+17:00+AEST&entry.843707022=Goondoi+Rangers&entry.392703634=Manni+Edwards+%E2%80%93+0400+897+518&entry.936906701=Multi-site+aerial+survey+%E2%80%94+Warrina+Lakes+Wetlands+(Innisfail)+and+Black+Fella+Creek+Wetlands+(Flying+Fish+Point).+Full+wetland+photographic+survey,+creek+line+mapping,+GIS+data+collection,+and+vegetation+shots.+Crocodile+management+protocols+active+at+Black+Fella+Creek.&entry.1730009=Warrina+Lakes+Wetlands&entry.1217716264=Warrina+Lakes,+Innisfail+QLD&entry.259293657=Sub-5+cm&entry.1371361676=DJI+Matrice+4T+(RTK)&entry.466066137=John+Fejo+%7C+ARN:+1252905&entry.1592495593=Manni+Edwards+%2F+Goondoi+Ranger&entry.49565296=VLOS&entry.1080935217=120m&entry.424545281=1x+radio,+spotter+listen-only&entry.1857257275=30m+%E2%80%94+marked+with+red+witches+hats&entry.1696001483=Normal&entry.1533837284=No&entry.1611570066=YIFL+(Mundoo)+126.7+MHz&entry.1037195180=To+be+confirmed+morning+of+operation&entry.2069016980=fill+in+on+the+day+%E2%80%94+e.g.+BoM+Cairns&entry.212997986=MEDIUM+(proceed+with+additional+controls)&entry.1565657352=Crocodile+presence+confirmed+at+Black+Fella+Creek+%E2%80%94+maintain+5m+water+exclusion,+no+operations+within+30m+of+water%E2%80%99s+edge.+CCRC+cultural+authority+permit+required+for+Warrina+Lakes.&entry.553180852=Manni+Edwards+%E2%80%93+0400+897+518&entry.838492036=No+%E2%80%94+CRP+is+also+RPIC+on+this+operation&entry.2064132293=John+Fejo+%7C+ARN+1252905&entry.596749804=Day+1+of+this+job+(Goondoi+Wetlands)+completed+3+July+2026+%E2%80%94+see+AFN-JSA-GDW-2026-003." target="_blank" style="background:rgba(191,84,23,0.15);border:1px solid rgba(191,84,23,0.4);color:var(--flame);padding:0.4rem 1rem;text-decoration:none;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;font-family:DM Sans,sans-serif;white-space:nowrap;flex-shrink:0;">Open JSA ↗</a><a href="https://docs.google.com/forms/d/e/1FAIpQLSfsm8hi13Ofcog2lDz8DdmtA6voGSFZML-B4dzagPe1-sCfGw/viewform?usp=pp_url&entry.1766246104=AFN-JSA-WBF-2026-001&entry.707709836_year=2026&entry.707709836_month=7&entry.707709836_day=6&entry.1246909994=Goondoi+Rangers&entry.1299778661=Yes+%E2%80%94+all+sites+completed+as+planned&entry.626572663=No+%E2%80%94+operation+proceeded+as+planned&entry.371962227=john.aifirstnations%40gmail.com&entry.392960306=John+Fejo+%7C+ARN%3A+1252905" target="_blank" style="background:rgba(80,50,160,0.12);border:1px solid rgba(100,70,200,0.35);color:#c4b0ff;padding:0.4rem 1rem;text-decoration:none;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;font-family:DM Sans,sans-serif;white-space:nowrap;flex-shrink:0;">Post-Flight ↗</a>
-      </div><div style="display:flex;align-items:center;justify-content:space-between;padding:0.7rem 1rem;background:rgba(20,50,90,0.12);border:1px solid rgba(60,110,180,0.25);">
-        <div>
-          <div style="font-size:0.85rem;color:var(--cream);">Horn Island — TSC Aerial Survey</div>
-          <div style="font-size:0.7rem;opacity:0.5;margin-top:0.1rem;">AFN-JSA-TSC-2026-001 · 23 Jun 2026 · YHID · 4 sites · MEDIUM risk · 🗂️ AUDIT RECORD</div>
-        </div>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdIQfnMihzfWK4CqrFyedM3W0UQOOFI3LXmCgIwhDp8XqrYQA/viewform?usp=pp_url&entry.1500731192=AFN-JSA-TSC-2026-001&entry.605105876=2026-06-23&entry.346412146=08%3A00+%E2%80%93+16%3A00+AEST&entry.843707022=Torres+Shire+Council&entry.392703634=Daniel+Barron+%E2%80%93+0439+506+009&entry.936906701=Aerial+survey+of+Torres+Shire+Council+Works+Depot%2C+Landfill%2C+Rock+Stockpile+and+Road+Base+Stockpile+near+YHID+Airport%2C+Horn+Island.+11+flight+routes+across+4+sites.+Sub-10cm+accuracy+via+GNSS%2FGCP.&entry.1730009=Works+Depot+%2F+Landfill+%2F+Rock+Stockpile+%2F+Road+Base+Stockpile+(4+sites)&entry.1217716264=Horn+Island+QLD+4785+(near+YHID+Airport)&entry.259293657=Sub-10+cm&entry.1371361676=DJI+Matrice+4T+(RTK)&entry.466066137=John+Fejo+%7C+ARN%3A+1252905&entry.1592495593=Wallace+Morseu+%2F+Visual+Observer&entry.49565296=VLOS&entry.1080935217=120m&entry.424545281=Icom+IC-A16E+VHF+126.7+MHz+CTAF%3B+GME+UHF+CB+crew+comms&entry.1857257275=30m+%E2%80%94+red+witches+hats&entry.1696001483=Specialised+(describe+in+notes)&entry.1533837284=No&entry.1611570066=YHID+CTAF+126.7+MHz+(Icom+IC-A16E+VHF)&entry.1037195180=Yes+%E2%80%94+BoM+confirmed%2C+within+limits&entry.2069016980=OzRunways+YHID+METAR+13016KT+VFR+good+Q1014&entry.212997986=MEDIUM+(proceed+with+additional+controls)&entry.1565657352=Wildlife+NOTAMs+active+%E2%80%94+bat+%26+bird+hazard+RWY+08%2F26.+Landfill+contamination+PPE.+Airspace+near+YHID+%E2%80%94+CTAF+126.7+MHz+monitored+throughout.&entry.553180852=Daniel+Barron+%E2%80%93+0439+506+009&entry.838492036=No+%E2%80%94+CRP+is+also+RPIC&entry.2064132293=John+Fejo+%7C+ARN+1252905&entry.596749804=RETROACTIVE+AUDIT+RECORD.+Flight+23+June+2026.+Crew%3A+Dennis+Fay+(GNSS%2FGCP)+%26+Wallace+Morseu+(VO).+DJI+M4T+S%2FN+1581F7K3C25BE00DMPM3.+11+routes%2C+4+sites." target="_blank" style="background:rgba(60,110,180,0.15);border:1px solid rgba(60,110,180,0.4);color:var(--mist);padding:0.4rem 1rem;text-decoration:none;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;font-family:DM Sans,sans-serif;white-space:nowrap;flex-shrink:0;">Audit ↗</a>
-      </div>
-    </div>
-  </div><!-- Locations + quick links -->
-  <div style="background:var(--smoke);border:1px solid rgba(255,255,255,0.07);margin-bottom:1.5rem;">
-    <div style="padding:0.8rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
-      <div style="font-family:Cormorant Garamond,serif;font-size:1rem;color:var(--gold);">📍 Operating Locations — NAIPS Codes</div>
-      <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
-        <a href="https://www.airservicesaustralia.com/naips/Briefing/Location" target="_blank" style="font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;background:rgba(201,162,74,0.08);border:1px solid rgba(201,162,74,0.2);color:var(--gold);padding:0.35rem 0.75rem;text-decoration:none;font-family:DM Sans,sans-serif;">NAIPS ↗</a>
-        <a href="http://www.bom.gov.au/aviation/" target="_blank" style="font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;background:rgba(62,107,64,0.08);border:1px solid rgba(62,107,64,0.2);color:var(--mist);padding:0.35rem 0.75rem;text-decoration:none;font-family:DM Sans,sans-serif;">BoM Aviation ↗</a>
-        <a href="https://www.ozrunways.com/" target="_blank" style="font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;background:rgba(191,84,23,0.08);border:1px solid rgba(191,84,23,0.2);color:var(--flame);padding:0.35rem 0.75rem;text-decoration:none;font-family:DM Sans,sans-serif;">OzRunways ↗</a>
-        <a href="https://www.casa.gov.au/drones/get-your-operator-credentials/reoc-holders" target="_blank" style="font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:rgba(237,229,212,0.55);padding:0.35rem 0.75rem;text-decoration:none;font-family:DM Sans,sans-serif;">CASA ↗</a>
-      </div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);">
-      <div style="padding:0.65rem 1.2rem;border-right:1px solid rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.05);"><div style="font-size:0.65rem;letter-spacing:0.12em;color:var(--gold);margin-bottom:0.1rem;">YHID</div><div style="font-size:0.83rem;">Horn Island</div></div>
-      <div style="padding:0.65rem 1.2rem;border-right:1px solid rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.05);"><div style="font-size:0.65rem;letter-spacing:0.12em;color:var(--gold);margin-bottom:0.1rem;">YBCS</div><div style="font-size:0.83rem;">Cairns</div></div>
-      <div style="padding:0.65rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.05);"><div style="font-size:0.65rem;letter-spacing:0.12em;color:var(--gold);margin-bottom:0.1rem;">YIFL</div><div style="font-size:0.83rem;">Innisfail / Mundoo</div></div>
-      <div style="padding:0.65rem 1.2rem;border-right:1px solid rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.05);"><div style="font-size:0.65rem;letter-spacing:0.12em;color:var(--gold);margin-bottom:0.1rem;">YBTL</div><div style="font-size:0.83rem;">Townsville</div></div>
-      <div style="padding:0.65rem 1.2rem;border-right:1px solid rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.05);"><div style="font-size:0.65rem;letter-spacing:0.12em;color:var(--gold);margin-bottom:0.1rem;">YBBN</div><div style="font-size:0.83rem;">Brisbane</div></div>
-      <div style="padding:0.65rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.05);"><div style="font-size:0.65rem;letter-spacing:0.12em;color:var(--gold);margin-bottom:0.1rem;">YBCG</div><div style="font-size:0.83rem;">Gold Coast</div></div>
-      <div style="padding:0.65rem 1.2rem;border-right:1px solid rgba(255,255,255,0.05);"><div style="font-size:0.65rem;letter-spacing:0.12em;color:var(--gold);margin-bottom:0.1rem;">YSCB</div><div style="font-size:0.83rem;">Canberra</div></div>
-      <div style="padding:0.65rem 1.2rem;border-right:1px solid rgba(255,255,255,0.05);"><div style="font-size:0.65rem;letter-spacing:0.12em;color:var(--gold);margin-bottom:0.1rem;">YSSY</div><div style="font-size:0.83rem;">Sydney</div></div>
-      <div style="padding:0.65rem 1.2rem;"><div style="font-size:0.65rem;letter-spacing:0.12em;color:var(--gold);margin-bottom:0.1rem;">YMML</div><div style="font-size:0.83rem;">Melbourne</div></div>
-    </div>
-  </div>
-
-  <!-- Location radio scripts -->
-  <div style="background:var(--smoke);border:1px solid rgba(255,255,255,0.07);">
-    <div style="padding:0.8rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.07);font-family:Cormorant Garamond,serif;font-size:1rem;color:var(--gold);">📡 Location Radio Scripts</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;">
-      <div style="padding:1rem 1.5rem;border-right:1px solid rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.05);">
-        <div style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--mist);margin-bottom:0.5rem;">Horn Island (YHID) — 126.7 MHz</div>
-        <div class="fo-script">"Horn Island Traffic, AI First Nations Drone, [position], operating RPA survey [area] not above [height] AGL, will call operations complete, Horn Island Traffic."</div>
-      </div>
-      <div style="padding:1rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.05);">
-        <div style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--mist);margin-bottom:0.5rem;">Cairns (YBCS) — Contact Cairns Approach</div>
-        <div class="fo-script">"Cairns Approach, AI First Nations Drone, [location], request clearance for RPA survey operations [area], not above [height] AGL."</div>
-      </div>
-      <div style="padding:1rem 1.5rem;border-right:1px solid rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.05);">
-        <div style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--mist);margin-bottom:0.5rem;">Innisfail / Mundoo (YIFL) — 126.7 MHz</div>
-        <div class="fo-script">"Innisfail Traffic, AI First Nations Drone, [position], commencing RPA survey operations [area] to [height] AGL, will call operations complete, Innisfail Traffic."</div>
-      </div>
-      <div style="padding:1rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.05);">
-        <div style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--mist);margin-bottom:0.5rem;">Townsville (YBTL) — Contact Townsville Approach</div>
-        <div class="fo-script">"Townsville Approach, AI First Nations Drone, [location], request clearance for RPA survey operations [area], not above [height] AGL."</div>
-      </div>
-      <div style="padding:1rem 1.5rem;border-right:1px solid rgba(255,255,255,0.05);">
-        <div style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--mist);margin-bottom:0.5rem;">Non-Towered Aerodromes — 126.7 MHz</div>
-        <div class="fo-script">"[Location] Traffic, AI First Nations Drone, [position], commencing RPA operations [area], will broadcast on completion, [Location] Traffic."</div>
-      </div>
-      <div style="padding:1rem 1.5rem;background:rgba(191,84,23,0.05);border-left:2px solid rgba(191,84,23,0.3);">
-        <div style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--flame);margin-bottom:0.5rem;">⚠️ Emergency MAYDAY — 121.5 MHz</div>
-        <div class="fo-script">"MAYDAY MAYDAY MAYDAY — AI First Nations Drone, [location], [nature of emergency], [persons involved], [assistance required]."</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- CONTRACTS                                               -->
-<!-- ═══════════════════════════════════════════════════════ -->
 <div class="panel" id="panel-contracts">
   <div class="sec-hdr"><h2>📝 Contracts</h2><p>Active agreements, quotes, and service contracts for AI First Nations.</p></div>
   <div class="doc-sec">
     <div class="doc-hdr"><div style="display:flex;align-items:center;gap:0.8rem;font-size:0.9rem;color:var(--gold);"><span>📋</span>Active Contracts</div><button class="dbtn" style="background:rgba(191,84,23,0.15);border-color:rgba(191,84,23,0.3);color:var(--flame);" onclick="tForm('contracts-active')">+ Add</button></div>
     <div class="doc-list">
       <div class="doc-item"><div><div style="font-size:0.87rem;">Goondoi Arts Aboriginal Corporation — Drone Services Agreement</div><div style="font-size:0.72rem;opacity:0.45;margin-top:0.1rem;">Signed · Pond apple injection · Mowing · Environmental monitoring</div></div><div style="display:flex;gap:0.5rem;align-items:center;"><span class="badge b-complete">SIGNED</span></div></div>
-      <div class="doc-item"><div><div style="font-size:0.87rem;">Torres Shire Council — Drone Survey Quote</div><div style="font-size:0.72rem;opacity:0.45;margin-top:0.1rem;">Pending · Horn Island · 3 sites · DJI Matrice 4T RTK · 23 Jun 2026</div></div><div style="display:flex;gap:0.5rem;align-items:center;"><span class="badge b-pending">PENDING</span></div></div>
+      <div class="doc-item"><div><div style="font-size:0.87rem;">Torres Shire Council — Drone Survey Quote</div><div style="font-size:0.72rem;opacity:0.45;margin-top:0.1rem;">Pending · Horn Island · 4 sites · DJI Matrice 4T RTK · 23 Jun 2026</div></div><div style="display:flex;gap:0.5rem;align-items:center;"><span class="badge b-pending">PENDING</span></div></div>
     </div>
     <div class="add-form" id="form-contracts-active">
       <div class="fg"><label>Contract Name</label><input type="text" id="dn-contracts-active" placeholder="e.g. NRMMRRD Pig Trapping Agreement"></div>
@@ -413,7 +221,7 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
     </div>
   </div>
   <div class="doc-sec" style="margin-top:1rem;">
-    <div class="doc-hdr"><div style="display:flex;align-items:center;gap:0.8rem;font-size:0.9rem;color:var(--gold);"><span>📄</span>Quotes & Proposals</div><button class="dbtn" style="background:rgba(191,84,23,0.15);border-color:rgba(191,84,23,0.3);color:var(--flame);" onclick="tForm('contracts-quotes')">+ Add</button></div>
+    <div class="doc-hdr"><div style="display:flex;align-items:center;gap:0.8rem;font-size:0.9rem;color:var(--gold);"><span>📄</span>Quotes &amp; Proposals</div><button class="dbtn" style="background:rgba(191,84,23,0.15);border-color:rgba(191,84,23,0.3);color:var(--flame);" onclick="tForm('contracts-quotes')">+ Add</button></div>
     <div class="doc-list" id="list-contracts-quotes"><div class="empty-doc">No quotes added yet. Click + Add to store a quote or proposal.</div></div>
     <div class="add-form" id="form-contracts-quotes">
       <div class="fg"><label>Quote Name</label><input type="text" id="dn-contracts-quotes" placeholder="e.g. Port of Townsville Bid"></div>
@@ -424,9 +232,6 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- CALENDAR                                                -->
-<!-- ═══════════════════════════════════════════════════════ -->
 <div class="panel" id="panel-cal">
   <div class="sec-hdr"><h2>📅 Project Calendar</h2><p>Track drone surveys, deadlines, training sessions, and community events.</p></div>
   <div class="cal-box">
@@ -437,8 +242,8 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
   <div class="cal-box">
     <div style="font-family:Cormorant Garamond,serif;font-size:1.1rem;color:#c9a24a;margin-bottom:1rem;">Upcoming Events</div>
     <div id="EL">
-      <div class="ev"><div style="width:48px;text-align:center;flex-shrink:0;"><span class="ev-day">19</span><span class="ev-mon">Jun</span></div><div class="ev-info"><h4>Year 10 School Presentation</h4><p>Microsoft Teams · Drone & AI</p><span class="ev-tag" style="background:rgba(62,107,64,0.2);color:#7aab82;border:1px solid rgba(62,107,64,0.3);">Education</span></div></div>
-      <div class="ev"><div style="width:48px;text-align:center;flex-shrink:0;"><span class="ev-day">23</span><span class="ev-mon">Jun</span></div><div class="ev-info"><h4>Torres Shire Council Drone Survey</h4><p>Horn Island · Three sites · DJI Matrice 4T RTK</p><span class="ev-tag" style="background:rgba(191,84,23,0.15);color:#d9732e;border:1px solid rgba(191,84,23,0.3);">Drone Survey</span></div></div>
+      <div class="ev"><div style="width:48px;text-align:center;flex-shrink:0;"><span class="ev-day">19</span><span class="ev-mon">Jun</span></div><div class="ev-info"><h4>Year 10 School Presentation</h4><p>Microsoft Teams · Drone &amp; AI</p><span class="ev-tag" style="background:rgba(62,107,64,0.2);color:#7aab82;border:1px solid rgba(62,107,64,0.3);">Education</span></div></div>
+      <div class="ev"><div style="width:48px;text-align:center;flex-shrink:0;"><span class="ev-day">23</span><span class="ev-mon">Jun</span></div><div class="ev-info"><h4>Torres Shire Council Drone Survey</h4><p>Horn Island · Four sites · DJI Matrice 4T RTK</p><span class="ev-tag" style="background:rgba(191,84,23,0.15);color:#d9732e;border:1px solid rgba(191,84,23,0.3);">Drone Survey</span></div></div>
       <div class="ev"><div style="width:48px;text-align:center;flex-shrink:0;"><span class="ev-day">30</span><span class="ev-mon">Jun</span></div><div class="ev-info"><h4>RMIT Semester 1 Completion</h4><p>Mangrove AI · Final deliverables</p><span class="ev-tag" style="background:rgba(26,82,118,0.2);color:#2E86C1;border:1px solid rgba(46,134,193,0.3);">Research</span></div></div>
       <div class="ev"><div style="width:48px;text-align:center;flex-shrink:0;"><span class="ev-day">31</span><span class="ev-mon">Oct</span></div><div class="ev-info"><h4>⚠️ ReOC Expiry — CASA.ReOC.8979</h4><p>ARN 1252905 · Renew before this date to maintain commercial operations</p><span class="ev-tag" style="background:rgba(192,57,43,0.2);color:#E74C3C;border:1px solid rgba(192,57,43,0.4);">CASA Compliance</span></div></div>
     </div>
@@ -451,9 +256,6 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- DOCUMENT PANELS                                         -->
-<!-- ═══════════════════════════════════════════════════════ -->
 <div class="panel" id="panel-reports"><div class="sec-hdr"><h2>📋 Client Reports</h2><p>Drone survey reports and client documentation.</p></div><div id="dr-reports"></div></div>
 <div class="panel" id="panel-drone"><div class="sec-hdr"><h2>✈️ Drone Survey Data</h2><p>Flight logs, imagery, and RPAS records.</p></div><div id="dr-drone"></div></div>
 <div class="panel" id="panel-heritage"><div class="sec-hdr"><h2>🪨 Cultural Heritage</h2><p>Rock art documentation and heritage mapping.</p></div><div id="dr-heritage"></div></div>
@@ -463,22 +265,9 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
 <div class="panel" id="panel-grants"><div class="sec-hdr"><h2>💼 Grant Documents</h2><p>Funding applications and acquittals.</p></div><div id="dr-grants"></div></div>
 <div class="panel" id="panel-media"><div class="sec-hdr"><h2>📸 Media Library</h2><p>Photos, drone footage, and visual assets.</p></div><div id="dr-media"></div></div>
 
-</div></div></div>
-
-<script>
-// ── Auth ──────────────────────────────────────────────────
-(function(){
-  if(sessionStorage.getItem("aifn_portal")==="granted"){
-    document.getElementById("gate").style.display="none";
-    var a=document.getElementById("app");
-    a.style.display="flex";a.style.flexDirection="column";
-  } else {
-    setTimeout(function(){window.location.href="index.html";},1200);
-  }
-})();
+</div></div></div><script>
+(function(){if(sessionStorage.getItem("aifn_portal")==="granted"){document.getElementById("gate").style.display="none";var a=document.getElementById("app");a.style.display="flex";a.style.flexDirection="column";}else{setTimeout(function(){window.location.href="index.html";},1200);}})();
 function logout(){sessionStorage.removeItem("aifn_portal");window.location.href="index.html";}
-
-// ── Panel navigation ──────────────────────────────────────
 function show(id){
   document.querySelectorAll(".panel").forEach(function(p){p.classList.remove("active");});
   document.querySelectorAll(".ni").forEach(function(n){n.classList.remove("active");});
@@ -486,10 +275,7 @@ function show(id){
   var b=document.querySelector('[onclick="show(\''+id+'\')"]');if(b)b.classList.add("active");
   document.getElementById("MC").scrollTop=0;
   if(["reports","drone","heritage","training","student","ranger","grants","media"].indexOf(id)>-1)rDocs(id);
-  if(id==="flightops")foInit();
 }
-
-// ── Digital Admin ─────────────────────────────────────────
 var ASYS="You are the Digital Admin for AI First Nations. Two legal entities: 1) AIFN Aboriginal Corporation — non-profit, ORIC registered, ICN 9873, ORIC ref ICN9873/1540849, registered 28 November 2022, address 31 Ryan Street Innisfail QLD 4860. Use for grants, government partnerships, community programs, ORIC reporting. Letterhead must include ICN 9873. 2) AI First Nations sole trader — ABN 80732478065, registered ATSIS. Use for commercial invoices, drone surveys, Goondoi Arts, Torres Shire Council, Mystic Sands, commercial contracts. CASA credentials: ReOC CASA.ReOC.8979, ARN 1252905, expires 31 October 2026, authorised multi-rotor up to 25kg RPAS aerial work. Operations Manual v2, Procedures Library v3. Know: RMIT mangrove AI 97% accuracy EfficientNet-B0 team Kirtan Shah Thomas Blanks Jake Dyl Dr Damiano Spina, AATT 1000+ students 5 states KJR, Cape York Cooktown to Mapoon, Torres Strait Salty Monkeys, Jarramali rock art, John Fejo Larrakia man drone pilot Chief Remote Pilot Head Ranger NT QLD cultural ambassador minister Cert IV Education, 3 pillars Creation Connection Contribution, 5 Cultural Governance pillars, Numuluk Shield, KJR Dr Kelvin Ross Aaron Bell. For JSA requests: generate complete Job Safety Analysis per Operations Manual Appendix 5, referencing ReOC CASA.ReOC.8979 and ARN 1252905, include hazard register, risk matrix, control measures, emergency procedures, sign off as John Fejo, Founder Cultural Ambassador and Chief Remote Pilot, AI First Nations, ReOC CASA.ReOC.8979. For commercial documents use ABN 80732478065. For grant/community documents use AIFN Aboriginal Corporation ICN 9873.";
 var AC=[];
 function ap(t){document.getElementById("AI").value=t;sndAdmin();}
@@ -514,39 +300,9 @@ function sndAdmin(){
   });
 }
 function cAPI(sys,msgs,ok,fail){
- fetch("/api/ai",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({system:sys,messages:msgs,max_tokens:1500})}).then(function(r){return r.json();}).then(function(d){if(d.error)fail();else ok((d.content||[]).map(function(b){return b.text||"";}).join(""));}).catch(fail);
+  fetch("/api/ai",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({max_tokens:1500,system:sys,messages:msgs})}).then(function(r){return r.json();}).then(function(d){if(d.error)fail();else ok((d.content||[]).map(function(b){return b.text||"";}).join(""));}).catch(fail);
 }
 document.getElementById("AI").addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sndAdmin();}});
-
-// ── Flight Ops ────────────────────────────────────────────
-function foInit(){
-  var d=new Date();
-  document.getElementById("fo-date").textContent=d.toLocaleDateString("en-AU",{timeZone:"Australia/Brisbane",weekday:"long",year:"numeric",month:"long",day:"numeric"});
-}
-function foCk(el){
-  var lbl=el.closest(".fo-check");
-  if(el.checked)lbl.classList.add("done");else lbl.classList.remove("done");
-  var all=document.querySelectorAll("#fo-checklist input[type=checkbox]");
-  var done=document.querySelectorAll("#fo-checklist input[type=checkbox]:checked");
-  var n=done.length,t=all.length;
-  var s=document.getElementById("fo-status");
-  if(n===t){
-    s.textContent="✅ All "+t+" checks complete — cleared for operations";
-    s.style.color="var(--mist)";s.style.opacity="1";
-  } else {
-    s.textContent=n+" of "+t+" complete";
-    s.style.color="";s.style.opacity="0.5";
-  }
-}
-function clearChecklist(){
-  document.querySelectorAll("#fo-checklist input[type=checkbox]").forEach(function(c){
-    c.checked=false;c.closest(".fo-check").classList.remove("done");
-  });
-  var s=document.getElementById("fo-status");
-  s.textContent="0 of 8 complete";s.style.color="";s.style.opacity="0.5";
-}
-
-// ── Documents ─────────────────────────────────────────────
 var DS={reports:[],drone:[],heritage:[],training:[],student:[],ranger:[],grants:[],media:[],"contracts-active":[],"contracts-quotes":[]};
 function rDocs(id){
   var c=document.getElementById("dr-"+id);if(!c)return;c.innerHTML="";
@@ -562,11 +318,9 @@ function rDocs(id){
   f.innerHTML='<div class="fg"><label>Document Name</label><input type="text" id="dn-'+id+'" placeholder="e.g. Torres Strait Survey June 2026"></div><div class="fg"><label>Google Drive / URL</label><input type="text" id="du-'+id+'" placeholder="https://drive.google.com/..."></div><div class="fg" style="max-width:120px;"><label>Type</label><input type="text" id="dt-'+id+'" placeholder="PDF"></div><button class="addbtn" onclick="addDoc(\''+id+'\')">Add</button>';
   s.appendChild(f);c.appendChild(s);
 }
-function tForm(id){var f=document.getElementById("form-"+id)||document.getElementById("f-"+id);if(f)f.classList.toggle("open");}
+function tForm(id){var f=document.getElementById("form-"+id);if(f)f.classList.toggle("open");}
 function addDoc(id){var n=document.getElementById("dn-"+id).value.trim();var u=document.getElementById("du-"+id).value.trim();var t=document.getElementById("dt-"+id).value.trim()||"Document";if(!n)return;if(DS[id])DS[id].push({name:n,url:u,type:t,date:new Date().toLocaleDateString("en-AU")});rDocs(id);}
 function rmDoc(id,i){if(DS[id])DS[id].splice(i,1);rDocs(id);}
-
-// ── Calendar ──────────────────────────────────────────────
 function embCal(){var url=document.getElementById("CU").value.trim();if(!url)return;document.getElementById("CS").style.display="none";document.getElementById("CF").innerHTML='<iframe src="'+url+'" style="width:100%;height:500px;border:none;"></iframe>';}
 function addEv(){
   var n=document.getElementById("EN").value.trim();var d=document.getElementById("ED").value;var t=document.getElementById("ET").value;
