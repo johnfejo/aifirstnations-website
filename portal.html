@@ -514,7 +514,7 @@ function sndAdmin(){
   });
 }
 function cAPI(sys,msgs,ok,fail){
-  fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({system:sys,messages:msgs,max_tokens:1500})}).then(function(r){return r.json();}).then(function(d){if(d.error)fail();else ok((d.content||[]).map(function(b){return b.text||"";}).join(""));}).catch(fail);
+ fetch("/api/ai",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({system:sys,messages:msgs,max_tokens:1500})}).then(function(r){return r.json();}).then(function(d){if(d.error)fail();else ok((d.content||[]).map(function(b){return b.text||"";}).join(""));}).catch(fail);
 }
 document.getElementById("AI").addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sndAdmin();}});
 
