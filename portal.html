@@ -474,7 +474,7 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
 <div class="panel" id="panel-media"><div class="sec-hdr"><h2>📸 Media Library</h2><p>Photos, drone footage, and visual assets.</p></div><div id="dr-media"></div></div>
 
 </div></div></div><script>
-(function(){if(sessionStorage.getItem("aifn_portal")==="granted"){document.getElementById("gate").style.display="none";var a=document.getElementById("app");a.style.display="flex";a.style.flexDirection="column";}else{setTimeout(function(){window.location.href="index.html";},1200);}})();
+(function(){if(sessionStorage.getItem("aifn_portal")==="granted"){document.getElementById("gate").style.display="none";var a=document.getElementById("app");a.style.display="flex";a.style.flexDirection="column";initDefaultDocs();}else{setTimeout(function(){window.location.href="index.html";},1200);}})();
 function logout(){sessionStorage.removeItem("aifn_portal");window.location.href="index.html";}
 function show(id){
   document.querySelectorAll(".panel").forEach(function(p){p.classList.remove("active");});
@@ -553,6 +553,25 @@ function addDoc(id){
   rDocs(id);
 }
 function foInit(){}
+function initDefaultDocs(){
+  if(localStorage.getItem("aifn_ds_v1_seeded"))return;
+  var defaults={
+    reports:[
+      {name:"Torres Shire Council — Horn Island Drone Survey Report",url:"",type:"Survey Report · Jun 2026"},
+      {name:"Goondoi Arts — Environmental Drone Services Report",url:"",type:"Survey Report · Jul 2026"}
+    ],
+    drone:[
+      {name:"Horn Island Survey — Orthomosaic & Point Cloud (4 sites)",url:"",type:"Survey Data · 23 Jun 2026"},
+      {name:"Goondoi Wetlands — Survey Imagery & Flight Logs",url:"",type:"Survey Data · 3 Jul 2026"}
+    ]
+  };
+  for(var k in defaults){
+    if(!localStorage.getItem("aifn_ds_"+k)){
+      localStorage.setItem("aifn_ds_"+k,JSON.stringify(defaults[k]));
+    }
+  }
+  localStorage.setItem("aifn_ds_v1_seeded","1");
+}
 </script>
 </body>
 </html>
