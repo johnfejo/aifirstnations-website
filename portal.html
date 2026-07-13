@@ -64,6 +64,8 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
 .chat-msgs{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:0.8rem;}
 .msg-u{align-self:flex-end;background:rgba(201,162,74,0.12);border:1px solid rgba(201,162,74,0.25);padding:0.8rem 1rem;border-radius:12px 2px 12px 12px;max-width:75%;font-size:0.87rem;line-height:1.7;}
 .msg-a{align-self:flex-start;background:rgba(191,84,23,0.08);border:1px solid rgba(191,84,23,0.2);padding:0.8rem 1rem;border-radius:2px 12px 12px 12px;max-width:80%;font-size:0.87rem;line-height:1.7;white-space:pre-wrap;}
+.prep-btn{align-self:flex-start;margin-top:-0.4rem;font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;background:none;border:1px solid rgba(201,162,74,0.35);color:var(--gold);padding:0.35rem 0.8rem;cursor:pointer;font-family:"DM Sans",sans-serif;}
+.prep-btn:hover{background:rgba(201,162,74,0.1);}
 .chat-inp{padding:0.8rem;border-top:1px solid rgba(255,255,255,0.07);display:flex;gap:0.5rem;flex-shrink:0;}
 .ci-inp{flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--cream);padding:0.7rem 1rem;font-family:"DM Sans",sans-serif;font-size:0.85rem;outline:none;resize:none;border-radius:6px;}
 .ci-inp:focus{border-color:var(--gold);}
@@ -162,6 +164,7 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
     <div class="qac" onclick="location.href='marketing.html'"><span class="qi">📣</span><div class="qt">Marketing Assistant</div><div class="qd">Generate LinkedIn, Facebook, Instagram, press releases and more.</div></div>
     <div class="qac" onclick="show('contracts')"><span class="qi">📝</span><div class="qt">Contracts</div><div class="qd">Goondoi Arts agreement, Torres Shire Council quote, and all active contracts.</div></div>
     <div class="qac" onclick="show('admin')"><span class="qi">🛡️</span><div class="qt">JSA Generator</div><div class="qd">Generate Job Safety Analysis for drone operations instantly.</div></div>
+    <div class="qac" onclick="show('admin')"><span class="qi">⚠️</span><div class="qt">Risk Assessment</div><div class="qd">Generate a site/flight risk matrix for a job.</div></div>
     <div class="qac" onclick="show('cal')"><span class="qi">📅</span><div class="qt">Calendar</div><div class="qd">Track project deadlines, drone surveys, and events.</div></div>
   </div>
   <div class="sh">Project Tracker</div>
@@ -197,6 +200,7 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
   <div class="sec-hdr"><h2>🤖 Digital Admin</h2><p>Your AI business assistant — draft emails, reports, quotes, grants, JSAs, and more.</p></div>
   <div class="task-grid">
     <button class="task" onclick="ap('Generate a complete Job Safety Analysis (JSA) for AI First Nations drone survey operations using the DJI Matrice 4T RTK. Include: Project details section, hazard identification table covering weather, airspace, site hazards, equipment failure, public safety; risk assessment matrix; control measures for each hazard; emergency procedures; operator qualifications (RePL/ReOC No.1252905); sign-off section for Chief Remote Pilot John Fejo.')"><span class="ticon">🛡️</span><div class="ttitle">JSA Generator</div><div class="tdesc">Generate a complete Job Safety Analysis for drone operations</div></button>
+    <button class="task" onclick="ap('Generate a complete Risk Assessment for an AI First Nations drone survey job. Include: job and site details; a hazard register covering weather, airspace, terrain, wildlife, public and property proximity, equipment failure, and communications; for each hazard a Likelihood rating (Low/Medium/High), a Consequence rating (Minor/Moderate/Major/Severe), and an overall Risk Rating; specific control measures to reduce each risk to ALARP (as low as reasonably practicable); a residual risk summary; and a sign-off block for Chief Remote Pilot John Fejo, ReOC CASA.ReOC.8979.')"><span class="ticon">⚠️</span><div class="ttitle">Risk Assessment</div><div class="tdesc">Generate a site/flight risk matrix for a job</div></button>
     <button class="task" onclick="ap('Draft a professional email to a government agency introducing AI First Nations and our environmental drone and AI services. Include CASA credentials RePL/ReOC No.1252905 and RMIT partnership achieving 97% accuracy.')"><span class="ticon">✉️</span><div class="ttitle">Government Email</div><div class="tdesc">Introduce AI First Nations to agencies</div></button>
     <button class="task" onclick="ap('Write a professional drone survey quote for a client requesting mangrove monitoring. Include CASA RePL/ReOC credentials No.1252905, methodology, deliverables, and pricing.')"><span class="ticon">💰</span><div class="ttitle">Survey Quote</div><div class="tdesc">Generate a drone survey quotation</div></button>
     <button class="task" onclick="ap('Write a compelling grant application introduction for AI First Nations applying for Indigenous environmental technology funding from DCCEEW or NIAA.')"><span class="ticon">💼</span><div class="ttitle">Grant Writing</div><div class="tdesc">Draft grant application content</div></button>
@@ -485,7 +489,7 @@ function show(id){
   if(["reports","drone","heritage","training","student","ranger","grants","media"].indexOf(id)>-1)rDocs(id);
   if(id==="flightops")foInit();
 }
-var ASYS="You are the Digital Admin for AI First Nations. Two legal entities: 1) AIFN Aboriginal Corporation — non-profit, ORIC registered, ICN 9873, ORIC ref ICN9873/1540849, registered 28 November 2022, address 31 Ryan Street Innisfail QLD 4860. Use for grants, government partnerships, community programs, ORIC reporting. Letterhead must include ICN 9873. 2) AI First Nations sole trader — ABN 80732478065, registered ATSIS. Use for commercial invoices, drone surveys, Goondoi Arts, Torres Shire Council, Mystic Sands, commercial contracts. CASA credentials: ReOC CASA.ReOC.8979, ARN 1252905, expires 31 October 2026, authorised multi-rotor up to 25kg RPAS aerial work. Operations Manual v2, Procedures Library v3. Know: RMIT mangrove AI 97% accuracy EfficientNet-B0 team Kirtan Shah Thomas Blanks Jake Dyl Dr Damiano Spina, AATT 1000+ students 5 states KJR, Cape York Cooktown to Mapoon, Torres Strait Salty Monkeys, Jarramali rock art, John Fejo Larrakia man drone pilot Chief Remote Pilot Head Ranger NT QLD cultural ambassador minister Cert IV Education, 3 pillars Creation Connection Contribution, 5 Cultural Governance pillars, Numuluk Shield, KJR Dr Kelvin Ross Aaron Bell. For JSA requests: generate complete Job Safety Analysis per Operations Manual Appendix 5, referencing ReOC CASA.ReOC.8979 and ARN 1252905, include hazard register, risk matrix, control measures, emergency procedures, sign off as John Fejo, Founder Cultural Ambassador and Chief Remote Pilot, AI First Nations, ReOC CASA.ReOC.8979. For commercial documents use ABN 80732478065. For grant/community documents use AIFN Aboriginal Corporation ICN 9873.";
+var ASYS="You are the Digital Admin for AI First Nations. Two legal entities: 1) AIFN Aboriginal Corporation — non-profit, ORIC registered, ICN 9873, ORIC ref ICN9873/1540849, registered 28 November 2022, address 31 Ryan Street Innisfail QLD 4860. Use for grants, government partnerships, community programs, ORIC reporting. Letterhead must include ICN 9873. 2) AI First Nations sole trader — ABN 80732478065, registered ATSIS. Use for commercial invoices, drone surveys, Goondoi Arts, Torres Shire Council, Mystic Sands, commercial contracts. CASA credentials: ReOC CASA.ReOC.8979, ARN 1252905, expires 31 October 2026, authorised multi-rotor up to 25kg RPAS aerial work. Operations Manual v2, Procedures Library v3. Know: RMIT mangrove AI 97% accuracy EfficientNet-B0 team Kirtan Shah Thomas Blanks Jake Dyl Dr Damiano Spina, AATT 1000+ students 5 states KJR, Cape York Cooktown to Mapoon, Torres Strait Salty Monkeys, Jarramali rock art, John Fejo Larrakia man drone pilot Chief Remote Pilot Head Ranger NT QLD cultural ambassador minister Cert IV Education, 3 pillars Creation Connection Contribution, 5 Cultural Governance pillars, Numuluk Shield, KJR Dr Kelvin Ross Aaron Bell. For JSA requests: generate complete Job Safety Analysis per Operations Manual Appendix 5, referencing ReOC CASA.ReOC.8979 and ARN 1252905, include hazard register, risk matrix, control measures, emergency procedures, sign off as John Fejo, Founder Cultural Ambassador and Chief Remote Pilot, AI First Nations, ReOC CASA.ReOC.8979. For Risk Assessment requests: generate a hazard register with Likelihood (Low/Medium/High) and Consequence (Minor/Moderate/Major/Severe) per hazard, an overall Risk Rating, control measures reducing risk to ALARP, a residual risk summary, and the same CRP sign-off block. For commercial documents use ABN 80732478065. For grant/community documents use AIFN Aboriginal Corporation ICN 9873.";
 var AC=[];
 function ap(t){document.getElementById("AI").value=t;sndAdmin();}
 function clrAdmin(){AC=[];document.getElementById("AM").innerHTML='<div class="msg-a">G\'day John 🦅 Click JSA Generator for a complete drone operations safety analysis, or ask me to draft anything for AI First Nations.</div>';}
@@ -501,6 +505,7 @@ function sndAdmin(){
     AC.push({role:"assistant",content:r});
     var t=document.getElementById("AT");if(t)t.remove();
     var ab=document.createElement("div");ab.className="msg-a";ab.textContent=r;m.appendChild(ab);
+    var eb=document.createElement("button");eb.className="prep-btn";eb.textContent="✉️ Prepare for Client";eb.onclick=function(){prepClientEmail(r);};m.appendChild(eb);
     m.scrollTop=m.scrollHeight;btn.disabled=false;btn.textContent="↑";
   },function(){
     var t=document.getElementById("AT");if(t)t.remove();
@@ -510,6 +515,27 @@ function sndAdmin(){
 }
 function cAPI(sys,msgs,ok,fail){
   fetch("/api/ai",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({max_tokens:1500,system:sys,messages:msgs})}).then(function(r){return r.json();}).then(function(d){if(d.error)fail();else ok((d.content||[]).map(function(b){return b.text||"";}).join(""));}).catch(fail);
+}
+function prepClientEmail(body){
+  var lastTo=localStorage.getItem("aifn_last_client_email")||"";
+  var to=prompt("Client email address:",lastTo);
+  if(to===null)return;
+  to=to.trim();
+  if(to)localStorage.setItem("aifn_last_client_email",to);
+  var subj=prompt("Email subject:","AI First Nations — Job Documentation");
+  if(subj===null)return;
+  function openMailto(withBody){
+    var url="mailto:"+to+"?subject="+encodeURIComponent(subj)+(withBody?"&body="+encodeURIComponent(withBody):"");
+    window.location.href=url;
+  }
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(body).then(function(){
+      openMailto();
+      setTimeout(function(){alert("Report copied to clipboard.\n\nYour email app should have opened, addressed to "+(to||"the client")+" with the subject filled in. Paste the report into the body (Ctrl+V / Cmd+V), review it, then send.");},350);
+    }).catch(function(){openMailto(body.slice(0,1500));});
+  }else{
+    openMailto(body.slice(0,1500));
+  }
 }
 document.getElementById("AI").addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sndAdmin();}});
 var DS_KEYS=["reports","drone","heritage","training","student","ranger","grants","media"];
