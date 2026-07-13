@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3D Aerial Survey &amp; Volumetric Mapping | AI First Nations</title>
+<link rel="icon" href="images/logo.jpg" type="image/jpeg">
+<link rel="stylesheet" href="css/styles.css">
+<style>
+  .pc-wrap{position:relative;background:#0a0a07;border:1px solid rgba(255,255,255,0.08);height:420px;overflow:hidden;}
+  .pc-tag{position:absolute;top:1rem;left:1rem;font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);background:rgba(17,16,9,0.75);border:1px solid rgba(201,162,74,0.3);padding:0.35rem 0.8rem;z-index:2;}
+  .pc-note{position:absolute;bottom:1rem;right:1rem;font-size:0.68rem;opacity:0.4;z-index:2;}
+  #pcCanvas{width:100%;height:100%;display:block;}
+  .deliver-list{list-style:none;}
+  .deliver-list li{display:flex;gap:0.9rem;padding:1rem 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:0.87rem;opacity:0.8;line-height:1.7;}
+  .deliver-list li:last-child{border-bottom:none;}
+  .deliver-list .dot{color:var(--gold);flex-shrink:0;}
+</style>
+</head>
+<body>
+<nav id="nav">
+  <div class="nav-brand">
+    <img src="images/logo.jpg" alt="AI First Nations">
+    AI First Nations
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="education.html">Education</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="advisory.html">Advisory Board</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="page-top" style="padding:3rem 3rem 4rem;background:linear-gradient(155deg,#1e1b10 0%,#160f04 100%);">
+  <div class="label">Capability Showcase</div>
+  <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,4vw,3.6rem);font-weight:300;color:#f8f3ea;line-height:1.15;margin-bottom:1.2rem;max-width:800px;">
+    3D Aerial Survey &amp; <em style="color:#d9732e;font-style:italic;">Volumetric Mapping</em>
+  </h1>
+  <p style="font-size:0.95rem;opacity:0.7;max-width:640px;line-height:1.85;color:#ede5d4;">High-density photogrammetry turned into survey-grade 3D models, point clouds, and stockpile/volumetric reports — for ports, mine sites, councils, and infrastructure operators who need certified, defensible aerial data.</p>
+</div>
+
+<section class="section section-dark">
+  <div class="container">
+
+    <div class="pc-wrap">
+      <div class="pc-tag">Illustrative sample — not client data</div>
+      <canvas id="pcCanvas"></canvas>
+      <div class="pc-note">Procedural preview · actual deliverables are site-specific</div>
+    </div>
+
+    <div class="stat-strip" style="margin-top:1px;">
+      <div class="stat-item"><span class="stat-num">1,000+</span><span class="stat-label">Images per survey</span></div>
+      <div class="stat-item"><span class="stat-num">&lt;2 cm</span><span class="stat-label">Ground sample distance</span></div>
+      <div class="stat-item"><span class="stat-num">100M+</span><span class="stat-label">Point cloud density</span></div>
+      <div class="stat-item"><span class="stat-num">10+ km²</span><span class="stat-label">Survey area per mission</span></div>
+      <div class="stat-item"><span class="stat-num">&lt;10 cm</span><span class="stat-label">Vertical accuracy</span></div>
+    </div>
+    <p style="font-size:0.72rem;opacity:0.4;margin-top:0.8rem;">Example capability ranges drawn from completed survey work. Individual project results vary with site conditions, drone platform, and scope.</p>
+
+  </div>
+</section>
+
+<section class="section section-smoke">
+  <div class="container grid-2">
+    <div>
+      <div class="label">What's Delivered</div>
+      <h2 style="font-size:clamp(1.6rem,2.4vw,2.2rem);color:#f8f3ea;margin-bottom:1.2rem;">From flight data to<br><em style="color:var(--gold);font-style:italic;">decision-ready models</em></h2>
+      <p style="font-size:0.9rem;opacity:0.72;line-height:1.85;margin-bottom:1.5rem;">Every survey is captured with CASA-certified RePL/ReOC operations and processed into whichever outputs the engagement calls for — engineering-grade or client-facing.</p>
+    </div>
+    <ul class="deliver-list">
+      <li><span class="dot">◆</span>Georeferenced 2D orthomosaics for mapping and GIS overlay</li>
+      <li><span class="dot">◆</span>Textured 3D mesh models for stakeholder walkthroughs</li>
+      <li><span class="dot">◆</span>Classified point clouds for engineering and CAD workflows</li>
+      <li><span class="dot">◆</span>Stockpile &amp; volumetric analysis with cut/fill reporting</li>
+      <li><span class="dot">◆</span>Change-detection comparisons across repeat surveys</li>
+      <li><span class="dot">◆</span>Delivered via branded client portal — see <a href="services.html" style="color:var(--gold);border-bottom:1px solid rgba(201,162,74,0.4);">Field-to-Portal Pipeline</a></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section section-dark">
+  <div class="container" style="padding:2.5rem 3rem;background:rgba(42,66,40,0.2);border:1px solid rgba(62,107,64,0.25);display:flex;align-items:center;gap:2rem;flex-wrap:wrap;">
+    <span style="font-size:2rem;">📐</span>
+    <div style="flex:1;">
+      <h4 style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:#c9a24a;margin-bottom:0.3rem;">Have a site that needs surveying?</h4>
+      <p style="font-size:0.87rem;opacity:0.7;line-height:1.7;color:#ede5d4;">Ports, mine sites, councils, and infrastructure operators — get a scoped quote for certified aerial survey and volumetric reporting.</p>
+    </div>
+    <a href="contact.html" class="btn btn-ember">Get a Quote</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-brand">AI First Nations</div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="projects.html">Projects</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="footer-copy">AI First Nations Aboriginal Corporation · ABN 80 732 478 065 · Always Was, Always Will Be</div>
+</footer>
+
+<script src="js/nav.js"></script>
+<script>
+(function(){
+  const canvas = document.getElementById('pcCanvas');
+  const ctx = canvas.getContext('2d');
+  const wrap = canvas.parentElement;
+  let w, h, points = [], t = 0;
+
+  function resize(){
+    w = canvas.width = wrap.clientWidth;
+    h = canvas.height = wrap.clientHeight;
+  }
+
+  function buildTerrain(n){
+    const pts = [];
+    for (let i = 0; i < n; i++){
+      const x = (Math.random() - 0.5) * 2;
+      const z = (Math.random() - 0.5) * 2;
+      const y = Math.sin(x * 2.4) * 0.18 + Math.cos(z * 2.1) * 0.15
+               + Math.exp(-((x*x + z*z) * 3)) * 0.6
+               + (Math.random() - 0.5) * 0.04;
+      pts.push({x, y, z});
+    }
+    return pts;
+  }
+
+  function project(p, angle){
+    const cos = Math.cos(angle), sin = Math.sin(angle);
+    const rx = p.x * cos - p.z * sin;
+    const rz = p.x * sin + p.z * cos;
+    const scale = 150;
+    const persp = 1 / (2.4 + rz);
+    return {
+      sx: w/2 + rx * scale * persp * 2.6,
+      sy: h/2 + 60 - p.y * scale * 1.4 * persp * 2.6 - rz * 8,
+      depth: rz,
+      elev: p.y
+    };
+  }
+
+  function draw(){
+    ctx.clearRect(0, 0, w, h);
+    t += 0.0022;
+    const proj = points.map(p => project(p, t)).sort((a,b) => a.depth - b.depth);
+    proj.forEach(p => {
+      const b = Math.max(0, Math.min(1, (p.elev + 0.2) / 0.8));
+      const r = Math.round(122 + b * (201-122));
+      const g = Math.round(171 - b * (171-162));
+      const bl = Math.round(130 - b * (130-74));
+      ctx.fillStyle = `rgba(${r},${g},${bl},${0.35 + b*0.4})`;
+      const size = 1.1 + b * 1.3;
+      ctx.fillRect(p.sx, p.sy, size, size);
+    });
+    requestAnimationFrame(draw);
+  }
+
+  resize();
+  points = buildTerrain(3200);
+  window.addEventListener('resize', () => { resize(); });
+  draw();
+})();
+</script>
+</body>
+</html>
