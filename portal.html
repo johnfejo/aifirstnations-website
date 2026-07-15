@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portal | AI First Nations</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{--earth:#111009;--smoke:#1e1b10;--gold:#c9a24a;--mist:#7aab82;--cream:#ede5d4;--ember:#bf5417;--flame:#d9732e;}
@@ -115,7 +123,35 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
 .fo-link:hover{color:var(--gold);border-bottom-color:var(--gold);}
 .fo-script{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:0.88rem;color:#f0e8d8;line-height:1.85;opacity:0.85;}
 
-@media(max-width:900px){.sidebar{width:60px;}.ni span:not(.ic){display:none;}.ss{display:none;}.sr{grid-template-columns:1fr 1fr;}.qa{grid-template-columns:1fr 1fr;}.task-grid{grid-template-columns:1fr 1fr;}}
+/* ── RMIT Mangrove AI ────────────────────────────────────── */
+.mg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+.mg-card{background:var(--smoke);border:1px solid rgba(255,255,255,0.08);padding:1.6rem;text-align:center;cursor:pointer;transition:border-color 0.2s,transform 0.15s;}
+.mg-card:hover{border-color:rgba(201,162,74,0.35);transform:translateY(-2px);}
+.mg-card-icon{font-size:2rem;margin-bottom:0.6rem;}
+.mg-card-title{font-family:"Cormorant Garamond",serif;font-size:1.15rem;color:var(--cream);margin-bottom:0.6rem;}
+.mg-breadcrumb{font-size:0.78rem;opacity:0.6;margin-bottom:1rem;}
+.mg-breadcrumb a{color:var(--gold);cursor:pointer;text-decoration:none;}
+.mg-breadcrumb a:hover{text-decoration:underline;}
+.mg-flight-date{font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;opacity:0.5;margin:1rem 0 0.5rem;}
+.mg-site-row{display:flex;align-items:center;justify-content:space-between;background:var(--smoke);border:1px solid rgba(255,255,255,0.07);padding:0.9rem 1.2rem;margin-bottom:0.5rem;cursor:pointer;transition:border-color 0.2s;}
+.mg-site-row:hover{border-color:rgba(201,162,74,0.3);}
+.mg-site-row-left{display:flex;align-items:center;gap:0.8rem;}
+.mg-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+.mg-site-name{font-size:0.87rem;}
+.mg-site-meta{font-size:0.72rem;opacity:0.5;margin-top:0.15rem;}
+.mg-site-arrow{opacity:0.4;}
+.mg-stat-bar{display:flex;gap:1.5rem;flex-wrap:wrap;background:var(--smoke);border:1px solid rgba(255,255,255,0.07);padding:1rem 1.4rem;margin-bottom:1.2rem;}
+.mg-stat-label{font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;opacity:0.5;}
+.mg-stat-value{font-family:"Cormorant Garamond",serif;font-size:1.3rem;color:var(--gold);margin-top:0.15rem;}
+.mg-type-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:0.6rem;margin-bottom:1rem;}
+.mg-type-chip{background:var(--smoke);border:1px solid rgba(255,255,255,0.07);padding:0.7rem;text-align:center;}
+.mg-type-ext{font-size:0.68rem;font-weight:600;color:var(--gold);}
+.mg-type-cnt{font-family:"Cormorant Garamond",serif;font-size:1.3rem;margin:0.2rem 0;}
+.mg-type-sz{font-size:0.65rem;opacity:0.5;}
+.mg-viewer-hdr{font-family:"Cormorant Garamond",serif;font-size:1rem;color:var(--gold);margin:1.2rem 0 0.6rem;}
+.mg-3d-canvas-wrap{background:#0a0a07;border:1px solid rgba(255,255,255,0.08);min-height:420px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+
+@media(max-width:900px){.sidebar{width:60px;}.ni span:not(.ic){display:none;}.ss{display:none;}.sr{grid-template-columns:1fr 1fr;}.qa{grid-template-columns:1fr 1fr;}.task-grid{grid-template-columns:1fr 1fr;}.mg-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -136,6 +172,7 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
   <div class="ss">Drone Operations</div>
   <button class="ni" onclick="show('flightops')"><span class="ic">🛩</span><span>Flight Ops</span></button>
   <button class="ni" onclick="show('drone')"><span class="ic">✈️</span><span>Survey Data</span></button>
+  <button class="ni" onclick="show('mangrove')"><span class="ic">🌿</span><span>RMIT Mangrove AI</span></button>
   <div class="ss">Documents</div>
   <button class="ni" onclick="show('contracts')"><span class="ic">📝</span><span>Contracts</span></button>
   <button class="ni" onclick="show('reports')"><span class="ic">📋</span><span>Client Reports</span></button>
@@ -417,6 +454,26 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
   </div>
 </div>
 
+<div class="panel" id="panel-mangrove">
+  <div class="sec-hdr"><h2>🌿 RMIT Mangrove AI — Flight Data</h2><p>Live flight data and 3D models for the RMIT mangrove species-classification project (Yellow, Orange, Red) · <a href="projects.html" style="color:var(--gold);">View public project page ↗</a></p></div>
+
+  <div id="mg-screen-species">
+    <div class="mg-grid" id="mg-species-grid"></div>
+  </div>
+
+  <div id="mg-screen-flights" style="display:none;">
+    <div class="mg-breadcrumb"><a onclick="mgShowScreen('species')">‹ Species</a></div>
+    <h3 id="mg-flights-heading" style="font-family:'Cormorant Garamond',serif;color:var(--gold);margin-bottom:1rem;"></h3>
+    <div id="mg-flights-list"></div>
+  </div>
+
+  <div id="mg-screen-site" style="display:none;">
+    <div class="mg-breadcrumb"><a onclick="mgShowScreen('species')">‹ Species</a> › <a onclick="mgShowScreen('flights')">‹ Flights</a> › <span id="mg-site-crumb"></span></div>
+    <h3 id="mg-site-heading" style="font-family:'Cormorant Garamond',serif;color:var(--gold);margin-bottom:1rem;"></h3>
+    <div id="mg-site-content"></div>
+  </div>
+</div>
+
 <div class="panel" id="panel-contracts">
   <div class="sec-hdr"><h2>📝 Contracts</h2><p>Active agreements, quotes, and service contracts for AI First Nations.</p></div>
   <div class="doc-sec">
@@ -478,7 +535,7 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
 <div class="panel" id="panel-media"><div class="sec-hdr"><h2>📸 Media Library</h2><p>Photos, drone footage, and visual assets.</p></div><div id="dr-media"></div></div>
 
 </div></div></div><script>
-(function(){if(sessionStorage.getItem("aifn_portal")==="granted"){document.getElementById("gate").style.display="none";var a=document.getElementById("app");a.style.display="flex";a.style.flexDirection="column";initDefaultDocs();}else{setTimeout(function(){window.location.href="index.html";},1200);}})();
+(function(){if(sessionStorage.getItem("aifn_portal")==="granted"){document.getElementById("gate").style.display="none";var a=document.getElementById("app");a.style.display="flex";a.style.flexDirection="column";initDefaultDocs();if(location.hash==="#mangrove")show("mangrove");}else{setTimeout(function(){window.location.href="index.html";},1200);}})();
 function logout(){sessionStorage.removeItem("aifn_portal");window.location.href="index.html";}
 function show(id){
   document.querySelectorAll(".panel").forEach(function(p){p.classList.remove("active");});
@@ -488,6 +545,7 @@ function show(id){
   document.getElementById("MC").scrollTop=0;
   if(["reports","drone","heritage","training","student","ranger","grants","media"].indexOf(id)>-1)rDocs(id);
   if(id==="flightops")foInit();
+  if(id==="mangrove")mgInit();
 }
 var ASYS="You are the Digital Admin for AI First Nations. Two legal entities: 1) AIFN Aboriginal Corporation — non-profit, ORIC registered, ICN 9873, ORIC ref ICN9873/1540849, registered 28 November 2022, address 31 Ryan Street Innisfail QLD 4860. Use for grants, government partnerships, community programs, ORIC reporting. Letterhead must include ICN 9873. 2) AI First Nations sole trader — ABN 80732478065, registered ATSIS. Use for commercial invoices, drone surveys, Goondoi Arts, Torres Shire Council, Mystic Sands, commercial contracts. CASA credentials: ReOC CASA.ReOC.8979, ARN 1252905, expires 31 October 2026, authorised multi-rotor up to 25kg RPAS aerial work. Operations Manual v2, Procedures Library v3. Know: RMIT mangrove AI 97% accuracy EfficientNet-B0 team Kirtan Shah Thomas Blanks Jake Dyl Dr Damiano Spina, AATT 1000+ students 5 states KJR, Cape York Cooktown to Mapoon, Torres Strait Salty Monkeys, Jarramali rock art, John Fejo Larrakia man drone pilot Chief Remote Pilot Head Ranger NT QLD cultural ambassador minister Cert IV Education, 3 pillars Creation Connection Contribution, 5 Cultural Governance pillars, Numuluk Shield, KJR Dr Kelvin Ross Aaron Bell. For JSA requests: generate complete Job Safety Analysis per Operations Manual Appendix 5, referencing ReOC CASA.ReOC.8979 and ARN 1252905, include hazard register, risk matrix, control measures, emergency procedures, sign off as John Fejo, Founder Cultural Ambassador and Chief Remote Pilot, AI First Nations, ReOC CASA.ReOC.8979. For Risk Assessment requests: generate a hazard register with Likelihood (Low/Medium/High) and Consequence (Minor/Moderate/Major/Severe) per hazard, an overall Risk Rating, control measures reducing risk to ALARP, a residual risk summary, and the same CRP sign-off block. For commercial documents use ABN 80732478065. For grant/community documents use AIFN Aboriginal Corporation ICN 9873.";
 var AC=[];
@@ -601,6 +659,204 @@ function initDefaultDocs(){
     }
   }
   localStorage.setItem("aifn_ds_v2_seeded","1");
+}
+
+// ── RMIT MANGROVE AI — FLIGHT DATA ─────────────────────────────
+var MG={species:null,flightSpeciesKey:null,flightSpeciesName:null,site:null};
+
+async function mgApi(body){
+  var r=await fetch("/api/mangrove",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+  var data=await r.json();
+  if(!r.ok)throw new Error(data.error||"API error");
+  return data;
+}
+
+function mgFmtSize(b){
+  var u=["B","KB","MB","GB","TB"];var n=b;
+  for(var i=0;i<u.length;i++){if(n<1024)return n.toFixed(1)+" "+u[i];n/=1024;}
+  return n.toFixed(1)+" TB";
+}
+
+function mgSpeciesIcon(key){return {yellow:"🟡",orange:"🟠",red:"🔴"}[key]||"🌿";}
+
+function mgShowScreen(id){
+  ["species","flights","site"].forEach(function(s){
+    var el=document.getElementById("mg-screen-"+s);
+    if(el)el.style.display=(s===id)?"block":"none";
+  });
+}
+
+async function mgInit(){
+  mgShowScreen("species");
+  var grid=document.getElementById("mg-species-grid");
+  grid.innerHTML='<div style="padding:2rem;text-align:center;opacity:0.5;grid-column:1/-1;">Loading species…</div>';
+  try{
+    var data=await mgApi({action:"species"});
+    grid.innerHTML=data.species.map(function(s){
+      var badge=s.flightCount>0?'<span class="badge b-active">'+s.flightCount+' FLIGHT'+(s.flightCount>1?"S":"")+'</span>':'<span class="badge b-pending">NO DATA YET</span>';
+      return '<div class="mg-card" onclick=\'mgLoadFlights('+JSON.stringify(s.key)+','+JSON.stringify(s.name)+')\'>'
+        +'<div class="mg-card-icon">'+mgSpeciesIcon(s.key)+'</div>'
+        +'<div class="mg-card-title">'+s.name+'</div>'
+        +badge+'</div>';
+    }).join("");
+  }catch(e){
+    grid.innerHTML='<div style="padding:2rem;text-align:center;opacity:0.5;grid-column:1/-1;">Unable to load flight data — '+e.message+'</div>';
+  }
+}
+
+async function mgLoadFlights(key,name){
+  MG.flightSpeciesKey=key;MG.flightSpeciesName=name;
+  mgShowScreen("flights");
+  document.getElementById("mg-flights-heading").textContent=name;
+  var el=document.getElementById("mg-flights-list");
+  el.innerHTML='<div style="padding:2rem;text-align:center;opacity:0.5;">Loading flights…</div>';
+  try{
+    var data=await mgApi({action:"flights",species:key});
+    if(!data.flights.length){
+      el.innerHTML='<div style="padding:2rem;text-align:center;opacity:0.5;">No flights recorded yet — survey may still be processing in WebODM.</div>';
+      return;
+    }
+    el.innerHTML=data.flights.map(function(f){
+      return '<div class="mg-flight-date">📅 '+f.date+'</div>'+f.sites.map(function(s){
+        var siteObj=JSON.stringify(Object.assign({},s,{date:f.date}));
+        return '<div class="mg-site-row" onclick=\'mgLoadSite('+siteObj+')\'>'
+          +'<div class="mg-site-row-left"><span class="mg-dot"></span><div><div class="mg-site-name">'+s.name+'</div><div class="mg-site-meta">Click to view files</div></div></div>'
+          +'<div class="mg-site-arrow">›</div></div>';
+      }).join("");
+    }).join("");
+  }catch(e){
+    el.innerHTML='<div style="padding:2rem;text-align:center;opacity:0.5;">Failed to load — '+e.message+'</div>';
+  }
+}
+
+async function mgLoadSite(site){
+  MG.site=site;
+  mgShowScreen("site");
+  document.getElementById("mg-site-heading").textContent=site.name;
+  document.getElementById("mg-site-crumb").textContent=site.date;
+  var el=document.getElementById("mg-site-content");
+  el.innerHTML='<div style="padding:2rem;text-align:center;opacity:0.5;">Loading file summary…</div>';
+  try{
+    var data=await mgApi({action:"summary",prefix:site.prefix});
+    var types=data.types||{};
+    var chips=Object.keys(types).sort(function(a,b){return types[b].count-types[a].count;}).map(function(ext){
+      var info=types[ext];
+      return '<div class="mg-type-chip"><div class="mg-type-ext">'+ext+'</div><div class="mg-type-cnt">'+info.count+'</div><div class="mg-type-sz">'+mgFmtSize(info.size)+'</div></div>';
+    }).join("");
+    el.innerHTML=
+      '<div class="mg-stat-bar">'
+      +'<div><div class="mg-stat-label">Total Files</div><div class="mg-stat-value">'+data.fileCount+'</div></div>'
+      +'<div><div class="mg-stat-label">Total Size</div><div class="mg-stat-value">'+data.totalSizeFmt+'</div></div>'
+      +(data.hasOrtho?'<div><div class="mg-stat-label">Orthomosaic</div><div class="mg-stat-value" style="color:var(--mist);">✓ Available</div></div>':"")
+      +(data.hasMesh?'<div><div class="mg-stat-label">3D Model</div><div class="mg-stat-value" style="color:var(--mist);">✓ Available</div></div>':"")
+      +'</div>'
+      +'<div class="mg-type-grid">'+chips+'</div>'
+      +(data.hasMesh?'<button class="dbtn" style="margin-right:0.6rem;" onclick="mgLoadFileList(true)">🌳 Load 3D Model Preview</button>':"")
+      +'<button class="dbtn" onclick="mgLoadFileList(false)">📄 Browse All Files</button>'
+      +'<div id="mg-file-list"></div>'
+      +'<div id="mg-3d-viewer" style="display:none;"></div>';
+  }catch(e){
+    el.innerHTML='<div style="padding:2rem;text-align:center;opacity:0.5;">Failed to load — '+e.message+'</div>';
+  }
+}
+
+async function mgLoadFileList(alsoLoadMesh){
+  var c=document.getElementById("mg-file-list");
+  c.innerHTML='<div style="padding:1rem;text-align:center;opacity:0.5;">Generating secure links…</div>';
+  try{
+    var data=await mgApi({action:"file-list",prefix:MG.site.prefix});
+    var files=data.files||[];
+    if(!files.length){c.innerHTML='<div style="padding:1rem;opacity:0.4;">No files found.</div>';return;}
+    c.innerHTML='<div class="doc-sec" style="margin-top:1rem;"><div class="doc-hdr"><div style="font-size:0.82rem;opacity:0.6;">'+files.length+' files · links expire in 24h</div></div><div class="doc-list">'
+      +files.map(function(f){
+        return '<div class="doc-item"><div><div style="font-size:0.87rem;">'+f.name+'</div><div style="font-size:0.72rem;opacity:0.45;">'+f.sizeFmt+'</div></div><a href="'+f.url+'" target="_blank" style="font-size:0.72rem;color:var(--flame);text-decoration:none;">Download ↓</a></div>';
+      }).join("")
+      +'</div></div>';
+    if(alsoLoadMesh){
+      var objFile=files.find(function(f){return f.kind==="mesh"&&f.name.toLowerCase().endsWith(".obj");});
+      var mtlFile=files.find(function(f){return f.kind==="mesh"&&f.name.toLowerCase().endsWith(".mtl");});
+      if(objFile)mgLoadMeshViewer(objFile.url,mtlFile?mtlFile.url:null);
+    }
+  }catch(e){
+    c.innerHTML='<div style="padding:1rem;opacity:0.5;">Failed to generate links — '+e.message+'</div>';
+  }
+}
+
+var MG_THREE_MODS=null;
+function mgEnsureThree(){
+  if(MG_THREE_MODS)return MG_THREE_MODS;
+  MG_THREE_MODS=Promise.all([
+    import("three"),
+    import("three/addons/loaders/OBJLoader.js"),
+    import("three/addons/loaders/MTLLoader.js"),
+    import("three/addons/controls/OrbitControls.js")
+  ]).then(function(mods){
+    return {THREE:mods[0],OBJLoader:mods[1].OBJLoader,MTLLoader:mods[2].MTLLoader,OrbitControls:mods[3].OrbitControls};
+  });
+  return MG_THREE_MODS;
+}
+
+function mgLoadMeshViewer(objUrl,mtlUrl){
+  var wrap=document.getElementById("mg-3d-viewer");
+  wrap.style.display="block";
+  wrap.innerHTML='<div class="mg-viewer-hdr">🌳 3D Model Preview</div><div id="mg-3d-canvas-wrap" class="mg-3d-canvas-wrap"><div style="padding:2rem;text-align:center;opacity:0.5;">Loading 3D viewer…</div></div>';
+
+  mgEnsureThree().then(function(M){
+    var THREE=M.THREE;
+    var container=document.getElementById("mg-3d-canvas-wrap");
+    container.innerHTML="";
+    var w=container.clientWidth,h=420;
+    var scene=new THREE.Scene();
+    scene.background=new THREE.Color(0x111009);
+    var camera=new THREE.PerspectiveCamera(50,w/h,0.1,5000);
+    camera.position.set(0,5,12);
+    var renderer=new THREE.WebGLRenderer({antialias:true});
+    renderer.setSize(w,h);
+    container.appendChild(renderer.domElement);
+
+    scene.add(new THREE.AmbientLight(0xffffff,0.8));
+    var dir=new THREE.DirectionalLight(0xffffff,0.6);
+    dir.position.set(5,10,7);
+    scene.add(dir);
+
+    var controls=new M.OrbitControls(camera,renderer.domElement);
+    controls.enableDamping=true;
+
+    function onModel(obj){
+      scene.add(obj);
+      var box=new THREE.Box3().setFromObject(obj);
+      var size=box.getSize(new THREE.Vector3());
+      var center=box.getCenter(new THREE.Vector3());
+      obj.position.sub(center);
+      var maxDim=Math.max(size.x,size.y,size.z)||1;
+      camera.position.set(0,maxDim*0.6,maxDim*1.6);
+      controls.update();
+    }
+
+    function loadObj(materials){
+      var loader=new M.OBJLoader();
+      if(materials)loader.setMaterials(materials);
+      loader.load(objUrl,onModel,undefined,function(){
+        container.innerHTML='<div style="padding:2rem;text-align:center;opacity:0.5;">Unable to load 3D preview — try downloading the files instead.</div>';
+      });
+    }
+
+    if(mtlUrl){
+      var mtlLoader=new M.MTLLoader();
+      mtlLoader.load(mtlUrl,function(materials){materials.preload();loadObj(materials);},undefined,function(){loadObj(null);});
+    }else{
+      loadObj(null);
+    }
+
+    (function animate(){
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene,camera);
+    })();
+  }).catch(function(){
+    var container=document.getElementById("mg-3d-canvas-wrap");
+    if(container)container.innerHTML='<div style="padding:2rem;text-align:center;opacity:0.5;">Unable to load 3D viewer library.</div>';
+  });
 }
 </script>
 </body>
