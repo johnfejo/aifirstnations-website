@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mangrove Species Identification System / RMIT — Pilot Report | AI First Nations</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--earth:#111009;--smoke:#1e1b10;--gold:#c9a24a;--mist:#7aab82;--cream:#ede5d4;--ember:#bf5417;--flame:#d9732e;}
+body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif;font-weight:300;line-height:1.7;}
+.wrap{max-width:920px;margin:0 auto;padding:3rem 2rem 5rem;}
+a{color:var(--gold);}
+.top-link{display:inline-block;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(237,229,212,0.5);text-decoration:none;margin-bottom:2rem;}
+.top-link:hover{color:var(--gold);}
+header.hero{border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:2rem;margin-bottom:2.5rem;}
+.tag{display:inline-block;font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.3rem 0.8rem;margin-bottom:1.2rem;background:rgba(62,107,64,0.2);color:var(--mist);border:1px solid rgba(62,107,64,0.4);}
+h1{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:2.4rem;color:#f8f3ea;line-height:1.2;margin-bottom:0.6rem;}
+h1 em{color:var(--mist);font-style:italic;font-weight:400;}
+.subtitle{font-size:1rem;opacity:0.65;max-width:640px;}
+.meta-row{display:flex;gap:2.5rem;flex-wrap:wrap;margin-top:1.6rem;}
+.meta-row div{font-size:0.78rem;opacity:0.6;}
+.meta-row strong{display:block;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);opacity:1;margin-bottom:0.25rem;}
+section{margin-bottom:2.8rem;}
+h2{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:1.5rem;color:var(--gold);margin-bottom:1rem;border-bottom:1px solid rgba(201,162,74,0.25);padding-bottom:0.6rem;}
+p{font-size:0.9rem;opacity:0.82;margin-bottom:0.9rem;}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,0.08);margin:1.4rem 0;}
+.grid4 .c,.grid3 .c{background:var(--smoke);padding:1.1rem;text-align:center;}
+.grid4 .n,.grid3 .n{font-family:"Cormorant Garamond",serif;font-size:1.7rem;color:var(--gold);display:block;line-height:1;margin-bottom:0.3rem;}
+.grid4 .l,.grid3 .l{font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;opacity:0.6;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.08);margin:1.4rem 0;}
+table{width:100%;border-collapse:collapse;font-size:0.82rem;margin-top:0.5rem;}
+th{text-align:left;font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;opacity:0.55;padding:0.6rem 0.8rem;border-bottom:1px solid rgba(255,255,255,0.12);}
+td{padding:0.75rem 0.8rem;border-bottom:1px solid rgba(255,255,255,0.06);vertical-align:top;}
+.badge{font-size:0.6rem;padding:0.2rem 0.6rem;white-space:nowrap;display:inline-block;}
+.b-complete{background:rgba(201,162,74,0.15);color:var(--gold);border:1px solid rgba(201,162,74,0.3);}
+.b-processing{background:rgba(191,84,23,0.15);color:var(--flame);border:1px solid rgba(191,84,23,0.3);}
+.callout{background:var(--smoke);border-left:3px solid var(--mist);padding:1.2rem 1.5rem;font-size:0.85rem;opacity:0.85;}
+.callout strong{color:var(--mist);}
+.compliance-box{background:var(--smoke);border:1px solid rgba(255,255,255,0.07);padding:1.5rem 1.8rem;}
+.compliance-box .row{display:flex;justify-content:space-between;padding:0.55rem 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:0.85rem;}
+.compliance-box .row:last-child{border-bottom:none;}
+.compliance-box .row span:first-child{opacity:0.55;}
+.compliance-box .row span:last-child{color:var(--cream);}
+.warn{color:#E74C3C;}
+footer{border-top:1px solid rgba(255,255,255,0.08);padding-top:1.5rem;font-size:0.72rem;opacity:0.4;display:flex;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;}
+@media print{
+  body{background:#fff;color:#111;}
+  .top-link{display:none;}
+  h1,h2,.tag,.grid4 .n,.grid3 .n{color:#111 !important;}
+  .subtitle,p,.meta-row div,.compliance-box .row span:last-child{color:#333 !important;opacity:1 !important;}
+  .smoke,.compliance-box,.grid4 .c,.grid3 .c{background:#f4f2ec !important;}
+}
+@media (max-width:700px){.grid4{grid-template-columns:repeat(2,1fr);}.meta-row{gap:1.2rem;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="top-link" href="projects.html">← Back to Projects on Country</a>
+
+  <header class="hero">
+    <span class="tag">Pilot Deliverable · Prepared for SES · AMS · KJR · Salty Monkeys</span>
+    <h1>AI First Nations Mangrove Species<br>Identification System <em>/ RMIT</em></h1>
+    <p class="subtitle">Flight operations summary, data chain-of-custody, and compliance record for the Cairns-region mangrove drone survey pilot — captured with a DJI Matrice 4T RTK and processed through the RMIT University species-classification pipeline.</p>
+    <div class="meta-row">
+      <div><strong>Prepared By</strong>John Fejo — AI First Nations</div>
+      <div><strong>RPIC / ARN</strong>John Fejo · 1252905</div>
+      <div><strong>ReOC</strong>CASA.ReOC.8979</div>
+      <div><strong>Report Date</strong>15 July 2026</div>
+    </div>
+  </header>
+
+  <section>
+    <h2>Executive Summary</h2>
+    <p>This pilot demonstrates an end-to-end capability: DJI Matrice 4T RTK aerial capture of mangrove canopy across three target species (Yellow, Orange and Red mangroves), photogrammetric processing into orthomosaics and textured 3D models, and classification against RMIT University's peer-reviewed species-identification model — with every flight archived to a chain-of-custody data store and made available through an access-code-gated client portal.</p>
+    <p>Red Mangroves (Coquette Point Road, surveyed 13 July 2026) is complete end-to-end: capture, 3D reconstruction, and secure upload. Yellow and Orange Mangroves were captured on the same survey day and are progressing through photogrammetric reconstruction — this report will be updated as each species' deliverables land in the portal.</p>
+  </section>
+
+  <section>
+    <h2>Survey Coverage</h2>
+    <table>
+      <tr><th>Species</th><th>Site</th><th>Flight Date</th><th>Status</th></tr>
+      <tr>
+        <td>🔴 Red Mangroves</td><td>Coquette Point Road</td><td>13 Jul 2026</td>
+        <td><span class="badge b-complete">✓ Deliverables Live</span></td>
+      </tr>
+      <tr>
+        <td>🟡 Yellow Mangroves</td><td>Coquette Point Road</td><td>13 Jul 2026</td>
+        <td><span class="badge b-processing">Processing</span></td>
+      </tr>
+      <tr>
+        <td>🟠 Orange Mangroves</td><td>Coquette Point Road</td><td>13 Jul 2026</td>
+        <td><span class="badge b-processing">Processing</span></td>
+      </tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>Red Mangrove Deliverables — Coquette Point Road</h2>
+    <p>The following outputs are archived and accessible now via the client portal (see Portal Access below):</p>
+    <div class="grid3">
+      <div class="c"><span class="n">84.0 MB</span><span class="l">Orthomosaic GeoTIFF</span></div>
+      <div class="c"><span class="n">59.2 MB</span><span class="l">Textured 3D Model (GLB)</span></div>
+      <div class="c"><span class="n">5.0 MB</span><span class="l">Processing Quality Report</span></div>
+    </div>
+    <p>Reconstruction preset: <em>Forest</em> (optimised for vegetation canopy — high feature density, 3D mesh enabled). Files are stored with SHA-verified upload integrity and served through time-limited (24-hour) signed download links — no file is ever publicly indexable.</p>
+  </section>
+
+  <section>
+    <h2>Flight Operations &amp; Compliance</h2>
+    <div class="compliance-box">
+      <div class="row"><span>Aircraft</span><span>DJI Matrice 4T RTK</span></div>
+      <div class="row"><span>Remote Pilot in Command (RPIC)</span><span>John Fejo</span></div>
+      <div class="row"><span>CASA Aviation Reference Number (ARN)</span><span>1252905</span></div>
+      <div class="row"><span>ReOC Number</span><span>CASA.ReOC.8979</span></div>
+      <div class="row"><span>ReOC Expiry</span><span class="warn">31 October 2026</span></div>
+      <div class="row"><span>Flight Authority</span><span>CASR Part 101 — Standard RPA Operations</span></div>
+      <div class="row"><span>Pre-Flight Safety Record</span><span>JSA / Flight Log completed per flight, retained per CASR 101.280</span></div>
+      <div class="row"><span>Data Retention Policy</span><span>7-year audit retention — raw imagery, processed deliverables &amp; flight logs</span></div>
+    </div>
+    <p style="margin-top:1rem;">All flight logs, JSA sign-offs and raw imagery for this survey are retained for a minimum of seven years from capture date, satisfying standard commercial RPA audit requirements. Records are available on request for regulatory or insurance review.</p>
+  </section>
+
+  <section>
+    <h2>RMIT Partnership — AI Species Classification</h2>
+    <p>Captured imagery feeds directly into RMIT University's "AI Mangrove Classification System" (COSC3043, Semester 1 2026) — a machine learning model trained to detect and classify mangrove species from drone-captured multispectral imagery across Traditional Owner sea country.</p>
+    <div class="grid4">
+      <div class="c"><span class="n">97%</span><span class="l">Species Accuracy</span></div>
+      <div class="c"><span class="n">98.96%</span><span class="l">Binary Detection</span></div>
+      <div class="c"><span class="n">477</span><span class="l">Training Images</span></div>
+      <div class="c"><span class="n">3</span><span class="l">Species Modelled</span></div>
+    </div>
+    <p><strong style="color:var(--cream);">Research Team:</strong> Kirtan Shah · Thomas Blanks · Jake Dyl &nbsp;·&nbsp; <strong style="color:var(--cream);">Supervisor:</strong> Dr Damiano Spina, RMIT &nbsp;·&nbsp; <strong style="color:var(--cream);">Next Phase:</strong> KJR Evaluation, Semester 2 2026</p>
+  </section>
+
+  <section>
+    <h2>Client Portal Access</h2>
+    <div class="callout">
+      <strong>Live data access:</strong> Every flight in this survey — orthomosaics, 3D models and quality reports — is viewable and downloadable through the AI First Nations Client Data Portal at
+      <a href="client-portal.html">client-portal.html</a>. Access is gated by a unique code issued to this engagement; John Fejo will provide the code directly to authorised SES / AMS / KJR / Salty Monkeys contacts. Download links inside the portal are signed and expire after 24 hours — nothing is ever left publicly accessible.
+    </div>
+  </section>
+
+  <footer>
+    <span>AI First Nations · ABN 80 732 478 065 · CASA ReOC.8979</span>
+    <span>Generated 15 July 2026 — for the Cairns pilot review meeting</span>
+  </footer>
+
+</div>
+</body>
+</html>

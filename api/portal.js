@@ -23,6 +23,12 @@ const CLIENTS = {
     prefix: 'Horn-Island/',
     logo:   'https://saltymonkeys.com.au/wp-content/uploads/2023/10/logo.svg',
   },
+  'RMIT-MANGROVE-2026': {
+    name:   'AI First Nations Mangrove Species Identification System',
+    org:    'RMIT University Pilot — Cairns Region Mangrove Survey',
+    prefix: 'RMIT-Mangrove-AI/',
+    logo:   null,
+  },
 };
 
 // ── DISPLAY NAME OVERRIDES ───────────────────────────────────────
@@ -31,6 +37,9 @@ const CLIENTS = {
 // so "1 RILEY STREET", "1-Riley-Street" and "1_riley_street" all match.
 const DISPLAY_NAMES = {
   '1rileystreet': '1 Riley Street / Warrina Lakes',
+  'yellowmangroves': 'Yellow Mangroves',
+  'orangemangroves': 'Orange Mangroves',
+  'redmangroves': 'Red Mangroves',
 };
 
 function friendlyName(raw) {

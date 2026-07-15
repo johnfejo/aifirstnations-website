@@ -414,6 +414,7 @@ const PROJECT_ICONS = {
   'Goondoi Wetlands':'🌿','School Camps':'🏕️',
   'Cultural Heritage':'🪃','Feral Animal Control':'🦊',
   'Weed Eradication':'🌾','Fire Management':'🔥','Water Monitoring':'💧',
+  'Yellow Mangroves':'🟡','Orange Mangroves':'🟠','Red Mangroves':'🔴',
 };
 const eIcon = ext => EXT_ICONS[ext] || '📄';
 const pIcon = name => PROJECT_ICONS[name] || '📁';
@@ -437,6 +438,7 @@ async function doLogin() {
     document.getElementById('header-client').innerHTML =
       `Logged in as <strong>${data.client.name}</strong>`;
     document.getElementById('header-client').style.display = 'block';
+    document.title = data.client.name + ' — AI First Nations Client Portal';
     document.getElementById('btn-logout').style.display   = 'block';
     renderProjects(data);
     showScreen('projects');
