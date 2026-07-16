@@ -98,14 +98,66 @@ function fmtSize(bytes) {
   return `${n.toFixed(1)} TB`;
 }
 
+// ── ORIGIN ALLOWLIST ────────────────────────────────────────────
+const ALLOWED_ORIGINS = [
+  'https://aifirstnations.org.au',
+  'https://aifirstnations-website-glfr.vercel.app',
+];
+
+// ── SIMPLE IN-MEMORY RATE LIMITER ────────────────────────────────
+// Best-effort: this Map lives in one serverless instance's memory, so it
+// resets whenever that instance recycles or a request lands on a different
+// instance. It still meaningfully raises the bar against a naive script
+// hammering this endpoint from one place, but it is NOT a durable/global
+// guarantee — swap in Vercel KV or Upstash Redis for that.
+const FAILED_CODE_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
+const MAX_FAILED_ATTEMPTS = 8;
+const failedAttempts = new Map(); // ip -> { count, windowStart }
+
+function getClientIp(req) {
+  const fwd = req.headers['x-forwarded-for'];
+  if (fwd) return fwd.split(',')[0].trim();
+  return req.socket?.remoteAddress || 'unknown';
+}
+
+function isRateLimited(ip) {
+  const entry = failedAttempts.get(ip);
+  if (!entry) return false;
+  if (Date.now() - entry.windowStart > FAILED_CODE_WINDOW_MS) {
+    failedAttempts.delete(ip);
+    return false;
+  }
+  return entry.count >= MAX_FAILED_ATTEMPTS;
+}
+
+function recordFailedAttempt(ip) {
+  const now = Date.now();
+  const entry = failedAttempts.get(ip);
+  if (!entry || now - entry.windowStart > FAILED_CODE_WINDOW_MS) {
+    failedAttempts.set(ip, { count: 1, windowStart: now });
+  } else {
+    entry.count++;
+  }
+  if (failedAttempts.size > 1000) {
+    failedAttempts.delete(failedAttempts.keys().next().value);
+  }
+}
+
 // ── HANDLER ─────────────────────────────────────────────────────
 module.exports = async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  const origin = req.headers.origin;
+  res.setHeader('Access-Control-Allow-Origin', ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0]);
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST')   return res.status(405).json({ error: 'Method not allowed' });
+
+  const ip = getClientIp(req);
+  if (isRateLimited(ip)) {
+    res.setHeader('Retry-After', '900');
+    return res.status(429).json({ error: 'Too many failed attempts. Try again in 15 minutes.' });
+  }
 
   // Parse body — handle both pre-parsed objects and raw strings
   let parsed = {};
@@ -126,7 +178,12 @@ module.exports = async function handler(req, res) {
   const { action, code, prefix } = parsed;
   const client = CLIENTS[(code || '').toUpperCase()];
 
-  if (!client) return res.status(401).json({ error: 'Invalid access code' });
+  if (!client) {
+    recordFailedAttempt(ip);
+    console.warn('[portal-api] invalid access code attempt from', ip);
+    return res.status(401).json({ error: 'Invalid access code' });
+  }
+  failedAttempts.delete(ip);
 
   try {
     const auth = await b2Auth();

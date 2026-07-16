@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /portal
+Disallow: /portal.html
+Disallow: /client-portal
+Disallow: /client-portal.html
