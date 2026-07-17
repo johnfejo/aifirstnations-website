@@ -1,0 +1,40 @@
+{
+  "_readme": "PLACEHOLDER DATA — none of the entries below are real detections. Real SLSS shark-spotting program data (location/date/species) is NOT included here pending confirmation with KJR that AI First Nations may surface it in this tool — that program runs under the KJR Services Agreement, which assigns IP in engagement deliverables/data to KJR. Do not populate this file with real SLSS data until that's confirmed. See AIFN-Knowledge-Base wiki 'Drone Data Sovereignty Platform - Gap Analysis.md' for context.",
+  "status": "placeholder",
+  "lastUpdated": "2026-07-18",
+  "sites": [
+    {
+      "id": "wl-001",
+      "name": "Placeholder Marine Monitoring Point 1",
+      "species": "Shark (species unspecified — placeholder)",
+      "lat": -17.531,
+      "lng": 146.045,
+      "date": null,
+      "method": "Thermal + RGB aerial pass",
+      "notes": "Placeholder entry only. Represents the kind of coastal monitoring point that would be logged during a real marine wildlife survey pass.",
+      "sample": true
+    },
+    {
+      "id": "wl-002",
+      "name": "Placeholder Marine Monitoring Point 2",
+      "species": "Shark (species unspecified — placeholder)",
+      "lat": -17.548,
+      "lng": 146.061,
+      "date": null,
+      "method": "Thermal + RGB aerial pass",
+      "notes": "Placeholder entry only.",
+      "sample": true
+    },
+    {
+      "id": "wl-003",
+      "name": "Placeholder Coastal Watch Zone",
+      "species": "Marine wildlife (general — placeholder)",
+      "lat": -17.515,
+      "lng": 146.032,
+      "date": null,
+      "method": "Aerial survey",
+      "notes": "Placeholder entry representing a general coastal wildlife monitoring zone, not a specific detection.",
+      "sample": true
+    }
+  ]
+}

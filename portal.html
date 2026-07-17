@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portal | AI First Nations</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<!-- Leaflet (public CDN, no API key required) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script type="importmap">
 {
   "imports": {
@@ -151,6 +156,22 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
 .mg-viewer-hdr{font-family:"Cormorant Garamond",serif;font-size:1rem;color:var(--gold);margin:1.2rem 0 0.6rem;}
 .mg-3d-canvas-wrap{background:#0a0a07;border:1px solid rgba(255,255,255,0.08);min-height:420px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
 
+/* ── Wildlife Tracking ───────────────────────────────────── */
+.wl-notice{background:rgba(191,84,23,0.12);border:1px solid rgba(191,84,23,0.35);color:#f0c9a8;padding:0.9rem 1.3rem;margin-bottom:1.2rem;font-size:0.8rem;line-height:1.6;}
+.wl-notice strong{color:var(--flame);}
+.wl-map-wrap{background:var(--smoke);border:1px solid rgba(255,255,255,0.08);height:480px;margin-bottom:1.2rem;}
+#wl-map{height:100%;width:100%;}
+.wl-stat-bar{display:flex;gap:1.5rem;flex-wrap:wrap;background:var(--smoke);border:1px solid rgba(255,255,255,0.07);padding:1rem 1.4rem;margin-bottom:1.2rem;}
+.leaflet-popup-content-wrapper{background:var(--smoke);color:var(--cream);border:1px solid rgba(201,162,74,0.3);border-radius:2px;}
+.leaflet-popup-tip{background:var(--smoke);border:1px solid rgba(201,162,74,0.3);box-shadow:none;}
+.leaflet-popup-content{margin:0.9rem 1rem;font-family:"DM Sans",sans-serif;width:250px !important;}
+.leaflet-popup-close-button{color:var(--cream) !important;opacity:0.5;}
+.leaflet-popup-close-button:hover{opacity:1;color:var(--gold) !important;}
+.leaflet-container{font-family:"DM Sans",sans-serif;background:var(--smoke);}
+.wl-pop-title{font-family:"Cormorant Garamond",serif;font-size:1.05rem;color:var(--gold);margin-bottom:0.3rem;}
+.wl-pop-tag{display:inline-block;font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;background:rgba(191,84,23,0.18);border:1px solid rgba(191,84,23,0.4);color:var(--flame);padding:0.15rem 0.5rem;margin-bottom:0.5rem;}
+.wl-pop-meta{font-size:0.75rem;opacity:0.6;line-height:1.6;}
+
 @media(max-width:900px){.sidebar{width:60px;}.ni span:not(.ic){display:none;}.ss{display:none;}.sr{grid-template-columns:1fr 1fr;}.qa{grid-template-columns:1fr 1fr;}.task-grid{grid-template-columns:1fr 1fr;}.mg-grid{grid-template-columns:1fr;}}
 </style>
 </head>
@@ -173,6 +194,7 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
   <button class="ni" onclick="show('flightops')"><span class="ic">🛩</span><span>Flight Ops</span></button>
   <button class="ni" onclick="show('drone')"><span class="ic">✈️</span><span>Survey Data</span></button>
   <button class="ni" onclick="show('mangrove')"><span class="ic">🌿</span><span>RMIT Mangrove AI</span></button>
+  <button class="ni" onclick="show('wildlife')"><span class="ic">🦈</span><span>Wildlife Tracking</span></button>
   <div class="ss">Documents</div>
   <button class="ni" onclick="show('contracts')"><span class="ic">📝</span><span>Contracts</span></button>
   <button class="ni" onclick="show('reports')"><span class="ic">📋</span><span>Client Reports</span></button>
@@ -474,6 +496,15 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
   </div>
 </div>
 
+<div class="panel" id="panel-wildlife">
+  <div class="sec-hdr"><h2>🦈 Wildlife Tracking</h2><p>Spatial view of marine and wildlife monitoring points from drone survey passes.</p></div>
+  <div class="wl-notice">
+    <strong>Placeholder data only.</strong> This panel is wired to a real data file (<code>data/wildlife-sites.json</code>) but is not yet populated with real SLSS shark-spotting detections — that program runs under the KJR Services Agreement, which assigns IP in engagement data to KJR. Real detection data will be added once that's confirmed with KJR. Every marker below is an invented sample entry.
+  </div>
+  <div class="wl-stat-bar" id="wl-stats"></div>
+  <div class="wl-map-wrap"><div id="wl-map"></div></div>
+</div>
+
 <div class="panel" id="panel-contracts">
   <div class="sec-hdr"><h2>📝 Contracts</h2><p>Active agreements, quotes, and service contracts for AI First Nations.</p></div>
   <div class="doc-sec">
@@ -546,6 +577,7 @@ function show(id){
   if(["reports","drone","heritage","training","student","ranger","grants","media"].indexOf(id)>-1)rDocs(id);
   if(id==="flightops")foInit();
   if(id==="mangrove")mgInit();
+  if(id==="wildlife")wlInit();
 }
 var ASYS="You are the Digital Admin for AI First Nations. Two legal entities: 1) AIFN Aboriginal Corporation — non-profit, ORIC registered, ICN 9873, ORIC ref ICN9873/1540849, registered 28 November 2022, address 31 Ryan Street Innisfail QLD 4860. Use for grants, government partnerships, community programs, ORIC reporting. Letterhead must include ICN 9873. 2) AI First Nations sole trader — ABN 80732478065, registered ATSIS. Use for commercial invoices, drone surveys, Goondoi Arts, Torres Shire Council, Mystic Sands, commercial contracts. CASA credentials: ReOC CASA.ReOC.8979, ARN 1252905, expires 31 October 2026, authorised multi-rotor up to 25kg RPAS aerial work. Operations Manual v2, Procedures Library v3. Know: RMIT mangrove AI 97% accuracy EfficientNet-B0 team Kirtan Shah Thomas Blanks Jake Dyl Dr Damiano Spina, AATT 1000+ students 5 states KJR, Cape York Cooktown to Mapoon, Torres Strait Salty Monkeys, Jarramali rock art, John Fejo Larrakia man drone pilot Chief Remote Pilot Head Ranger NT QLD cultural ambassador minister Cert IV Education, 3 pillars Creation Connection Contribution, 5 Cultural Governance pillars, Numuluk Shield, KJR Dr Kelvin Ross Aaron Bell. For JSA requests: generate complete Job Safety Analysis per Operations Manual Appendix 5, referencing ReOC CASA.ReOC.8979 and ARN 1252905, include hazard register, risk matrix, control measures, emergency procedures, sign off as John Fejo, Founder Cultural Ambassador and Chief Remote Pilot, AI First Nations, ReOC CASA.ReOC.8979. For Risk Assessment requests: generate a hazard register with Likelihood (Low/Medium/High) and Consequence (Minor/Moderate/Major/Severe) per hazard, an overall Risk Rating, control measures reducing risk to ALARP, a residual risk summary, and the same CRP sign-off block. For commercial documents use ABN 80732478065. For grant/community documents use AIFN Aboriginal Corporation ICN 9873.";
 var AC=[];
@@ -626,6 +658,37 @@ function delDoc(id,i){
   docs.splice(i,1);
   localStorage.setItem("aifn_ds_"+id,JSON.stringify(docs));
   rDocs(id);
+}
+// ── Wildlife Tracking ──────────────────────────────────────
+var WL_LOADED=false;
+function wlInit(){
+  if(WL_LOADED)return;
+  WL_LOADED=true;
+  fetch("data/wildlife-sites.json").then(function(r){return r.json();}).then(function(data){
+    var sites=data.sites||[];
+    var stats=document.getElementById("wl-stats");
+    stats.innerHTML=
+      '<div class="sc"><span class="sn">'+sites.length+'</span><span class="sl">Tracked Sites</span></div>'+
+      '<div class="sc"><span class="sn">'+(data.status==="placeholder"?"Placeholder":"Live")+'</span><span class="sl">Data Status</span></div>'+
+      '<div class="sc"><span class="sn">'+(data.lastUpdated||"—")+'</span><span class="sl">Last Updated</span></div>';
+    var center=sites.length?[sites[0].lat,sites[0].lng]:[-17.531,146.045];
+    var map=L.map("wl-map").setView(center,11);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{
+      attribution:"&copy; OpenStreetMap contributors",maxZoom:18
+    }).addTo(map);
+    sites.forEach(function(s){
+      var marker=L.circleMarker([s.lat,s.lng],{radius:8,color:"#bf5417",weight:2,fillColor:"#d9732e",fillOpacity:0.6}).addTo(map);
+      var tag=s.sample?'<div class="wl-pop-tag">Sample Data</div>':"";
+      var html=tag+
+        '<div class="wl-pop-title">'+s.name+"</div>"+
+        '<div class="wl-pop-meta">Species: '+(s.species||"—")+"<br>Method: "+(s.method||"—")+
+        (s.date?"<br>Date: "+s.date:"")+
+        (s.notes?"<br>"+s.notes:"")+"</div>";
+      marker.bindPopup(html);
+    });
+  }).catch(function(){
+    document.getElementById("wl-stats").innerHTML='<div style="opacity:0.5;font-size:0.85rem;">Could not load wildlife tracking data.</div>';
+  });
 }
 function addDoc(id){
   var name=prompt("Document name:");
