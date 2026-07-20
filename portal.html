@@ -850,9 +850,10 @@ function mgEnsureThree(){
   MG_THREE_MODS=Promise.all([
     import("three"),
     import("three/addons/loaders/GLTFLoader.js"),
+    import("three/addons/loaders/DRACOLoader.js"),
     import("three/addons/controls/OrbitControls.js")
   ]).then(function(mods){
-    return {THREE:mods[0],GLTFLoader:mods[1].GLTFLoader,OrbitControls:mods[2].OrbitControls};
+    return {THREE:mods[0],GLTFLoader:mods[1].GLTFLoader,DRACOLoader:mods[2].DRACOLoader,OrbitControls:mods[3].OrbitControls};
   });
   return MG_THREE_MODS;
 }
@@ -894,7 +895,10 @@ function mgLoadMeshViewer(glbUrl){
       controls.update();
     }
 
+    var dracoLoader=new M.DRACOLoader();
+    dracoLoader.setDecoderPath("https://www.gstatic.com/draco/versioned/decoders/1.5.7/");
     var loader=new M.GLTFLoader();
+    loader.setDRACOLoader(dracoLoader);
     loader.load(glbUrl,function(gltf){onModel(gltf.scene);},undefined,function(){
       container.innerHTML='<div style="padding:2rem;text-align:center;opacity:0.5;">Unable to load 3D preview — try downloading the files instead.</div>';
     });
