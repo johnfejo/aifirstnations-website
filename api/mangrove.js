@@ -28,7 +28,7 @@ function friendlyName(raw) {
 }
 
 // ── MESH / ORTHOMOSAIC DETECTION ────────────────────────────────
-const MESH_EXTS = new Set(['OBJ', 'MTL']);
+const MESH_EXTS = new Set(['OBJ', 'MTL', 'GLB', 'GLTF']);
 const TEXTURE_EXTS = new Set(['PNG', 'JPG', 'JPEG']);
 const ORTHO_EXTS = new Set(['TIF', 'TIFF']);
 

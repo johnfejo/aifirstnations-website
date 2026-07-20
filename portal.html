@@ -836,9 +836,8 @@ async function mgLoadFileList(alsoLoadMesh){
       }).join("")
       +'</div></div>';
     if(alsoLoadMesh){
-      var objFile=files.find(function(f){return f.kind==="mesh"&&f.name.toLowerCase().endsWith(".obj");});
-      var mtlFile=files.find(function(f){return f.kind==="mesh"&&f.name.toLowerCase().endsWith(".mtl");});
-      if(objFile)mgLoadMeshViewer(objFile.url,mtlFile?mtlFile.url:null);
+      var glbFile=files.find(function(f){return f.kind==="mesh"&&f.name.toLowerCase().endsWith(".glb");});
+      if(glbFile)mgLoadMeshViewer(glbFile.url);
     }
   }catch(e){
     c.innerHTML='<div style="padding:1rem;opacity:0.5;">Failed to generate links — '+e.message+'</div>';
@@ -850,16 +849,15 @@ function mgEnsureThree(){
   if(MG_THREE_MODS)return MG_THREE_MODS;
   MG_THREE_MODS=Promise.all([
     import("three"),
-    import("three/addons/loaders/OBJLoader.js"),
-    import("three/addons/loaders/MTLLoader.js"),
+    import("three/addons/loaders/GLTFLoader.js"),
     import("three/addons/controls/OrbitControls.js")
   ]).then(function(mods){
-    return {THREE:mods[0],OBJLoader:mods[1].OBJLoader,MTLLoader:mods[2].MTLLoader,OrbitControls:mods[3].OrbitControls};
+    return {THREE:mods[0],GLTFLoader:mods[1].GLTFLoader,OrbitControls:mods[2].OrbitControls};
   });
   return MG_THREE_MODS;
 }
 
-function mgLoadMeshViewer(objUrl,mtlUrl){
+function mgLoadMeshViewer(glbUrl){
   var wrap=document.getElementById("mg-3d-viewer");
   wrap.style.display="block";
   wrap.innerHTML='<div class="mg-viewer-hdr">🌳 3D Model Preview</div><div id="mg-3d-canvas-wrap" class="mg-3d-canvas-wrap"><div style="padding:2rem;text-align:center;opacity:0.5;">Loading 3D viewer…</div></div>';
@@ -896,20 +894,10 @@ function mgLoadMeshViewer(objUrl,mtlUrl){
       controls.update();
     }
 
-    function loadObj(materials){
-      var loader=new M.OBJLoader();
-      if(materials)loader.setMaterials(materials);
-      loader.load(objUrl,onModel,undefined,function(){
-        container.innerHTML='<div style="padding:2rem;text-align:center;opacity:0.5;">Unable to load 3D preview — try downloading the files instead.</div>';
-      });
-    }
-
-    if(mtlUrl){
-      var mtlLoader=new M.MTLLoader();
-      mtlLoader.load(mtlUrl,function(materials){materials.preload();loadObj(materials);},undefined,function(){loadObj(null);});
-    }else{
-      loadObj(null);
-    }
+    var loader=new M.GLTFLoader();
+    loader.load(glbUrl,function(gltf){onModel(gltf.scene);},undefined,function(){
+      container.innerHTML='<div style="padding:2rem;text-align:center;opacity:0.5;">Unable to load 3D preview — try downloading the files instead.</div>';
+    });
 
     (function animate(){
       requestAnimationFrame(animate);
