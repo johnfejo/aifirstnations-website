@@ -1,7 +1,7 @@
 {
-  "_readme": "PLACEHOLDER DATA — none of the entries below are real detections. Real SLSS shark-spotting program data (location/date/species) is NOT included here pending confirmation with KJR that AI First Nations may surface it in this tool — that program runs under the KJR Services Agreement, which assigns IP in engagement deliverables/data to KJR. Do not populate this file with real SLSS data until that's confirmed. See AIFN-Knowledge-Base wiki 'Drone Data Sovereignty Platform - Gap Analysis.md' for context.",
-  "status": "placeholder",
-  "lastUpdated": "2026-07-18",
+  "_readme": "This file mixes two kinds of entries. (1) 'sample': true entries are PLACEHOLDER shark-monitoring points — real SLSS shark-spotting program data (location/date/species) is NOT included pending confirmation with KJR that AI First Nations may surface it in this tool, since that program runs under the KJR Services Agreement which assigns IP in engagement deliverables/data to KJR. Do not populate those with real SLSS data until confirmed — see AIFN-Knowledge-Base wiki 'Drone Data Sovereignty Platform - Gap Analysis.md'. (2) 'sample': false entries are real site data supplied directly by John/AIFN field operations. Coordinates without a public address/landmark source were taken as given by John; a few had their latitude sign corrected from positive to negative (southern hemisphere) per his confirmation on 2026-07-21. Entries with lat/lng null are real sites still awaiting exact GPS confirmation — rendered as a list below the map, not a pin.",
+  "status": "mixed",
+  "lastUpdated": "2026-07-21",
   "sites": [
     {
       "id": "wl-001",
@@ -12,6 +12,7 @@
       "date": null,
       "method": "Thermal + RGB aerial pass",
       "notes": "Placeholder entry only. Represents the kind of coastal monitoring point that would be logged during a real marine wildlife survey pass.",
+      "type": "marine_nursery",
       "sample": true
     },
     {
@@ -23,6 +24,7 @@
       "date": null,
       "method": "Thermal + RGB aerial pass",
       "notes": "Placeholder entry only.",
+      "type": "marine_nursery",
       "sample": true
     },
     {
@@ -34,7 +36,154 @@
       "date": null,
       "method": "Aerial survey",
       "notes": "Placeholder entry representing a general coastal wildlife monitoring zone, not a specific detection.",
+      "type": "marine_nursery",
       "sample": true
+    },
+    {
+      "id": "wl-cass-001",
+      "name": "Cassowary — Male + 2 Chicks, 1 Riley Street",
+      "species": "Southern Cassowary (Casuarius casuarius johnsonii) — adult male with 2 chicks (~3 months old)",
+      "lat": -17.5393,
+      "lng": 146.0346,
+      "date": null,
+      "method": "Ground observation",
+      "notes": "Property: 1 Riley Street, South Innisfail. Southern Cassowary is Endangered under the EPBC Act — males rear chicks alone, consistent with this grouping. Coordinates from the property's public street address (Riley Street, South Innisfail); not a survey-confirmed pin.",
+      "type": "cassowary",
+      "sample": false
+    },
+    {
+      "id": "wl-cass-002",
+      "name": "Cassowary — Female (Mother), 1 Riley Street",
+      "species": "Southern Cassowary (Casuarius casuarius johnsonii) — adult female",
+      "lat": -17.5397,
+      "lng": 146.0350,
+      "date": null,
+      "method": "Ground observation",
+      "notes": "Property: 1 Riley Street, South Innisfail. Healthy adult female, same property as the male/chick group — offset slightly on the map so both markers are visible; not a separate confirmed GPS fix.",
+      "type": "cassowary",
+      "sample": false
+    },
+    {
+      "id": "wl-feral-001",
+      "name": "Feral Pig Activity — 1 Riley Street",
+      "species": "Feral Pig (Sus scrofa)",
+      "lat": -17.5395,
+      "lng": 146.0342,
+      "date": null,
+      "method": "Ground observation (sign/tracks)",
+      "notes": "Property: 1 Riley Street, South Innisfail. Biosecurity/environmental concern — consistent with AIFN's feral pig monitoring work through the Goondoi ranger program.",
+      "type": "feral",
+      "sample": false
+    },
+    {
+      "id": "wl-seagrass-001",
+      "name": "Seagrass Nursery — Mourilyan Harbour",
+      "species": "Seagrass nursery habitat (juvenile dugong/turtle foraging habitat)",
+      "lat": -17.5997,
+      "lng": 146.1244,
+      "date": null,
+      "method": "Aerial/drone survey",
+      "notes": "Mourilyan Harbour estuary. Coordinates from the public port/harbour location, not a survey-confirmed nursery boundary.",
+      "type": "marine_nursery",
+      "sample": false
+    },
+    {
+      "id": "wl-turtle-001",
+      "name": "Green Turtle Nesting Beach — Ellabay Pty, Flying Fish Point",
+      "species": "Green Turtle (Chelonia mydas)",
+      "lat": -17.4544453,
+      "lng": 146.0615778,
+      "date": null,
+      "season": "November – April/May (nesting season)",
+      "method": "Ground/beach patrol",
+      "notes": "Ellabay Pty block, Flying Fish Point. Shares coordinates with the crocodile nesting entry below (same property block) — confirm the precise nest location on ground when available.",
+      "type": "turtle_nesting",
+      "sample": false
+    },
+    {
+      "id": "wl-wallaby-001",
+      "name": "Wallaby Sanctuary — Coquette Point, Lot 365",
+      "species": "Wallaby (species unspecified)",
+      "lat": null,
+      "lng": null,
+      "date": null,
+      "method": null,
+      "notes": "Sanctuary area on Lot 365, Coquette Point. Exact GPS not yet supplied — listed here, not plotted, until confirmed.",
+      "type": "sanctuary",
+      "sample": false
+    },
+    {
+      "id": "wl-eagle-001",
+      "name": "White-bellied Sea-Eagle Nest",
+      "species": "White-bellied Sea-Eagle (Haliaeetus leucogaster)",
+      "lat": -17.4272758,
+      "lng": 146.0637189,
+      "date": null,
+      "method": "Aerial/drone survey",
+      "notes": "Active nest site.",
+      "type": "raptor_nest",
+      "sample": false
+    },
+    {
+      "id": "wl-croc-001",
+      "name": "Estuarine Crocodile — Large Black Male (territory)",
+      "species": "Estuarine Crocodile (Crocodylus porosus)",
+      "lat": -17.4311803,
+      "lng": 146.0665533,
+      "date": null,
+      "method": "Ground/vessel observation",
+      "notes": "Large, dark-coloured individual regularly sighted in this territory. Flag as a caution zone for any field operations nearby.",
+      "type": "crocodile",
+      "sample": false
+    },
+    {
+      "id": "wl-croc-002",
+      "name": "Crocodile Nesting Site — Ellabay Pty",
+      "species": "Estuarine Crocodile (Crocodylus porosus) — nest",
+      "lat": -17.4544453,
+      "lng": 146.0615778,
+      "date": null,
+      "method": "Ground observation",
+      "notes": "Ellabay Pty property block — same location as the Green Turtle nesting entry above.",
+      "type": "crocodile",
+      "sample": false
+    },
+    {
+      "id": "wl-goondoi-mangrove-001",
+      "name": "Mangrove Survey Zone — Goondoi",
+      "species": null,
+      "lat": null,
+      "lng": null,
+      "date": null,
+      "method": "Aerial/drone survey",
+      "notes": "Mangrove monitoring area associated with the Goondoi Rangers environmental program. Exact GPS not yet supplied.",
+      "type": "mangrove_survey",
+      "sample": false
+    },
+    {
+      "id": "wl-goondoi-wetland-001",
+      "name": "Wetland Survey Zone — Goondoi",
+      "species": null,
+      "lat": null,
+      "lng": null,
+      "date": null,
+      "method": "Aerial/drone survey",
+      "notes": "Wetland monitoring area associated with the Goondoi Rangers environmental program. Exact GPS not yet supplied.",
+      "type": "wetland_survey",
+      "sample": false
+    },
+    {
+      "id": "wl-cultural-001",
+      "name": "Polly Creek — Ceremony Place",
+      "species": null,
+      "lat": -17.4774332,
+      "lng": 146.0314194,
+      "date": null,
+      "method": null,
+      "notes": "Cultural / ceremony site — not a wildlife detection point. Sensitive location: treat with cultural protocol and restrict sharing beyond this access-gated portal.",
+      "type": "cultural",
+      "sensitive": true,
+      "sample": false
     }
   ]
 }

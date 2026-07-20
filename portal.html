@@ -169,8 +169,17 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
 .leaflet-popup-close-button:hover{opacity:1;color:var(--gold) !important;}
 .leaflet-container{font-family:"DM Sans",sans-serif;background:var(--smoke);}
 .wl-pop-title{font-family:"Cormorant Garamond",serif;font-size:1.05rem;color:var(--gold);margin-bottom:0.3rem;}
-.wl-pop-tag{display:inline-block;font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;background:rgba(191,84,23,0.18);border:1px solid rgba(191,84,23,0.4);color:var(--flame);padding:0.15rem 0.5rem;margin-bottom:0.5rem;}
+.wl-pop-tag{display:inline-block;font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;background:rgba(191,84,23,0.18);border:1px solid rgba(191,84,23,0.4);color:var(--flame);padding:0.15rem 0.5rem;margin-bottom:0.5rem;margin-right:0.3rem;}
 .wl-pop-meta{font-size:0.75rem;opacity:0.6;line-height:1.6;}
+.wl-legend{display:flex;flex-wrap:wrap;gap:0.5rem 1.1rem;margin-bottom:1rem;font-size:0.72rem;opacity:0.75;}
+.wl-legend-item{display:flex;align-items:center;gap:0.4rem;white-space:nowrap;}
+.wl-legend-dot{width:9px;height:9px;border-radius:50%;display:inline-block;flex:none;}
+.wl-nopin{background:var(--smoke);border:1px solid rgba(255,255,255,0.07);padding:1rem 1.3rem;font-size:0.8rem;}
+.wl-nopin h4{font-family:"Cormorant Garamond",serif;color:var(--gold);font-size:0.95rem;margin:0 0 0.6rem;font-weight:400;}
+.wl-nopin-item{padding:0.55rem 0;border-top:1px solid rgba(255,255,255,0.06);}
+.wl-nopin-item:first-child{border-top:none;}
+.wl-nopin-name{color:var(--cream);opacity:0.85;font-size:0.83rem;}
+.wl-nopin-note{opacity:0.5;font-size:0.72rem;margin-top:0.2rem;line-height:1.5;}
 
 @media(max-width:900px){.sidebar{width:60px;}.ni span:not(.ic){display:none;}.ss{display:none;}.sr{grid-template-columns:1fr 1fr;}.qa{grid-template-columns:1fr 1fr;}.task-grid{grid-template-columns:1fr 1fr;}.mg-grid{grid-template-columns:1fr;}}
 </style>
@@ -499,10 +508,12 @@ body{background:var(--earth);color:var(--cream);font-family:"DM Sans",sans-serif
 <div class="panel" id="panel-wildlife">
   <div class="sec-hdr"><h2>🦈 Wildlife Tracking</h2><p>Spatial view of marine and wildlife monitoring points from drone survey passes.</p></div>
   <div class="wl-notice">
-    <strong>Placeholder data only.</strong> This panel is wired to a real data file (<code>data/wildlife-sites.json</code>) but is not yet populated with real SLSS shark-spotting detections — that program runs under the KJR Services Agreement, which assigns IP in engagement data to KJR. Real detection data will be added once that's confirmed with KJR. Every marker below is an invented sample entry.
+    <strong>Mixed data.</strong> Shark-monitoring markers are still invented placeholders — real SLSS shark-spotting detections are withheld pending confirmation with KJR, since that program runs under the KJR Services Agreement which assigns IP in engagement data to KJR. Every other site (cassowary, crocodile, turtle, sea-eagle, seagrass, feral pig, cultural site) is real site data supplied by AIFN field operations; a few still need survey-confirmed GPS and are listed below the map rather than pinned.
   </div>
   <div class="wl-stat-bar" id="wl-stats"></div>
+  <div class="wl-legend" id="wl-legend"></div>
   <div class="wl-map-wrap"><div id="wl-map"></div></div>
+  <div class="wl-nopin" id="wl-nopin"></div>
 </div>
 
 <div class="panel" id="panel-contracts">
@@ -661,31 +672,87 @@ function delDoc(id,i){
 }
 // ── Wildlife Tracking ──────────────────────────────────────
 var WL_LOADED=false;
+var WL_TYPE_META={
+  marine_nursery:{label:"Marine Nursery",color:"#2ea8a0",icon:"🌊"},
+  cassowary:{label:"Cassowary",color:"#2e8b57",icon:"🐦"},
+  feral:{label:"Feral Animal",color:"#c0392b",icon:"🐗"},
+  turtle_nesting:{label:"Turtle Nesting",color:"#2e6da4",icon:"🐢"},
+  sanctuary:{label:"Sanctuary",color:"#6fae4e",icon:"🦘"},
+  raptor_nest:{label:"Raptor Nest",color:"#a67c2e",icon:"🦅"},
+  crocodile:{label:"Crocodile",color:"#7a1f1f",icon:"🐊"},
+  mangrove_survey:{label:"Mangrove Survey",color:"#3f7d5c",icon:"🌿"},
+  wetland_survey:{label:"Wetland Survey",color:"#3f7d5c",icon:"💧"},
+  cultural:{label:"Cultural Site",color:"#7a5c99",icon:"🔥"},
+  _default:{label:"Wildlife",color:"#bf5417",icon:"📍"}
+};
+function wlHex2rgba(hex,a){
+  var h=hex.replace("#","");
+  var r=parseInt(h.substring(0,2),16),g=parseInt(h.substring(2,4),16),b=parseInt(h.substring(4,6),16);
+  return "rgba("+r+","+g+","+b+","+a+")";
+}
+function wlMeta(type){return WL_TYPE_META[type]||WL_TYPE_META._default;}
 function wlInit(){
   if(WL_LOADED)return;
   WL_LOADED=true;
   fetch("data/wildlife-sites.json").then(function(r){return r.json();}).then(function(data){
     var sites=data.sites||[];
+    var pinned=sites.filter(function(s){return s.lat!=null&&s.lng!=null;});
+    var noPin=sites.filter(function(s){return s.lat==null||s.lng==null;});
+    var statusLabel=data.status==="placeholder"?"Placeholder":(data.status==="mixed"?"Mixed":"Live");
     var stats=document.getElementById("wl-stats");
     stats.innerHTML=
       '<div class="sc"><span class="sn">'+sites.length+'</span><span class="sl">Tracked Sites</span></div>'+
-      '<div class="sc"><span class="sn">'+(data.status==="placeholder"?"Placeholder":"Live")+'</span><span class="sl">Data Status</span></div>'+
+      '<div class="sc"><span class="sn">'+pinned.length+'</span><span class="sl">Mapped Pins</span></div>'+
+      '<div class="sc"><span class="sn">'+statusLabel+'</span><span class="sl">Data Status</span></div>'+
       '<div class="sc"><span class="sn">'+(data.lastUpdated||"—")+'</span><span class="sl">Last Updated</span></div>';
-    var center=sites.length?[sites[0].lat,sites[0].lng]:[-17.531,146.045];
+
+    var legendTypes=[];
+    sites.forEach(function(s){if(legendTypes.indexOf(s.type)===-1)legendTypes.push(s.type);});
+    document.getElementById("wl-legend").innerHTML=legendTypes.map(function(t){
+      var m=wlMeta(t);
+      return '<div class="wl-legend-item"><span class="wl-legend-dot" style="background:'+m.color+';"></span>'+m.icon+' '+m.label+'</div>';
+    }).join("");
+
+    var center=pinned.length?[pinned[0].lat,pinned[0].lng]:[-17.531,146.045];
     var map=L.map("wl-map").setView(center,11);
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{
       attribution:"&copy; OpenStreetMap contributors",maxZoom:18
     }).addTo(map);
-    sites.forEach(function(s){
-      var marker=L.circleMarker([s.lat,s.lng],{radius:8,color:"#bf5417",weight:2,fillColor:"#d9732e",fillOpacity:0.6}).addTo(map);
-      var tag=s.sample?'<div class="wl-pop-tag">Sample Data</div>':"";
-      var html=tag+
-        '<div class="wl-pop-title">'+s.name+"</div>"+
-        '<div class="wl-pop-meta">Species: '+(s.species||"—")+"<br>Method: "+(s.method||"—")+
-        (s.date?"<br>Date: "+s.date:"")+
-        (s.notes?"<br>"+s.notes:"")+"</div>";
-      marker.bindPopup(html);
+    var bounds=[];
+    pinned.forEach(function(s){
+      var m=wlMeta(s.type);
+      var marker=L.circleMarker([s.lat,s.lng],{radius:8,color:m.color,weight:2,fillColor:m.color,fillOpacity:0.55}).addTo(map);
+      bounds.push([s.lat,s.lng]);
+      var tag='<div class="wl-pop-tag" style="background:'+wlHex2rgba(m.color,0.18)+';border-color:'+wlHex2rgba(m.color,0.4)+';color:'+m.color+';">'+m.icon+" "+m.label+"</div>";
+      var sampleTag=s.sample?'<div class="wl-pop-tag">Sample Data</div>':"";
+      var body;
+      if(s.type==="cultural"){
+        body='<div class="wl-pop-title">'+s.name+"</div>"+
+          '<div class="wl-pop-meta">'+(s.notes||"")+"</div>";
+      }else{
+        body='<div class="wl-pop-title">'+s.name+"</div>"+
+          '<div class="wl-pop-meta">'+
+          (s.species?"Species: "+s.species+"<br>":"")+
+          (s.method?"Method: "+s.method+"<br>":"")+
+          (s.season?"Season: "+s.season+"<br>":"")+
+          (s.date?"Date: "+s.date+"<br>":"")+
+          (s.notes||"")+"</div>";
+      }
+      marker.bindPopup(tag+sampleTag+body);
     });
+    if(bounds.length>1)map.fitBounds(bounds,{padding:[30,30]});
+    else if(bounds.length===1)map.setView(bounds[0],13);
+
+    var nopinEl=document.getElementById("wl-nopin");
+    if(noPin.length){
+      nopinEl.innerHTML='<h4>Confirmed sites — GPS pending</h4>'+noPin.map(function(s){
+        var m=wlMeta(s.type);
+        return '<div class="wl-nopin-item"><div class="wl-nopin-name">'+m.icon+" "+s.name+"</div>"+
+          '<div class="wl-nopin-note">'+(s.notes||"")+"</div></div>";
+      }).join("");
+    }else{
+      nopinEl.innerHTML="";
+    }
   }).catch(function(){
     document.getElementById("wl-stats").innerHTML='<div style="opacity:0.5;font-size:0.85rem;">Could not load wildlife tracking data.</div>';
   });
