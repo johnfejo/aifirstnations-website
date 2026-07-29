@@ -36,15 +36,11 @@ None of these are solved by working harder. They're solved by giving your team a
 
 ## What's included
 
-**The AI Reporting Prompt Library** — 14 ready-to-use prompts your rangers copy into any AI chat tool they already have access to (ChatGPT, Claude, whatever your team uses) to turn raw field notes into finished, structured documents: incident reports, biosecurity detection logs, weekly summaries written *for you*, and funding-body compliance notes. This is the core of the toolkit — the single highest-leverage thing in it.
-
-**Field Observation Template** — an 18-category fillable template, inspired by the same field-reporting discipline built into AI FIRST NATIONS' own ranger app, for programs that don't have app access. On paper or a tablet. Designed to slot straight into the prompt library, so notes captured in the field become finished reports without re-keying anything.
-
-**Toolbox Safety Checker Template** — a pre-task safety checklist in the JSA format your team already understands, so nothing about how you run a toolbox talk has to change.
-
-**Drone Flight Log Template** — a general-purpose, CASA-aware flight log structure your program can use under its own authorisation. Not tied to anyone else's ReOC — built so any group can adopt it as their own compliance record from day one.
-
-**Guide: How AI Can Save Rangers Hours of Reporting** — a short, practical guide you can hand straight to your team explaining how and why to use the prompt library, so you're not the only one who has to explain it.
+* Prompt library (14 prompts) — copy-paste AI prompts covering incident reports, biosecurity logs, weekly summaries, and funding-body compliance notes, so every ranger produces the same quality report, every time.
+* Field observation template (18 categories) — a structured capture tool that feeds straight into the prompt library, so field notes become finished reports in minutes, not hours.
+* Toolbox safety checker — a JSA-style pre-task checklist your team can run before every shift, keeping WHS compliance consistent across the board.
+* Drone flight log template — a general-purpose, CASA-aware flight record any program can use under their own authorisation.
+* "How AI Saves Rangers Hours" guide — the practical companion showing your team exactly how to put the prompt library to work from day one.
 
 ---
 
@@ -54,15 +50,13 @@ None of these are solved by working harder. They're solved by giving your team a
 
 This isn't priced as a helpful toolkit. It's priced as what it is: a tool that gives every ranger on your team back real hours, every week, for the life of your program.
 
-Here's the maths worth doing before you buy: if this saves each ranger even thirty minutes a day on reporting, that's roughly 2.5 hours a week per ranger. Across a team of five, that's more than a full working day back, every single week — indefinitely, not just once. Run that multiplication against your own team size before you decide whether $297 is the number that matters here.
+In my own experience running these reports day to day, prompts like these save roughly 20–30 minutes a day per ranger — your team's mileage may vary depending on report complexity. Across a team of 5, that's still the better part of a full working day back, every week.
 
 **One seat covers one coordinator.** If your network has multiple coordinators or program managers who'll each be rolling this out to their own teams, each of them purchases their own seat — this is a per-coordinator toolkit, not a network-wide licence. If that's your situation, get in touch before purchasing and we'll talk through what makes sense for your structure.
 
 ---
 
-## What this isn't
-
-This is the Entry tier: templates and a prompt library, usable immediately, with no app, no login, and no dependency on anyone else's drone authorisation. It doesn't include access to the Ranger Field App itself — that's a separate, licensed product, currently on hold while the insurance and legal groundwork around licensing it to other operators gets finished properly. If and when that's available, current toolkit owners will hear about it first.
+**What this isn't:** This is the Entry Tier — templates and prompts, ready to use today with any AI tool your team already has. Premium Tier, with full access to AI FIRST NATIONS' own Ranger Field App, is coming soon.
 
 ---
 
@@ -73,5 +67,9 @@ This is the Entry tier: templates and a prompt library, usable immediately, with
 Buy your seat, hand the guide to your team this week, and start turning field notes into finished reports the same day.
 
 [Buy Now — $297]
+
+**How you'll receive it:** Instant digital download after purchase — PDF and editable formats, delivered straight to your inbox. No app install, no setup required to start using it today.
+
+Not the right fit for your team? Email me directly within 14 days of purchase for a full refund — no questions asked.
 
 *Questions about multi-coordinator networks, bulk enquiries, or what's coming in the Premium tier? [Contact John directly.]*
