@@ -96,7 +96,7 @@ module.exports = async function handler(req, res) {
     }
   } catch { parsed = {}; }
 
-  const { name, organisation, email, phone, address, preferredDates, siteLocation, details } = parsed;
+  const { name, organisation, email, phone, address, preferredDates, siteLocation, details, source } = parsed;
 
   if (!name || !email || !details) {
     return res.status(400).json({ error: 'Name, email and job details are required' });
@@ -112,6 +112,7 @@ module.exports = async function handler(req, res) {
 
   const html = `
     <h2>New quote request — AI First Nations website</h2>
+    ${source ? `<p><b>Source:</b> ${escapeHtml(source)}</p>` : ''}
     <table cellpadding="6" cellspacing="0">
       <tr><td><b>Name</b></td><td>${escapeHtml(name)}</td></tr>
       <tr><td><b>Organisation</b></td><td>${escapeHtml(organisation)}</td></tr>
@@ -136,7 +137,7 @@ module.exports = async function handler(req, res) {
         from: fromEmail,
         to: [toEmail],
         reply_to: email,
-        subject: `Quote request from ${name}${organisation ? ' (' + organisation + ')' : ''}`,
+        subject: `Quote request from ${name}${organisation ? ' (' + organisation + ')' : ''}${source ? ' — via ' + source : ''}`,
         html,
       }),
     });
