@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Request a quote from AI First Nations for drone survey, environmental monitoring, cultural heritage documentation, or ranger support work.">
+<title>Request a Quote | AI First Nations</title>
+<link rel="icon" href="images/logo.jpg" type="image/jpeg">
+<link rel="stylesheet" href="css/styles.css">
+<style>
+.rq-form{display:flex;flex-direction:column;gap:1.2rem;max-width:640px;}
+.rq-row{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+.rq-field{display:flex;flex-direction:column;gap:0.4rem;}
+.rq-field label{font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--mist);}
+.rq-field input,.rq-field textarea{
+  background:var(--smoke);border:1px solid rgba(255,255,255,0.1);color:var(--cream);
+  padding:0.85rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:300;
+  outline:none;transition:border-color 0.3s;
+}
+.rq-field input:focus,.rq-field textarea:focus{border-color:var(--gold);}
+.rq-field textarea{resize:vertical;min-height:9rem;}
+.rq-submit{align-self:flex-start;}
+.rq-submit:disabled{opacity:0.5;cursor:not-allowed;}
+.rq-result{padding:0.9rem 1.1rem;font-size:0.85rem;line-height:1.6;margin-top:0.3rem;display:none;}
+.rq-result.success{background:rgba(62,107,64,0.15);border:1px solid rgba(62,107,64,0.35);color:var(--mist);display:block;}
+.rq-result.error{background:rgba(191,84,23,0.12);border:1px solid rgba(191,84,23,0.3);color:var(--flame);display:block;}
+@media (max-width:640px){.rq-row{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-brand"><img src="images/logo.jpg" alt="AI First Nations">AI First Nations</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="education.html">Education</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="advisory.html">Advisory Board</a></li>
+    <li><a href="request-quote.html" class="nav-cta active">Request a Quote</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<div class="page-top" style="padding:5rem 3rem 4rem;background:linear-gradient(160deg,var(--bark) 0%,var(--smoke) 100%);">
+  <div class="label">Request a Quote</div>
+  <h1 style="font-size:clamp(2.8rem,4.5vw,4.5rem);color:var(--pale);line-height:1.1;margin-bottom:1.2rem;">
+    Let's talk about<br><em style="color:var(--gold);font-style:italic;">your site.</em>
+  </h1>
+  <p style="font-size:0.95rem;opacity:0.7;max-width:520px;line-height:1.85;">Fill in the details below and John will follow up directly to arrange a discovery call and a scoped, written quote.</p>
+</div>
+<div class="divider"></div>
+
+<!-- BODY -->
+<section class="section section-dark">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;">
+
+    <!-- FORM -->
+    <div>
+      <div class="label">Site &amp; Job Details</div>
+      <form class="rq-form" id="rqForm">
+        <div class="rq-row">
+          <div class="rq-field">
+            <label for="rq-name">Name</label>
+            <input type="text" id="rq-name" name="name" placeholder="Your name" required>
+          </div>
+          <div class="rq-field">
+            <label for="rq-org">Organisation</label>
+            <input type="text" id="rq-org" name="organisation" placeholder="Organisation or agency name">
+          </div>
+        </div>
+        <div class="rq-row">
+          <div class="rq-field">
+            <label for="rq-email">Email</label>
+            <input type="email" id="rq-email" name="email" placeholder="your@email.com" required>
+          </div>
+          <div class="rq-field">
+            <label for="rq-phone">Phone</label>
+            <input type="tel" id="rq-phone" name="phone" placeholder="04xx xxx xxx">
+          </div>
+        </div>
+        <div class="rq-field">
+          <label for="rq-address">Address</label>
+          <input type="text" id="rq-address" name="address" placeholder="Postal or business address">
+        </div>
+        <div class="rq-row">
+          <div class="rq-field">
+            <label for="rq-date">Preferred Date(s)</label>
+            <input type="text" id="rq-date" name="preferredDates" placeholder="e.g. week of 18 August">
+          </div>
+          <div class="rq-field">
+            <label for="rq-site">Site Location</label>
+            <input type="text" id="rq-site" name="siteLocation" placeholder="Where the work will take place">
+          </div>
+        </div>
+        <div class="rq-field">
+          <label for="rq-details">What would you like AI First Nations to do?</label>
+          <textarea id="rq-details" name="details" placeholder="Tell us about the site, what you're trying to monitor or capture, and any compliance requirements…" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-ember rq-submit" id="rqSubmitBtn">Send Request →</button>
+        <div class="rq-result" id="rqResult"></div>
+      </form>
+    </div>
+
+    <!-- INFO -->
+    <div>
+      <div class="label">Why AI First Nations</div>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--gold);margin-bottom:2rem;">Certified. Insured. On Country.</h3>
+
+      <div style="display:flex;flex-direction:column;gap:0;">
+        <div style="display:flex;align-items:flex-start;gap:1.2rem;padding:1.3rem 0;border-bottom:1px solid rgba(255,255,255,0.07);">
+          <span style="font-size:1.2rem;flex-shrink:0;margin-top:2px;">✈️</span>
+          <div><h4 style="font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--mist);margin-bottom:0.3rem;">CASA Accreditation</h4><p style="font-size:0.9rem;opacity:0.75;">ReOC CASA.ReOC.8979 · ARN 1252905</p></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:1.2rem;padding:1.3rem 0;border-bottom:1px solid rgba(255,255,255,0.07);">
+          <span style="font-size:1.2rem;flex-shrink:0;margin-top:2px;">🛡️</span>
+          <div><h4 style="font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--mist);margin-bottom:0.3rem;">Insured</h4><p style="font-size:0.9rem;opacity:0.75;">Public liability, RPAS liability and professional indemnity cover in place. Certificate of Currency available on request.</p></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:1.2rem;padding:1.3rem 0;">
+          <span style="font-size:1.2rem;flex-shrink:0;margin-top:2px;">📍</span>
+          <div><h4 style="font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--mist);margin-bottom:0.3rem;">Reach</h4><p style="font-size:0.9rem;opacity:0.75;">Far North Queensland · Cape York · Torres Strait · Gulf Country · Northern Territory</p></div>
+        </div>
+      </div>
+
+      <div style="margin-top:2.5rem;padding:1.8rem;background:var(--smoke);border:1px solid rgba(255,255,255,0.07);">
+        <h4 style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold);margin-bottom:0.6rem;">What happens next</h4>
+        <p style="font-size:0.85rem;opacity:0.65;line-height:1.7;">A short discovery call on your site and compliance needs, then a written quote referencing CASA ReOC.8979 and ARN 1252905, itemised by site and deliverable.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-brand"><img src="images/logo.jpg" alt="AI First Nations"> AI First Nations</div>
+  <div class="footer-links">
+    <a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a>
+    <a href="projects.html">Projects</a><a href="education.html">Education</a><a href="research.html">Research</a>
+  </div>
+  <div class="footer-copy">AI First Nations Aboriginal Corporation · ABN 80 732 478 065 · Always Was, Always Will Be</div>
+</footer>
+
+<script src="js/nav.js"></script>
+<script>
+document.getElementById('rqForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  var btn = document.getElementById('rqSubmitBtn');
+  var result = document.getElementById('rqResult');
+  result.className = 'rq-result';
+  result.textContent = '';
+
+  var payload = {
+    name: document.getElementById('rq-name').value.trim(),
+    organisation: document.getElementById('rq-org').value.trim(),
+    email: document.getElementById('rq-email').value.trim(),
+    phone: document.getElementById('rq-phone').value.trim(),
+    address: document.getElementById('rq-address').value.trim(),
+    preferredDates: document.getElementById('rq-date').value.trim(),
+    siteLocation: document.getElementById('rq-site').value.trim(),
+    details: document.getElementById('rq-details').value.trim()
+  };
+
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  try {
+    var res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    var data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Something went wrong sending your request.');
+
+    result.className = 'rq-result success';
+    result.textContent = "Thanks — your request has been sent. John will follow up directly to arrange a discovery call.";
+    document.getElementById('rqForm').reset();
+  } catch (err) {
+    result.className = 'rq-result error';
+    result.textContent = err.message || 'Something went wrong. Please try again or email john@aifirstnations.org.au directly.';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Send Request →';
+  }
+});
+</script>
+</body>
+</html>
