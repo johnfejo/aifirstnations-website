@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+@page { size: 88.9mm 50.8mm; margin: 0; }
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0b0a06;}
+.card{
+  width: 88.9mm; height: 50.8mm;
+  background: linear-gradient(160deg, #111009 0%, #1e1b10 55%, #2a2010 100%);
+  position: relative;
+  font-family: 'DM Sans', 'Segoe UI', sans-serif;
+  color: #ede5d4;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 0 5.2mm;
+}
+.card::before{
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:1.2mm;
+  background: linear-gradient(90deg, #c9a24a, #d9732e);
+}
+.left{flex: 1; min-width:0;}
+.brand-row{display:flex; align-items:center; gap:2mm; margin-bottom:2.6mm;}
+.brand-row img{width:7mm; height:7mm; border-radius:50%; flex-shrink:0;}
+.brand-name{font-family:'Cormorant Garamond', Georgia, serif; font-size:8.5pt; letter-spacing:0.5px; color:#f8f3ea; font-weight:700; line-height:1.2;}
+.brand-tagline{font-size:4.6pt; color:#c9a24a; font-style:italic; margin-top:0.5mm;}
+
+.name{font-family:'Cormorant Garamond', Georgia, serif; font-size:15pt; color:#f8f3ea; font-weight:700; margin-bottom:0.8mm; line-height:1;}
+.role{font-size:5.2pt; letter-spacing:0.4px; text-transform:uppercase; color:#c9a24a; margin-bottom:2.4mm;}
+
+.details{font-size:6.3pt; line-height:1.75; color:rgba(237,229,212,0.88);}
+.details b{color:#c9a24a; display:inline-block; width:3.2mm;}
+
+.creds{margin-top:2mm; font-size:4.4pt; letter-spacing:0.2px; color:rgba(237,229,212,0.5); border-top:0.2mm solid rgba(201,162,74,0.3); padding-top:1.4mm; line-height:1.5;}
+
+.right{display:flex; flex-direction:column; align-items:center; gap:1mm; flex-shrink:0;}
+.qr-box{background:#f8f3ea; padding:1mm; border-radius:0.8mm;}
+.qr-box img{width:13mm; height:13mm; display:block;}
+.qr-label{font-size:3.6pt; letter-spacing:0.3px; text-transform:uppercase; color:#7aab82; text-align:center; line-height:1.3;}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="left">
+    <div class="brand-row">
+      <img src="../images/logo.jpg" alt="AI First Nations">
+      <div>
+        <div class="brand-name">AI FIRST NATIONS</div>
+        <div class="brand-tagline">Building Indigenous-Led Environmental Resilience</div>
+      </div>
+    </div>
+    <div class="name">John Fejo</div>
+    <div class="role">Founder &middot; Chief Remote Pilot &middot; Cultural Ambassador</div>
+    <div class="details">
+      <div><b>P</b> 0429 042 774</div>
+      <div><b>E</b> john@aifirstnations.org.au</div>
+      <div><b>W</b> aifirstnations.org</div>
+    </div>
+    <div class="creds">
+      ABN 80 732 478 065 &nbsp;&middot;&nbsp; CASA ReOC CASA.ReOC.8979 &nbsp;&middot;&nbsp; ARN 1252905<br>
+      Far North Queensland &middot; Torres Strait &middot; Northern Territory
+    </div>
+  </div>
+  <div class="right">
+    <div class="qr-box"><img src="../images/capability/qr-code.png" alt="QR code"></div>
+    <div class="qr-label">Scan for Capability<br>Statement</div>
+  </div>
+</div>
+</body>
+</html>
