@@ -1,0 +1,13 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Fejo;John;;;
+FN:John Fejo
+ORG:AI First Nations
+TITLE:Founder, Chief Remote Pilot & Cultural Ambassador
+TEL;TYPE=CELL,VOICE:+61429042774
+EMAIL;TYPE=WORK,INTERNET:john@aifirstnations.org.au
+URL:https://aifirstnations.org
+URL:https://aifirstnations.org/capability-statement.html
+PHOTO;VALUE=URI:https://aifirstnations.org/images/logo.jpg
+NOTE:AI First Nations — Indigenous-led drone and AI environmental services. Capability statement: https://aifirstnations.org/capability-statement.html
+END:VCARD
