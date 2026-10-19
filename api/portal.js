@@ -6,30 +6,66 @@
 //   B2_KEY_ID       — Backblaze application key ID
 //   B2_APP_KEY      — Backblaze application key
 //   B2_BUCKET_NAME  — aifn-flight-data
+//   PORTAL_CODE_GOONDOI — client access code for Goondoi Rangers
+//   PORTAL_CODE_TSC     — client access code for Torres Shire Council
+//   PORTAL_CODE_RMIT    — client access code for the RMIT mangrove pilot
 // ================================================================
 
 // ── CLIENT REGISTRY ─────────────────────────────────────────────
 // Add new clients here. prefix = their top-level B2 folder.
-const CLIENTS = {
-  'GOON-WET-2026': {
+// codeEnv = the Vercel environment variable holding that client's access
+// code. Codes are never stored in this (public) repo. A client whose
+// variable isn't set simply can't log in — there is no built-in fallback.
+const CLIENTS = [
+  {
+    codeEnv: 'PORTAL_CODE_GOONDOI',
     name:   'Goondoi Rangers',
     org:    'Goondoi Land & Sea Rangers',
     prefix: 'Goondoi/',
     logo:   '/images/goondoi.jpg',
   },
-  'TSC-HORN-2026': {
+  {
+    codeEnv: 'PORTAL_CODE_TSC',
     name:   'Torres Shire Council',
     org:    'Horn Island Aerial Survey — Torres Strait',
     prefix: 'Horn-Island/',
     logo:   'https://saltymonkeys.com.au/wp-content/uploads/2023/10/logo.svg',
   },
-  'RMIT-MANGROVE-2026': {
+  {
+    codeEnv: 'PORTAL_CODE_RMIT',
     name:   'AI First Nations Mangrove Species Identification System',
     org:    'RMIT University Pilot — Cairns Region Mangrove Survey',
     prefix: 'RMIT-Mangrove-AI/',
     logo:   null,
   },
-};
+];
+
+const crypto = require('crypto');
+
+// Constant-time comparison so response timing doesn't leak how much of a code matched.
+function codesMatch(given, expected) {
+  const a = crypto.createHash('sha256').update(given).digest();
+  const b = crypto.createHash('sha256').update(expected).digest();
+  return crypto.timingSafeEqual(a, b);
+}
+
+function findClient(code) {
+  const given = String(code || '').trim().toUpperCase();
+  if (!given) return null;
+  return CLIENTS.find((c) => {
+    const expected = (process.env[c.codeEnv] || '').trim().toUpperCase();
+    return expected && codesMatch(given, expected);
+  }) || null;
+}
+
+// A folder requested by the browser must sit inside the logged-in client's
+// own top-level folder — otherwise one client's code could read another's data.
+function isOwnPrefix(client, prefix) {
+  return typeof prefix === 'string'
+    && prefix.startsWith(client.prefix)
+    && !prefix.includes('..')
+    && !prefix.includes('\\');
+}
 
 // ── DISPLAY NAME OVERRIDES ───────────────────────────────────────
 // Maps a normalised B2 folder slug to a friendly display name.
@@ -176,7 +212,7 @@ module.exports = async function handler(req, res) {
   } catch { parsed = {}; }
 
   const { action, code, prefix } = parsed;
-  const client = CLIENTS[(code || '').toUpperCase()];
+  const client = findClient(code);
 
   if (!client) {
     recordFailedAttempt(ip);
@@ -184,6 +220,11 @@ module.exports = async function handler(req, res) {
     return res.status(401).json({ error: 'Invalid access code' });
   }
   failedAttempts.delete(ip);
+
+  if (action !== 'projects' && !isOwnPrefix(client, prefix)) {
+    console.warn('[portal-api] blocked out-of-scope prefix for', client.name, 'from', ip);
+    return res.status(403).json({ error: 'Not allowed' });
+  }
 
   try {
     const auth = await b2Auth();
