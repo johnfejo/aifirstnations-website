@@ -16,26 +16,13 @@
   .deliver-list li:last-child{border-bottom:none;}
   .deliver-list .dot{color:var(--gold);flex-shrink:0;}
 </style>
+<link rel="stylesheet" href="css/chrome.css">
+<link rel="stylesheet" href="css/legacy-mobile.css">
+<script src="js/site.js" defer></script>
 </head>
 <body>
-<nav id="nav">
-  <div class="nav-brand">
-    <img src="images/logo.jpg" alt="AI First Nations">
-    AI First Nations
-  </div>
-  <ul class="nav-links" id="navLinks">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="services.html">Services</a></li>
-    <li><a href="projects.html">Projects</a></li>
-    <li><a href="education.html">Education</a></li>
-    <li><a href="research.html">Research</a></li>
-    <li><a href="advisory.html">Advisory Board</a></li>
-    <li><a href="request-quote.html">Request a Quote</a></li>
-    <li><a href="contact.html" class="nav-cta">Contact</a></li>
-  </ul>
-  <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
-</nav>
+<div id="site-header"><a href="index.html">AI First Nations</a></div>
+<div id="main" tabindex="-1"></div>
 
 <div class="page-top" style="padding:3rem 3rem 4rem;background:linear-gradient(155deg,#1e1b10 0%,#160f04 100%);">
   <div class="label">Capability Showcase</div>
@@ -95,18 +82,9 @@
   </div>
 </section>
 
-<footer class="site-footer">
-  <div class="footer-brand">AI First Nations</div>
-  <div class="footer-links">
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="projects.html">Projects</a>
-    <a href="contact.html">Contact</a>
-  </div>
-  <div class="footer-copy">Always Was, Always Will Be · AIFN Aboriginal Corporation (ICN 9873) for community programs &amp; grants · AI First Nations ABN 80 732 478 065 for commercial drone services</div>
-</footer>
+<div id="site-footer"></div>
 
-<script src="js/nav.js"></script>
+
 <script>
 (function(){
   const canvas = document.getElementById('pcCanvas');

@@ -1,0 +1,119 @@
+/* ── AI FIRST NATIONS · SHARED HEADER & FOOTER ──
+   Loaded on every public page (old and new designs). Every rule is scoped
+   to .aifn-* so it can't clash with a page's own styles.
+   Brand: Deep Green #1A4A2E · Burnt Orange #C4622D · Gold #C89A2F · Cream #F5EFE0
+   #A84F1F is a deeper Burnt Orange used where white text sits on orange,
+   because white on #C4622D (4.1:1) misses the 4.5:1 accessibility minimum. */
+
+:root {
+  --aifn-green: #1A4A2E;
+  --aifn-green-dark: #12351F;
+  --aifn-orange: #C4622D;
+  --aifn-orange-ink: #A84F1F;
+  --aifn-gold: #C89A2F;
+  --aifn-cream: #F5EFE0;
+  --aifn-ink: #1F2A22;
+  --aifn-font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.aifn-skip {
+  position: absolute; left: -9999px; top: 0; z-index: 1000;
+  background: var(--aifn-cream); color: var(--aifn-green);
+  padding: 0.75rem 1rem; font: 600 1rem var(--aifn-font);
+}
+.aifn-skip:focus { left: 1rem; top: 1rem; }
+
+/* Placeholder slots hold the space until js/site.js fills them, so the page doesn't jump. */
+#site-header { min-height: 69px; background: var(--aifn-green); border-bottom: 3px solid var(--aifn-orange); }
+#site-header a, #site-footer a { color: var(--aifn-cream); font-family: var(--aifn-font); padding: 1.4rem 1.25rem; display: inline-block; }
+#site-footer { background: var(--aifn-green-dark); min-height: 120px; }
+
+/* ── Header ── */
+.aifn-header {
+  position: sticky; top: 0; z-index: 900;
+  background: var(--aifn-green); color: var(--aifn-cream);
+  border-bottom: 3px solid var(--aifn-orange);
+  font-family: var(--aifn-font);
+}
+.aifn-header__inner {
+  max-width: 1200px; margin: 0 auto; padding: 0.55rem 1.25rem;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+}
+.aifn-brand { display: flex; align-items: center; gap: 0.7rem; color: var(--aifn-cream); text-decoration: none; }
+.aifn-brand img {
+  width: 44px; height: 52px; object-fit: contain;
+  background: #DFC18D; border-radius: 10px; padding: 3px;
+}
+.aifn-brand__name { font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; font-size: 1rem; line-height: 1.1; }
+.aifn-brand__tag { display: block; font-weight: 400; letter-spacing: 0.02em; text-transform: none; font-size: 0.75rem; color: #E9DFC7; }
+
+.aifn-nav { display: flex; align-items: center; gap: 0.25rem; }
+.aifn-nav ul { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: 0.15rem; }
+.aifn-nav a {
+  display: block; padding: 0.55rem 0.7rem; border-radius: 6px;
+  color: var(--aifn-cream); text-decoration: none; font-size: 0.95rem; font-weight: 500;
+  white-space: nowrap;
+}
+.aifn-nav a:hover { background: rgba(245,239,224,0.12); }
+.aifn-nav a[aria-current="page"] { box-shadow: inset 0 -3px 0 var(--aifn-gold); }
+.aifn-nav a.aifn-nav__cta { background: var(--aifn-orange-ink); color: #fff; font-weight: 700; margin-left: 0.4rem; }
+.aifn-nav a.aifn-nav__cta:hover { background: #8F421A; }
+
+.aifn-menu-btn {
+  display: none; background: transparent; color: var(--aifn-cream);
+  border: 2px solid rgba(245,239,224,0.5); border-radius: 8px;
+  padding: 0.45rem 0.8rem; font: 700 0.95rem var(--aifn-font); cursor: pointer;
+}
+
+a.aifn-header :focus-visible, .aifn-header :focus-visible, .aifn-footer :focus-visible {
+  outline: 3px solid var(--aifn-gold); outline-offset: 2px;
+}
+
+@media (max-width: 1180px) {
+  .aifn-menu-btn { display: inline-block; }
+  .aifn-nav ul {
+    display: none; position: absolute; left: 0; right: 0; top: 100%;
+    flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--aifn-green-dark); padding: 0.5rem 1rem 1rem;
+    border-bottom: 3px solid var(--aifn-orange);
+  }
+  .aifn-nav ul.is-open { display: flex; }
+  .aifn-nav a { padding: 0.85rem 0.6rem; font-size: 1.05rem; border-bottom: 1px solid rgba(245,239,224,0.12); }
+  .aifn-nav a.aifn-nav__cta { margin: 0.6rem 0 0; text-align: center; }
+  .aifn-brand__tag { display: none; }
+}
+
+/* ── Footer ── */
+.aifn-footer { background: var(--aifn-green-dark); color: #EFE7D3; font-family: var(--aifn-font); font-size: 0.95rem; line-height: 1.6; }
+.aifn-footer__location {
+  background: var(--aifn-orange-ink); color: #fff; text-align: center;
+  padding: 0.75rem 1rem; font-weight: 600; letter-spacing: 0.01em;
+}
+.aifn-footer__inner {
+  max-width: 1200px; margin: 0 auto; padding: 2.5rem 1.25rem 1.5rem;
+  display: grid; gap: 2rem; grid-template-columns: 1.4fr 1fr 1fr 1fr;
+}
+.aifn-footer h2 { font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--aifn-gold); margin: 0 0 0.75rem; font-weight: 700; }
+.aifn-footer ul { list-style: none; margin: 0; padding: 0; }
+.aifn-footer li { margin: 0.3rem 0; }
+.aifn-footer a { color: #FFFFFF; text-decoration: underline; text-decoration-color: rgba(255,255,255,0.35); text-underline-offset: 3px; }
+.aifn-footer a:hover { text-decoration-color: var(--aifn-gold); }
+.aifn-footer__creds { font-size: 0.85rem; color: #E2D8BF; }
+.aifn-footer__bottom {
+  max-width: 1200px; margin: 0 auto; padding: 1rem 1.25rem 2rem;
+  border-top: 1px solid rgba(245,239,224,0.15); font-size: 0.82rem; color: #D8CDB2;
+}
+@media (max-width: 860px) { .aifn-footer__inner { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .aifn-footer__inner { grid-template-columns: 1fr; } }
+
+/* Team-portal sign-in dialog (same behaviour as the old home-page pop-up) */
+.aifn-dialog::backdrop { background: rgba(0,0,0,0.6); }
+.aifn-dialog { border: none; border-radius: 12px; padding: 2rem; max-width: 380px; width: 90%; font-family: var(--aifn-font); color: var(--aifn-ink); background: var(--aifn-cream); }
+.aifn-dialog h2 { margin: 0 0 0.5rem; color: var(--aifn-green); font-size: 1.4rem; }
+.aifn-dialog label { display: block; font-weight: 600; margin: 1rem 0 0.4rem; }
+.aifn-dialog input { width: 100%; box-sizing: border-box; padding: 0.75rem; font-size: 1rem; border: 2px solid #B9AE95; border-radius: 8px; }
+.aifn-dialog .aifn-dialog__err { color: #9B1C1C; font-weight: 600; margin: 0.6rem 0 0; }
+.aifn-dialog .aifn-dialog__row { display: flex; gap: 0.6rem; margin-top: 1.2rem; }
+.aifn-dialog button { flex: 1; padding: 0.75rem; font: 700 1rem var(--aifn-font); border-radius: 8px; cursor: pointer; border: 2px solid var(--aifn-green); }
+.aifn-dialog .aifn-dialog__go { background: var(--aifn-green); color: var(--aifn-cream); }
+.aifn-dialog .aifn-dialog__cancel { background: transparent; color: var(--aifn-green); }
