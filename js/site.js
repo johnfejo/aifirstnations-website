@@ -8,7 +8,7 @@
     email: 'john@aifirstnations.org.au', // TODO John: confirm which email to use (see site-refresh notes)
     phone: '0429 042 774',
     phoneHref: '+61429042774',
-    location: 'From Darwin, Larrakia Country · working across FNQ, Torres Strait & NT',
+    location: "From Darwin, Larrakia Country · working across FNQ, Torres Strait, NT and Sydney's Northern Beaches",
     reoc: 'CASA.ReOC.8979',
     arn: '1252905',
     abn: '80 732 478 065',
