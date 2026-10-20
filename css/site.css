@@ -144,6 +144,20 @@ main { display: block; }
 .photo img { width: 100%; object-fit: cover; }
 .photo figcaption { font-size: 0.88rem; padding: 0.6rem 0.9rem; background: #FFFDF8; color: #4A5249; }
 
+/* Field work job cards */
+.jobs { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; }
+.job { display: flex; flex-direction: column; }
+.job__client { display: block; font-size: 0.8rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--aifn-orange-ink); margin-bottom: 0.3rem; }
+.job__ack { font-size: 0.92rem; color: #4A5249; border-top: 1px solid #E2D7BD; padding-top: 0.75rem; margin-top: auto; }
+.job__model { margin-top: auto; }
+/* Photo spot: stands in until a photo is chosen. Swap the div for a <figure class="photo">. */
+.photo-spot {
+  aspect-ratio: 16 / 10; margin: -0.25rem 0 1rem; border: 2px dashed #C9BB98; border-radius: 10px;
+  background: #F3EBD7; color: #6B6248; display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.9rem;
+}
+.job .photo { margin: -0.25rem 0 1rem; }
+
 /* Contact form */
 .form { display: grid; gap: 0.9rem; max-width: 640px; }
 .form .row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }

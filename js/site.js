@@ -20,6 +20,7 @@
     { href: 'schools.html', label: 'Schools' },
     { href: 'rangers.html', label: 'Ranger Groups' },
     { href: 'capability-statement.html', label: 'Government & Industry' },
+    { href: 'fieldwork.html', label: 'Field Work' },
     { href: 'research.html', label: 'Research' },
     { href: 'data-sovereignty.html', label: 'Data Sovereignty' },
     { href: 'about.html', label: 'About' },
