@@ -131,6 +131,20 @@ a.aifn-header :focus-visible, .aifn-header :focus-visible, .aifn-footer :focus-v
 @media (max-width: 960px) { .aifn-partners__list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 420px) { .aifn-partners__list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
+/* ── Insurance box (fieldwork, services) ── works on light and dark pages ── */
+.aifn-insured {
+  background: var(--aifn-cream); color: var(--aifn-ink); font-family: var(--aifn-font);
+  border-left: 6px solid var(--aifn-gold); border-radius: 0 12px 12px 0;
+  padding: 1.25rem 1.4rem; margin: 1.5rem 0 0; max-width: 46rem; line-height: 1.55; font-weight: 400;
+}
+.aifn-insured .aifn-insured__title { margin: 0 0 0.4rem; font: 800 1.15rem var(--aifn-font); color: var(--aifn-green); letter-spacing: normal; text-transform: none; }
+.aifn-insured p { margin: 0 0 0.5rem; font-size: 1rem; color: var(--aifn-ink); opacity: 1; }
+.aifn-insured ul { margin: 0 0 0.6rem; padding: 0; list-style: none; display: grid; gap: 0.3rem 1.25rem; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); }
+.aifn-insured li { position: relative; padding-left: 1.4rem; color: var(--aifn-ink); font-size: 1rem; }
+.aifn-insured li::before { content: "✓"; position: absolute; left: 0; font-weight: 900; color: var(--aifn-orange-ink); }
+.aifn-insured b { color: var(--aifn-green); }
+.aifn-insured .aifn-insured__note { margin: 0; font-size: 0.92rem; color: #4A5249; }
+
 /* Team-portal sign-in dialog (same behaviour as the old home-page pop-up) */
 .aifn-dialog::backdrop { background: rgba(0,0,0,0.6); }
 .aifn-dialog { border: none; border-radius: 12px; padding: 2rem; max-width: 380px; width: 90%; font-family: var(--aifn-font); color: var(--aifn-ink); background: var(--aifn-cream); }
