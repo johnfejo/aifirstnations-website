@@ -25,6 +25,17 @@
     { href: 'about.html', label: 'About' },
   ];
 
+  // "Our partners" strip: fills <div id="site-partners"></div>, in this order.
+  // Logos live in images/partners/. If a file is missing, the box shows the name instead.
+  var PARTNERS = [
+    { name: 'KJR', file: 'kjr.png' },
+    { name: 'Port of Townsville', file: 'port-of-townsville.png' },
+    { name: 'Goondoi Rangers', file: 'goondoi-rangers.png' },
+    { name: 'RMIT University', file: 'rmit.png' },
+    { name: 'Salty Monkeys', file: 'salty-monkeys.png' },
+    { name: 'Kushai', file: 'kushai.png' },
+  ];
+
   var page = (location.pathname.split('/').pop() || 'index.html').replace(/\.html$/, '') || 'index';
 
   function isCurrent(href) { return href.replace(/\.html$/, '') === page; }
@@ -103,6 +114,29 @@
 
   // Same check as the old home-page pop-up, so the existing team code keeps working.
   var TEAM_HASH = '45e5eabb0f6d4be465ef31e4c22886cd2f4f88fa4c43b8084a5a1dee4dd9c71a';
+  function partners() {
+    var section = document.createElement('section');
+    section.className = 'aifn-partners';
+    section.setAttribute('aria-labelledby', 'aifn-partners-title');
+    section.innerHTML = '<div class="aifn-partners__inner"><h2 id="aifn-partners-title">Our partners</h2><ul class="aifn-partners__list"></ul></div>';
+    var list = section.querySelector('ul');
+    PARTNERS.forEach(function (p) {
+      var li = document.createElement('li');
+      li.className = 'aifn-partner';
+      var name = document.createElement('span');
+      name.className = 'aifn-partner__name';
+      name.textContent = p.name;
+      var img = document.createElement('img');
+      img.alt = p.name + ' logo';
+      // Listener goes on before src, so a missing file can't fail unnoticed.
+      img.addEventListener('error', function () { li.classList.add('is-missing'); img.remove(); });
+      img.src = 'images/partners/' + p.file;
+      li.append(img, name);
+      list.appendChild(li);
+    });
+    return section;
+  }
+
   async function checkTeamCode(code) {
     var buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(code));
     return Array.from(new Uint8Array(buf)).map(function (b) { return b.toString(16).padStart(2, '0'); }).join('') === TEAM_HASH;
@@ -150,6 +184,8 @@
   function render() {
     var h = document.getElementById('site-header');
     var f = document.getElementById('site-footer');
+    var pt = document.getElementById('site-partners');
+    if (pt) pt.replaceWith(partners());
     if (h) h.outerHTML = header();
     if (f) f.outerHTML = footer();
     wire();

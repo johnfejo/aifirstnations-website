@@ -106,6 +106,31 @@ a.aifn-header :focus-visible, .aifn-header :focus-visible, .aifn-footer :focus-v
 @media (max-width: 860px) { .aifn-footer__inner { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 520px) { .aifn-footer__inner { grid-template-columns: 1fr; } }
 
+/* ── Our partners strip (index + capability statement) ── */
+.aifn-partners {
+  max-width: none; margin: 0; padding: 0; /* undo capability-statement.html's bare section{} rule */
+  background: var(--aifn-cream); color: var(--aifn-green); font-family: var(--aifn-font); border-top: 3px solid var(--aifn-gold);
+}
+.aifn-partners__inner { max-width: 1200px; margin: 0 auto; padding: 2.5rem 1.25rem; }
+.aifn-partners h2 {
+  margin: 0 0 1.25rem; text-align: center; font: 800 clamp(1.3rem, 3vw, 1.75rem) var(--aifn-font);
+  color: var(--aifn-green); letter-spacing: normal; text-transform: none;
+}
+.aifn-partners__list {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: 1rem; grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+.aifn-partner {
+  background: #FFFFFF; border-radius: 12px; border: 1px solid rgba(26,74,46,0.12);
+  height: 96px; padding: 0.75rem; box-sizing: border-box;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+}
+.aifn-partner img { max-width: 100%; max-height: 56px; width: auto; height: auto; object-fit: contain; }
+.aifn-partner__name { display: none; font-weight: 700; font-size: 0.95rem; line-height: 1.25; color: var(--aifn-green); }
+.aifn-partner.is-missing .aifn-partner__name { display: block; }
+@media (max-width: 960px) { .aifn-partners__list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 420px) { .aifn-partners__list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
 /* Team-portal sign-in dialog (same behaviour as the old home-page pop-up) */
 .aifn-dialog::backdrop { background: rgba(0,0,0,0.6); }
 .aifn-dialog { border: none; border-radius: 12px; padding: 2rem; max-width: 380px; width: 90%; font-family: var(--aifn-font); color: var(--aifn-ink); background: var(--aifn-cream); }
