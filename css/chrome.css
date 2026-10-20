@@ -145,6 +145,19 @@ a.aifn-header :focus-visible, .aifn-header :focus-visible, .aifn-footer :focus-v
 .aifn-insured b { color: var(--aifn-green); }
 .aifn-insured .aifn-insured__note { margin: 0; font-size: 0.92rem; color: #4A5249; }
 
+/* "Photo coming soon" placeholder for pages that don't load site.css (matches .photo-spot) */
+.aifn-photo-soon {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.3rem;
+  border: 1px dashed #CDBF9C; border-radius: 10px; background: linear-gradient(135deg, #F6EFDD, #EFE5CC);
+  color: #6B6248; font: 700 0.9rem var(--aifn-font); text-align: center; aspect-ratio: 16 / 10;
+}
+.aifn-photo-soon::before {
+  content: ""; width: 34px; height: 26px; opacity: 0.55;
+  background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 18' fill='none' stroke='%236B6248' stroke-width='1.6'%3E%3Crect x='1' y='3' width='22' height='14' rx='2.5'/%3E%3Ccircle cx='12' cy='10' r='4'/%3E%3Cpath d='M8 3l1.5-2h5L16 3'/%3E%3C/svg%3E");
+}
+.aifn-photo-soon--thumb { width: 64px; height: 48px; aspect-ratio: auto; border-radius: 4px; gap: 1px; font-size: 0.5rem; line-height: 1.05; padding: 2px; box-sizing: border-box; }
+.aifn-photo-soon--thumb::before { width: 14px; height: 11px; }
+
 /* Team-portal sign-in dialog (same behaviour as the old home-page pop-up) */
 .aifn-dialog::backdrop { background: rgba(0,0,0,0.6); }
 .aifn-dialog { border: none; border-radius: 12px; padding: 2rem; max-width: 380px; width: 90%; font-family: var(--aifn-font); color: var(--aifn-ink); background: var(--aifn-cream); }
