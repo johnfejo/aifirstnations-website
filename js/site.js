@@ -79,6 +79,7 @@
           '</div>' +
           '<div><h2>Work with us</h2><ul>' +
             '<li><a href="schools.html">Schools</a></li>' +
+            '<li><a href="ngarrakan-ngardiji/">Ngarrakan Ngardiji lessons</a></li>' +
             '<li><a href="rangers.html">Ranger Groups</a></li>' +
             '<li><a href="capability-statement.html">Government &amp; Industry</a></li>' +
             '<li><a href="services.html">Services</a></li>' +
