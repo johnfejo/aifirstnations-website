@@ -146,7 +146,16 @@ main { display: block; }
 
 /* Field work job cards */
 .jobs { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; }
-.job { display: flex; flex-direction: column; }
+.job { display: flex; flex-direction: column; position: relative; }
+/* Partner logo tiles: top-right corner of a job card, or inline above a heading */
+.job__logos { position: absolute; top: 0.85rem; right: 0.85rem; z-index: 1; display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: flex-end; max-width: calc(100% - 1.7rem); }
+.job__logos--inline { position: static; justify-content: flex-start; max-width: none; margin-bottom: 0.9rem; }
+.logo-tile {
+  display: inline-flex; align-items: center; gap: 0.45rem; background: #FFFFFF; border-radius: 10px;
+  padding: 0.35rem 0.55rem; box-shadow: 0 2px 8px rgba(0,0,0,0.18); border: 1px solid rgba(26,74,46,0.12);
+}
+.logo-tile img { height: 40px; width: auto; max-width: none; object-fit: contain; }
+.logo-tile__label { font-size: 0.78rem; font-weight: 800; color: var(--aifn-green); white-space: nowrap; }
 .job__client { display: block; font-size: 0.8rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--aifn-orange-ink); margin-bottom: 0.3rem; }
 .job__ack { font-size: 0.92rem; color: #4A5249; border-top: 1px solid #E2D7BD; padding-top: 0.75rem; margin-top: auto; }
 .job__model { margin-top: auto; }
