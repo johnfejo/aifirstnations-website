@@ -99,6 +99,10 @@ a.aifn-header :focus-visible, .aifn-header :focus-visible, .aifn-footer :focus-v
 .aifn-footer a { color: #FFFFFF; text-decoration: underline; text-decoration-color: rgba(255,255,255,0.35); text-underline-offset: 3px; }
 .aifn-footer a:hover { text-decoration-color: var(--aifn-gold); }
 .aifn-footer__creds { font-size: 0.85rem; color: #E2D8BF; }
+.aifn-footer ul.aifn-footer__socials { display: flex; gap: 0.75rem; margin-top: 1rem; }
+.aifn-footer .aifn-footer__socials li { margin: 0; }
+.aifn-footer .aifn-footer__socials a { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.3); color: #FFFFFF; text-decoration: none; transition: color .2s, border-color .2s; }
+.aifn-footer .aifn-footer__socials a:hover { color: var(--aifn-gold); border-color: var(--aifn-gold); }
 .aifn-footer__bottom {
   max-width: 1200px; margin: 0 auto; padding: 1rem 1.25rem 2rem;
   border-top: 1px solid rgba(245,239,224,0.15); font-size: 0.82rem; color: #D8CDB2;
